@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10,000L Continuous Tubular Photobioreactor (PBR) - Engineering Suite</title>
+    <!-- Three.js and OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        :root {
+            --cad-bg: #f4f5f7;
+            --panel-bg: #ffffff;
+            --border-color: #d0d7de;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-red: #cf222e;
+            --accent-orange: #bc4c00;
+            --text-main: #1f2328;
+            --text-dim: #656d76;
+            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: var(--cad-bg); color: var(--text-main); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; }
+
+        #app-container { display: grid; grid-template-rows: 42px 1fr 24px; width: 100vw; height: 100vh; }
+
+        /* Top Bar & Main Tab Navigation */
+        header { background: #24292f; color: #ffffff; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font-family: var(--font-mono); z-index: 100; }
+        .logo { font-weight: bold; font-size: 13px; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .logo-tag { background: #57606a; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        
+        .main-tabs { display: flex; gap: 4px; height: 100%; align-items: flex-end; }
+        .tab-btn { background: #32383e; color: #8c959f; border: 1px solid transparent; border-bottom: none; padding: 8px 16px; border-radius: 6px 6px 0 0; cursor: pointer; font-family: var(--font-mono); font-weight: bold; font-size: 12px; transition: all 0.2s; }
+        .tab-btn:hover { color: #ffffff; background: #424a53; }
+        .tab-btn.active { background: var(--cad-bg); color: var(--accent-blue); border-color: var(--border-color); }
+
+        /* Content Sections */
+        .page-section { display: none; width: 100%; height: 100%; overflow: hidden; }
+        .page-section.active { display: flex; }
+
+        /* SECTION 1: ENGINEERING CALCULATIONS (DOCUMENT LAYOUT) */
+        #calc-section { width: 100%; height: 100%; overflow-y: auto; background: #ffffff; padding: 30px 40px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .doc-container { max-width: 1100px; margin: 0 auto; color: #24292f; line-height: 1.5; }
+        .doc-header { border-bottom: 2px solid #1f2328; padding-bottom: 12px; margin-bottom: 24px; }
+        .doc-title { font-size: 22px; font-weight: bold; color: #0969da; margin-bottom: 4px; font-family: var(--font-mono); }
+        .doc-subtitle { font-size: 13px; color: #57606a; font-family: var(--font-mono); }
+        
+        .calc-card { border: 1px solid var(--border-color); border-radius: 6px; padding: 16px; margin-bottom: 20px; background: #f6f8fa; }
+        .calc-card-title { font-size: 14px; font-weight: bold; color: #0969da; font-family: var(--font-mono); border-bottom: 1px solid var(--border-color); padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 12px; }
+        .calc-item { background: #ffffff; border: 1px solid var(--border-color); padding: 10px; border-radius: 4px; }
+        .calc-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); }
+        .calc-value { font-size: 15px; font-weight: bold; color: #1f2328; font-family: var(--font-mono); margin-top: 2px; }
+        .calc-value.highlight { color: var(--accent-green); }
+
+        .formula-btn { background: #ffffff; border: 1px solid var(--border-color); color: var(--accent-blue); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-family: var(--font-mono); font-weight: bold; }
+        .formula-btn:hover { background: #f3f4f6; }
+        .formula-box { display: none; background: #ffffff; border: 1px dashed var(--accent-blue); padding: 12px; border-radius: 4px; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; color: #1f2328; }
+        .formula-box.open { display: block; }
+        .formula-line { margin: 3px 0; }
+
+        table.summary-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-family: var(--font-mono); font-size: 12px; }
+        table.summary-table th, table.summary-table td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; }
+        table.summary-table th { background: #24292f; color: #ffffff; }
+        table.summary-table tr:nth-child(even) { background: #ffffff; }
+        table.summary-table tr:nth-child(odd) { background: #f6f8fa; }
+
+        /* SECTION 2: 3D CAD MODEL VIEWPORT */
+        #cad-section { width: 100%; height: 100%; display: grid; grid-template-columns: 280px 1fr 320px; }
+        
+        .side-panel { background: var(--panel-bg); border-right: 1px solid var(--border-color); padding: 12px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+        .side-panel.right { border-right: none; border-left: 1px solid var(--border-color); }
+        
+        .panel-group { border: 1px solid var(--border-color); border-radius: 4px; padding: 10px; background: #f6f8fa; }
+        .panel-title { font-weight: bold; font-size: 11px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; font-family: var(--font-mono); }
+        
+        .control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .btn { background: #ffffff; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px; border-radius: 4px; cursor: pointer; font-size: 11px; text-align: center; font-family: var(--font-mono); font-weight: 500; transition: all 0.15s; }
+        .btn:hover { background: #f3f4f6; border-color: var(--accent-blue); color: var(--accent-blue); }
+        .btn.active { background: var(--accent-blue); color: #ffffff; font-weight: bold; border-color: var(--accent-blue); }
+        .btn.primary { background: #2da44e; color: #fff; border-color: #2c974b; font-weight: bold; }
+        .btn.warning { background: #bf8700; color: #fff; font-weight: bold; }
+        
+        select { background: #ffffff; border: 1px solid var(--border-color); color: var(--text-main); padding: 6px; border-radius: 4px; width: 100%; font-size: 11px; font-family: var(--font-mono); }
+
+        #viewport-container { position: relative; width: 100%; height: 100%; overflow: hidden; background: #f4f5f7; }
+        #canvas3d { width: 100%; height: 100%; display: block; }
+        
+        .viewport-overlay { position: absolute; top: 12px; left: 12px; display: flex; gap: 6px; z-index: 10; }
+        .flow-overlay { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); border: 1px solid var(--border-color); border-radius: 20px; padding: 6px 16px; display: flex; align-items: center; gap: 10px; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-family: var(--font-mono); }
+
+        .data-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed var(--border-color); font-size: 11px; font-family: var(--font-mono); }
+        .data-label { color: var(--text-dim); }
+        .data-value { color: var(--text-main); font-weight: bold; }
+
+        footer { grid-column: 1 / -1; background: #24292f; color: #8c959f; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font-size: 10px; font-family: var(--font-mono); z-index: 100; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--cad-bg); }
+        ::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div id="app-container">
+    <header>
+        <div class="logo">
+            <span>PBR-10K SUITE</span>
+            <span class="logo-tag">CALCULATIONS & 3D CAD</span>
+        </div>
+        <div class="main-tabs">
+            <button class="tab-btn active" onclick="switchMainSection('CALC')">1. ENGINEERING CALCULATIONS</button>
+            <button class="tab-btn" onclick="switchMainSection('CAD')">2. 3D CAD MODEL</button>
+        </div>
+        <div>
+            <span style="color:#d0d7de; font-size:11px; font-family:var(--font-mono);">DWG: PBR-10K-GA-001 | REV: PP U-BEND</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: ENGINEERING CALCULATIONS REPORT -->
+    <div id="calc-section" class="page-section active">
+        <div class="doc-container">
+            <div class="doc-header">
+                <div class="doc-title">10,000 L CONTINUOUS TUBULAR PHOTOBIOREACTOR (PFR)</div>
+                <div class="doc-subtitle">PRELIMINARY REACTOR DESIGN CALCULATION REPORT — REVISION: PLASTIC (PP) U-BEND</div>
+            </div>
+
+            <!-- Section 1: Design Basis -->
+            <div class="calc-card">
+                <div class="calc-card-title">1. DESIGN BASIS & INPUT PARAMETERS</div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Working Volume (V_work)</div><div class="calc-value">10,011.7 L</div></div>
+                    <div class="calc-item"><div class="calc-label">Hydraulic Residence Time (HRT)</div><div class="calc-value">15.0 Days (360 h)</div></div>
+                    <div class="calc-item"><div class="calc-label">Parallel Loops (N_loops)</div><div class="calc-value">12</div></div>
+                    <div class="calc-item"><div class="calc-label">Glass Tube Dimensions</div><div class="calc-value">104 mm ID / 110 mm OD / 1500 mm L</div></div>
+                    <div class="calc-item"><div class="calc-label">Straight Glass Tubes</div><div class="calc-value">587 Total</div></div>
+                    <div class="calc-item"><div class="calc-label">180° PP U-Bends</div><div class="calc-value">575 Total</div></div>
+                    <div class="calc-item"><div class="calc-label">PP U-Bend Bore / OD</div><div class="calc-value">104 mm Bore / ≈119 mm OD</div></div>
+                    <div class="calc-item"><div class="calc-label">PP U-Bend Socket ID / Insertion</div><div class="calc-value">111 mm ID / 25 mm Insertion</div></div>
+                    <div class="calc-item"><div class="calc-label">U-Bend Centreline Radius (CLR)</div><div class="calc-value">165 mm</div></div>
+                    <div class="calc-item"><div class="calc-label">Main Header ID / Branch ID</div><div class="calc-value">25 mm ID Header / 10 mm ID Branch</div></div>
+                    <div class="calc-item"><div class="calc-label">Fluid Density (ρ) / Viscosity (μ)</div><div class="calc-value">1020 kg/m³ / 0.001 Pa·s</div></div>
+                </div>
+            </div>
+
+            <!-- Section 2: Flow Rate -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    2. VOLUMETRIC FLOW RATE
+                    <button class="formula-btn" onclick="toggleFormula('f-flow')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Total Volumetric Flow Rate (Q_total)</div><div class="calc-value highlight">27.81 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Volumetric Flow per Loop (Q_loop)</div><div class="calc-value highlight">2.318 L/h</div></div>
+                </div>
+                <div id="f-flow" class="formula-box">
+                    <div class="formula-line"><b>Total Flow:</b> Q_total = V_work / HRT</div>
+                    <div class="formula-line"><b>Substitution:</b> Q_total = 10,011.7 L / (15 × 24 h) = 27.81 L/h = 7.7251 × 10⁻⁶ m³/s</div>
+                    <div class="formula-line"><b>Flow Per Loop:</b> Q_loop = Q_total / N_loops</div>
+                    <div class="formula-line"><b>Substitution:</b> Q_loop = 27.81 L/h / 12 = 2.318 L/h = 6.4376 × 10⁻⁷ m³/s</div>
+                </div>
+            </div>
+
+            <!-- Section 3 & 4: Tube Geometry & Hydraulics -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    3 & 4. TUBE GEOMETRY & HYDRAULIC AREA
+                    <button class="formula-btn" onclick="toggleFormula('f-area')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Loops 01–11 Inventory</div><div class="calc-value">49 Tubes + 48 U-Bends / loop</div></div>
+                    <div class="calc-item"><div class="calc-label">Loop 12 Inventory</div><div class="calc-value">48 Tubes + 47 U-Bends</div></div>
+                    <div class="calc-item"><div class="calc-label">Tube Cross-Sectional Area (A_tube)</div><div class="calc-value">0.0084949 m²</div></div>
+                </div>
+                <div id="f-area" class="formula-box">
+                    <div class="formula-line"><b>Formula:</b> A_tube = (π / 4) × D_tube²</div>
+                    <div class="formula-line"><b>Substitution:</b> A_tube = (π / 4) × (0.104 m)² = 0.0084949 m²</div>
+                </div>
+            </div>
+
+            <!-- Section 5, 6, 7: Velocity & Reynolds Number -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    5, 6 & 7. VELOCITY, REYNOLDS NUMBER & FRICTION FACTOR
+                    <button class="formula-btn" onclick="toggleFormula('f-re')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Tube Fluid Velocity (v_tube)</div><div class="calc-value">7.5782 × 10⁻⁵ m/s</div></div>
+                    <div class="calc-item"><div class="calc-label">Tube Reynolds Number (Re)</div><div class="calc-value highlight">8.04 (Laminar)</div></div>
+                    <div class="calc-item"><div class="calc-label">Darcy Friction Factor (f_tube)</div><div class="calc-value">7.9613</div></div>
+                </div>
+                <div id="f-re" class="formula-box">
+                    <div class="formula-line"><b>Velocity:</b> v_tube = Q_loop / A_tube = 6.4376 × 10⁻⁷ / 0.0084949 = 7.5782 × 10⁻⁵ m/s</div>
+                    <div class="formula-line"><b>Reynolds Number:</b> Re = (ρ × v × D) / μ</div>
+                    <div class="formula-line"><b>Substitution:</b> Re = (1020 kg/m³ × 7.5782 × 10⁻⁵ m/s × 0.104 m) / 0.001 Pa·s = 8.04</div>
+                    <div class="formula-line"><b>Friction Factor (Laminar):</b> f = 64 / Re = 64 / 8.04 = 7.9613</div>
+                </div>
+            </div>
+
+            <!-- Section 8: Pressure Drop -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    8. PRESSURE DROP BREAKDOWN
+                    <button class="formula-btn" onclick="toggleFormula('f-dp')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Inlet & Outlet Headers ΔP</div><div class="calc-value">4.674 Pa Total (2.337 Pa each)</div></div>
+                    <div class="calc-item"><div class="calc-label">Inlet & Outlet Branches ΔP</div><div class="calc-value">5.246 Pa Total (2.623 Pa each)</div></div>
+                    <div class="calc-item"><div class="calc-label">Straight Tube Path ΔP (73.5m)</div><div class="calc-value">0.01648 Pa</div></div>
+                    <div class="calc-item"><div class="calc-label">48 U-Bends Path ΔP</div><div class="calc-value">0.00013 Pa</div></div>
+                    <div class="calc-item"><div class="calc-label">TOTAL SYSTEM PRESSURE DROP</div><div class="calc-value highlight">9.936 Pa (≈ 0.0001 bar)</div></div>
+                </div>
+                <div id="f-dp" class="formula-box">
+                    <div class="formula-line"><b>Darcy-Weisbach Equation:</b> ΔP = f × (L / D) × (ρ × v² / 2)</div>
+                    <div class="formula-line"><b>Minor Loss (U-Bends):</b> ΔP_ub = n × K × (ρ × v² / 2), K = 0.9</div>
+                    <div class="formula-line"><b>Total Summation:</b> ΔP_total = ΔP_header_in + ΔP_branch_in + ΔP_tubes + ΔP_ubends + ΔP_branch_out + ΔP_header_out</div>
+                    <div class="formula-line"><b>Substitution:</b> ΔP_total = 2.337 + 2.623 + 0.01648 + 0.00013 + 2.623 + 2.337 = 9.936 Pa</div>
+                </div>
+            </div>
+
+            <!-- Section 9, 10, 11: Header, Branch & Balancing -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    9, 10 & 11. MANIFOLD HEADERS & BRANCH PIPING
+                    <button class="formula-btn" onclick="toggleFormula('f-pipes')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Header ID / Velocity / Re</div><div class="calc-value">25 mm / 0.01574 m/s / Re = 401.3</div></div>
+                    <div class="calc-item"><div class="calc-label">Branch ID / Velocity / Re</div><div class="calc-value">10 mm / 0.008197 m/s / Re = 83.60</div></div>
+                    <div class="calc-item"><div class="calc-label">Manifold Flow Balancing Band</div><div class="calc-value">±5% (2.202 – 2.433 L/h per loop)</div></div>
+                </div>
+                <div id="f-pipes" class="formula-box">
+                    <div class="formula-line"><b>Header Velocity:</b> v_h = Q_total / [(π/4) × D_h²] = 7.7251 × 10⁻⁶ / 4.9087 × 10⁻⁴ = 0.01574 m/s</div>
+                    <div class="formula-line"><b>Branch Velocity:</b> v_b = Q_loop / [(π/4) × D_b²] = 6.4376 × 10⁻⁷ / 7.854 × 10⁻⁵ = 0.008197 m/s</div>
+                </div>
+            </div>
+
+            <!-- Section 12, 13: Pump Head & Power -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    12 & 13. PUMP HEAD & HYDRAULIC POWER
+                    <button class="formula-btn" onclick="toggleFormula('f-pump')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Friction Head Loss (H_f)</div><div class="calc-value">9.9296 × 10⁻⁴ m</div></div>
+                    <div class="calc-item"><div class="calc-label">Assumed Static Lift (H_static)</div><div class="calc-value">3.40 m</div></div>
+                    <div class="calc-item"><div class="calc-label">Total Pump Head (H_pump)</div><div class="calc-value">3.401 m</div></div>
+                    <div class="calc-item"><div class="calc-label">Calculated Hydraulic Power</div><div class="calc-value highlight">0.4382 W (0.00044 kW)</div></div>
+                </div>
+                <div id="f-pump" class="formula-box">
+                    <div class="formula-line"><b>Head Loss:</b> H_f = ΔP / (ρ × g) = 9.936 / (1020 × 9.81) = 0.000993 m</div>
+                    <div class="formula-line"><b>Total Head:</b> H_pump = H_static + H_f = 3.40 + 0.000993 = 3.401 m</div>
+                    <div class="formula-line"><b>Power Formula:</b> P = (ρ × g × Q × H) / η  (η = 0.60 efficiency)</div>
+                    <div class="formula-line"><b>Substitution:</b> P = (1020 × 9.81 × 7.7251 × 10⁻⁶ × 3.401) / 0.60 = 0.4382 W</div>
+                </div>
+            </div>
+
+            <!-- Section 14, 15, 16, 17, 18, 19: Mass, Weight & Auxiliary -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    15, 16, 17 & 18. MASS & STRUCTURAL LOAD BREAKDOWN
+                    <button class="formula-btn" onclick="toggleFormula('f-mass')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Glass Tubes Mass (587 units)</div><div class="calc-value">1,980.11 kg</div></div>
+                    <div class="calc-item"><div class="calc-label">Plastic PP U-Bends Mass (575 units)</div><div class="calc-value">712.57 kg</div></div>
+                    <div class="calc-item"><div class="calc-label">Working Fluid Mass</div><div class="calc-value">10,211.93 kg</div></div>
+                    <div class="calc-item"><div class="calc-label">Total Process Mass / Weight</div><div class="calc-value highlight">12,904.62 kg / 126.59 kN</div></div>
+                    <div class="calc-item"><div class="calc-label">Tube Support Clamps</div><div class="calc-value">1,761 clamps (3 per tube)</div></div>
+                    <div class="calc-item"><div class="calc-label">Buffer & Collection Tanks</div><div class="calc-value">500 L Capacity Each</div></div>
+                </div>
+                <div id="f-mass" class="formula-box">
+                    <div class="formula-line"><b>PP U-Bend Volume:</b> V_ub = (π/4) × [(0.119)² − (0.104)²] × (π × 0.165) = 0.0013618 m³</div>
+                    <div class="formula-line"><b>PP U-Bend Mass:</b> m_ub = 575 × (0.0013618 × 910 kg/m³) = 712.57 kg</div>
+                    <div class="formula-line"><b>Total Mass:</b> m_total = m_glass (1980.11) + m_ub (712.57) + m_fluid (10211.93) = 12,904.62 kg</div>
+                </div>
+            </div>
+
+            <div class="calc-card">
+                <div class="calc-card-title">20. LOOP ARRANGEMENT & GEOMETRIC FEASIBILITY</div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Loop Arrangement</div><div class="calc-value">3 Rows × 4 Columns = 12 Parallel Loops</div></div>
+                    <div class="calc-item"><div class="calc-label">Loop 01–11</div><div class="calc-value">49 Tubes + 48 U-Bends</div></div>
+                    <div class="calc-item"><div class="calc-label">Loop 12</div><div class="calc-value">48 Tubes + 47 U-Bends</div></div>
+                    <div class="calc-item"><div class="calc-label">Minimum Serpentine Span</div><div class="calc-value highlight">48 × (2 × 0.165) = 15.84 m</div></div>
+                    <div class="calc-item"><div class="calc-label">Specified Reactor Envelope</div><div class="calc-value">5.8 m × 3.4 m × 1.8 m</div></div>
+                </div>
+                <div class="formula-box open">
+                    <div class="formula-line"><b>Engineering check:</b> Adjacent tube centerline pitch = 2 × U-bend CLR = 2 × 0.165 = 0.330 m.</div>
+                    <div class="formula-line"><b>For 49 tubes:</b> 48 × 0.330 = 15.84 m minimum serpentine span.</div>
+                    <div class="formula-line"><b>Conclusion:</b> A true 49-tube / 48-U-bend loop cannot be force-fitted into a 3.4 m × 1.8 m envelope while retaining 1500 mm tube length and 165 mm CLR. A final fabrication design must revise routing, tube count, CLR, or envelope.</div>
+                </div>
+            </div>
+
+            <!-- Section 21: Final Engineering Summary Table -->
+            <div class="calc-card">
+                <div class="calc-card-title">21. FINAL ENGINEERING SUMMARY TABLE</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Final Calculated Value</th>
+                            <th>Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Reactor Working Volume</td><td>10,011.7</td><td>L</td></tr>
+                        <tr><td>Total Straight Glass Tubes</td><td>587</td><td>—</td></tr>
+                        <tr><td>Total Plastic PP 180° U-Bends</td><td>575</td><td>—</td></tr>
+                        <tr><td>Glass Tube OD / ID</td><td>110 / 104</td><td>mm</td></tr>
+                        <tr><td>Glass Tube Length</td><td>1500</td><td>mm</td></tr>
+                        <tr><td>U-Bend Hydraulic Bore / OD</td><td>104 / 119</td><td>mm</td></tr>
+                        <tr><td>U-Bend Socket ID / Insertion</td><td>111 / 25</td><td>mm</td></tr>
+                        <tr><td>Main Header ID / Branch ID</td><td>25 / 10</td><td>mm</td></tr>
+                        <tr><td>Total Volumetric Flow Rate</td><td>27.81</td><td>L/h</td></tr>
+                        <tr><td>Volumetric Flow Per Loop</td><td>2.318</td><td>L/h</td></tr>
+                        <tr><td>Tube Flow Reynolds Number</td><td>8.04 (Laminar)</td><td>—</td></tr>
+                        <tr><td>Total System Pressure Drop</td><td>9.936</td><td>Pa</td></tr>
+                        <tr><td>Calculated Pump Head</td><td>3.401</td><td>m</td></tr>
+                        <tr><td>Calculated Hydraulic Power</td><td>0.00044 (0.4382 W)</td><td>kW</td></tr>
+                        <tr><td>Hydraulic Residence Time (HRT)</td><td>360 (15.0 Days)</td><td>h</td></tr>
+                        <tr><td>Total Wetted Process Mass</td><td>12,904.62</td><td>kg</td></tr>
+                        <tr><td>Total Wetted System Weight</td><td>126.59</td><td>kN</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: COMPLETE 3D CAD MODEL -->
+    <div id="cad-section" class="page-section">
+        <!-- Left Side Controls -->
+        <div class="side-panel">
+            <div class="panel-group">
+                <div class="panel-title">Orthographic CAD Views</div>
+                <div class="control-grid">
+                    <button class="btn" id="btn-front" onclick="setCameraPreset('FRONT')">FRONT (X-Y)</button>
+                    <button class="btn" id="btn-top" onclick="setCameraPreset('TOP')">TOP (X-Z)</button>
+                    <button class="btn" id="btn-side" onclick="setCameraPreset('SIDE')">RIGHT/SIDE</button>
+                    <button class="btn" id="btn-iso" onclick="setCameraPreset('ISO')">3D ISO</button>
+                </div>
+                <div style="margin-top: 6px;">
+                    <button class="btn" style="width: 100%;" id="btn-projection" onclick="toggleProjection()">PROJECTION: ORTHOGRAPHIC</button>
+                </div>
+            </div>
+
+            <div class="panel-group">
+                <div class="panel-title">Inspection & Detail Views</div>
+                <button class="btn warning" style="width: 100%; margin-bottom: 6px;" onclick="zoomIsolateUBend()">ISOLATE ONE U-BEND</button>
+                <button class="btn warning" style="width: 100%; margin-bottom: 6px;" id="btn-explode-conn" onclick="toggleExplodedConnection()">EXPLODED CONNECTION VIEW</button>
+                <button class="btn" style="width: 100%; margin-bottom: 6px;" id="btn-detail-a" onclick="zoomDetailA()">DETAIL A — SOCKET CONNECTION</button>
+                <button class="btn" style="width: 100%;" id="btn-section-a" onclick="toggleSectionA()">SECTION A-A CUTAWAY</button>
+            </div>
+
+            <div class="panel-group">
+                <div class="panel-title">Loop Selector</div>
+                <select id="select-loop" onchange="onLoopSelect(this.value)">
+                    <option value="ALL">All 12 Parallel Loops</option>
+                    <option value="1">LOOP-01 (49 Tubes / 48 U-Bends)</option>
+                    <option value="2">LOOP-02 (49 Tubes / 48 U-Bends)</option>
+                    <option value="3">LOOP-03 (49 Tubes / 48 U-Bends)</option>
+                    <option value="4">LOOP-04 (49 Tubes / 48 U-Bends)</option>
+                    <option value="5">LOOP-05 (49 Tubes / 48 U-Bends)</option>
+                    <option value="6">LOOP-06 (49 Tubes / 48 U-Bends)</option>
+                    <option value="7">LOOP-07 (49 Tubes / 48 U-Bends)</option>
+                    <option value="8">LOOP-08 (49 Tubes / 48 U-Bends)</option>
+                    <option value="9">LOOP-09 (49 Tubes / 48 U-Bends)</option>
+                    <option value="10">LOOP-10 (49 Tubes / 48 U-Bends)</option>
+                    <option value="11">LOOP-11 (49 Tubes / 48 U-Bends)</option>
+                    <option value="12">LOOP-12 (48 Tubes / 47 U-Bends)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Center Viewport -->
+        <div id="viewport-container">
+            <div style="position:absolute;top:12px;right:12px;z-index:20;background:#fff;border:1px solid #d0d7de;border-radius:4px;padding:6px 10px;font:700 10px SFMono-Regular,Consolas,monospace;color:#57606a;">MRPL-STYLE RACK ARRANGEMENT • PRELIMINARY / NOT FOR FABRICATION</div>
+        <div class="viewport-overlay">
+                <button class="btn" onclick="fitModelZoomExtents()">ZOOM EXTENTS</button>
+            </div>
+
+            <div class="flow-overlay">
+                <button class="btn primary" id="btn-flow-toggle" onclick="toggleFlow()">SHOW FLOW</button>
+                <span style="font-size:11px; color:var(--text-dim); margin-left:6px;">Speed:</span>
+                <input type="range" id="flow-speed" min="0.1" max="4" step="0.1" value="1" style="width: 80px;">
+            </div>
+
+            <canvas id="canvas3d"></canvas>
+        </div>
+
+        <!-- Right Side Panel -->
+        <div class="side-panel right">
+            <div class="panel-group">
+                <div class="panel-title">Component Inspector</div>
+                <div id="inspector-content">
+                    <div style="color: var(--text-dim); font-style: italic;">Click any component in 3D CAD viewport to inspect verified parameters.</div>
+                </div>
+            </div>
+
+            <div class="panel-group">
+                <div class="panel-title">LOOP ARRANGEMENT</div>
+                <div class="data-row"><span class="data-label">Layout:</span><span class="data-value">3 ROW × 4 COLUMN</span></div>
+                <div class="data-row"><span class="data-label">Loop 01–11:</span><span class="data-value">49 TUBES / 48 U-BENDS</span></div>
+                <div class="data-row"><span class="data-label">Loop 12:</span><span class="data-value">48 TUBES / 47 U-BENDS</span></div>
+                <div class="data-row"><span class="data-label">Total:</span><span class="data-value">587 TUBES / 575 U-BENDS</span></div>
+            </div>
+
+            <div class="panel-group" style="border-color:#cf222e;">
+                <div class="panel-title" style="color:#cf222e;">GEOMETRY CHECK</div>
+                <div style="font-size:10px;line-height:1.4;color:#cf222e;">
+                    TRUE U-BEND GEOMETRY IS PRESERVED. 48 BENDS × 330 mm PITCH = 15.84 m
+                    MINIMUM SERPENTINE SPAN PER 49-TUBE LOOP. THIS DOES NOT FIT INSIDE
+                    A 3.4 m × 1.8 m ENVELOPE WITHOUT A ROUTING/DIMENSION CHANGE.
+                </div>
+            </div>
+
+            <div class="panel-group">
+                <div class="panel-title">Design Verification</div>
+                <div class="data-row"><span class="data-label">Glass Tube OD / ID:</span><span class="data-value">110 / 104 mm</span></div>
+                <div class="data-row"><span class="data-label">Socket ID / Depth:</span><span class="data-value">111 / 25 mm</span></div>
+                <div class="data-row"><span class="data-label">Radial Clearance:</span><span class="data-value">0.5 mm</span></div>
+                <div class="data-row"><span class="data-label">U-Bend CLR / Bore:</span><span class="data-value">165 / 104 mm</span></div>
+                <div class="data-row"><span class="data-label">Main Header ID:</span><span class="data-value">25 mm</span></div>
+                <div class="data-row"><span class="data-label">Branch ID:</span><span class="data-value">10 mm</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div>10,000L PBR | MRPL-STYLE LOOP RACK ARRANGEMENT | PRELIMINARY DESIGN</div>
+        <div>12 LOOPS: 3 ROWS × 4 COLUMNS | TUBE/BEND COUNTS PRESERVED</div>
+    </footer>
+</div>
+
+<script>
+/**
+ * 10,000L CONTINUOUS TUBULAR PBR - INTEGRATED APPLICATION CODE
+ */
+
+// Core Verified Dimensions (m)
+const CAD = {
+    tubeOD: 0.110,         // 110 mm
+    tubeID: 0.104,         // 104 mm
+    tubeR_out: 0.055,
+    tubeR_in: 0.052,
+    tubeLength: 1.500,     // 1500 mm
+    
+    uBendCLR: 0.165,       // 165 mm
+    uBendBore: 0.104,      // 104 mm
+    uBendOD: 0.119,        // 119 mm
+    socketID: 0.111,       // 111 mm
+    socketR_in: 0.0555,
+    insertionDepth: 0.025, // 25 mm
+    radialClearance: 0.0005, // 0.5 mm
+
+    headerID: 0.025,       // 25 mm
+    headerR_in: 0.0125,
+    headerOD: 0.030,
+    headerR_out: 0.015,
+
+    branchID: 0.010,       // 10 mm
+    branchR_in: 0.005,
+    branchOD: 0.014,
+    branchR_out: 0.007
+};
+
+// Application State
+let activeMainTab = 'CALC';
+let scene, perspectiveCamera, orthoCamera, activeCamera, renderer, controls;
+let isOrtho = true;
+let isSectionA = false;
+let isExplodedConn = false;
+let isFlowRunning = false;
+let flowSpeed = 1.0;
+let selectedLoopIndex = 1;
+
+// Scene Groups
+let mainGroup, loopsGroup, headersGroup, frameGroup, tanksGroup, particlesGroup, dimsGroup, labelsGroup, sectionGroup, connDetailGroup;
+let loopsData = [];
+let materials = {};
+
+// Raycaster
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+// Flow Particles
+let flowParticlesMesh;
+const PARTICLES_PER_LOOP = 30;
+const TOTAL_PARTICLES = 12 * PARTICLES_PER_LOOP;
+let particleProgress = [];
+let particleLoopIndices = [];
+let networkPaths = [];
+
+// Semicircular Arc for U-Bends
+class SemicircleUBendCurve extends THREE.Curve {
+    constructor(p1, p2, clr, dirVector, normalVector) {
+        super();
+        this.p1 = p1.clone();
+        this.p2 = p2.clone();
+        this.clr = clr;
+        this.dirVector = dirVector.clone().normalize();
+    }
+
+    getPoint(t, optionalTarget = new THREE.Vector3()) {
+        const a = Math.PI * t;
+        const sign = this.dirVector.x >= 0 ? 1 : -1;
+        const R = this.clr;
+        return optionalTarget.set(
+            this.p1.x + sign * R * Math.sin(a),
+            this.p1.y - R * (1 - Math.cos(a)),
+            this.p1.z
+        );
+    }
+}
+
+
+
+window.addEventListener('error', (e) => {
+    const box = document.getElementById('viewport-status');
+    if (box) { box.textContent = '3D RENDER ERROR: ' + (e.message || 'Unknown error'); box.style.color = '#cf222e'; }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+    initThreeJS();
+    createMaterials();
+    buildAll3DCADAssembly();
+    setupFlowParticles();
+    setupEventListeners();
+
+    // Start the Three.js render loop
+    animate();
+
+    // Auto-resize viewport on window resize and container visibility changes
+    window.addEventListener('resize', onWindowResize);
+    
+    const cadSectionElem = document.getElementById('cad-section');
+    const resizeObserver = new ResizeObserver(() => {
+        if (cadSectionElem.clientWidth > 0 && cadSectionElem.clientHeight > 0) {
+            onWindowResize();
+        }
+    });
+    resizeObserver.observe(cadSectionElem);
+});
+
+function switchMainSection(tab) {
+    activeMainTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+
+    if (tab === 'CALC') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('calc-section').classList.add('active');
+    } else {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('cad-section').classList.add('active');
+        
+        // Immediate WebGL canvas recalculation and camera frustum positioning
+        setTimeout(() => {
+            onWindowResize();
+            fitModelZoomExtents();
+        }, 50);
+    }
+}
+
+function toggleFormula(id) {
+    const box = document.getElementById(id);
+    box.classList.toggle('open');
+}
+
+function initThreeJS() {
+    const container = document.getElementById('viewport-container');
+    const width = container.clientWidth || 800;
+    const height = container.clientHeight || 600;
+    const aspect = width / height;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf4f5f7); // CAD Light Background
+
+    perspectiveCamera = new THREE.PerspectiveCamera(45, aspect, 0.1, 100);
+    perspectiveCamera.position.set(6.0, 4.0, 7.5);
+
+    // Properly scaled Orthographic frustum for 6m skid
+    const frustumSize = 7.5;
+    orthoCamera = new THREE.OrthographicCamera(
+        -frustumSize * aspect / 2, frustumSize * aspect / 2,
+        frustumSize / 2, -frustumSize / 2,
+        0.01, 500
+    );
+    orthoCamera.position.set(0, 0, 15);
+    activeCamera = orthoCamera;
+    activeCamera.position.set(0, 1.7, 16.5);
+    activeCamera.lookAt(0, 1.7, 0);
+
+    renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas3d'), antialias: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    controls = new THREE.OrbitControls(activeCamera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.85));
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    dirLight.position.set(10, 20, 15);
+    scene.add(dirLight);
+
+    mainGroup = new THREE.Group();
+    scene.add(mainGroup);
+}
+
+function createMaterials() {
+    materials.glassCad = new THREE.MeshStandardMaterial({ color: 0x90caf9, metalness: 0.1, roughness: 0.2, opacity: 0.85, transparent: true });
+    materials.ppPlasticCad = new THREE.MeshStandardMaterial({ color: 0xe65100, metalness: 0.1, roughness: 0.5 });
+    materials.ss304Cad = new THREE.MeshStandardMaterial({ color: 0x616161, metalness: 0.8, roughness: 0.3 });
+    materials.frameCad = new THREE.MeshStandardMaterial({ color: 0x212121, roughness: 0.7 });
+    materials.tankCad = new THREE.MeshStandardMaterial({ color: 0xb0bec5, metalness: 0.5, roughness: 0.4 });
+    materials.edgeLine = new THREE.LineBasicMaterial({ color: 0x111111, linewidth: 1.2 });
+    materials.dimLine = new THREE.LineBasicMaterial({ color: 0x0969da, linewidth: 1.5 });
+    materials.particleMat = new THREE.MeshBasicMaterial({ color: 0x1a7f37 });
+}
+
+function addEdgesToMesh(mesh) {
+    const edges = new THREE.EdgesGeometry(mesh.geometry);
+    const line = new THREE.LineSegments(edges, materials.edgeLine);
+    mesh.add(line);
+}
+
+function buildAll3DCADAssembly() {
+    mainGroup.clear();
+
+    loopsGroup = new THREE.Group();
+    headersGroup = new THREE.Group();
+    frameGroup = new THREE.Group();
+    tanksGroup = new THREE.Group();
+    dimsGroup = new THREE.Group();
+    labelsGroup = new THREE.Group();
+    sectionGroup = new THREE.Group(); sectionGroup.visible = false;
+    connDetailGroup = new THREE.Group(); connDetailGroup.visible = false;
+
+    mainGroup.add(loopsGroup);
+    mainGroup.add(headersGroup);
+    mainGroup.add(frameGroup);
+    mainGroup.add(tanksGroup);
+    mainGroup.add(dimsGroup);
+    mainGroup.add(labelsGroup);
+    mainGroup.add(sectionGroup);
+    mainGroup.add(connDetailGroup);
+
+    build12LoopsGeometry();
+    buildHeadersAndBranches();
+    buildFrameGeometry();
+    buildTanksAndPumpGeometry();
+    buildDimensionsAndLabels();
+    addProcessEquipmentLabels();
+    buildSectionCutawayGeometry();
+    constructFullNetworkPaths();
+    const status = document.getElementById('viewport-status');
+    if (status) status.textContent = '3D MODEL READY • 12 LOOPS • 587 TUBES • 575 U-BENDS';
+    setTimeout(() => fitModelZoomExtents(), 0);
+}
+
+function createHollowGlassTubeCad(length) {
+    const group = new THREE.Group();
+    const outerGeo = new THREE.CylinderGeometry(CAD.tubeR_out, CAD.tubeR_out, length, 12, 1, true);
+    outerGeo.rotateZ(Math.PI / 2);
+    const outerMesh = new THREE.Mesh(outerGeo, materials.glassCad);
+    // Edges are intentionally omitted on the hundreds of repeated tubes for performance.
+
+    const innerGeo = new THREE.CylinderGeometry(CAD.tubeR_in, CAD.tubeR_in, length, 12, 1, true);
+    innerGeo.rotateZ(Math.PI / 2);
+    const innerMesh = new THREE.Mesh(innerGeo, materials.glassCad);
+
+    group.add(outerMesh);
+    group.add(innerMesh);
+    return group;
+}
+
+function createHollowPPUBendCad(startPoint, endPoint, dirVector, radialVector = null) {
+    // Generic 180-degree tangent U-bend. start/end must be 2*CLR apart.
+    // radialVector defines which direction the bend bulges (X or Y in the
+    // compact matrix). dirVector is the tangent of the straight glass tube.
+    const group = new THREE.Group();
+    const R = CAD.uBendCLR;
+    const start = startPoint.clone();
+    const end = endPoint.clone();
+    const dir = dirVector.clone().normalize();
+    const radial = (radialVector || end.clone().sub(start)).normalize();
+
+    class LocalUBendCurve extends THREE.Curve {
+        getPoint(t, target = new THREE.Vector3()) {
+            const a = Math.PI * t;
+            return target.copy(start)
+                .addScaledVector(dir, R * Math.sin(a))
+                .addScaledVector(radial, R * (1 - Math.cos(a)));
+        }
+    }
+    const curve = new LocalUBendCurve();
+
+    const outerGeo = new THREE.TubeGeometry(curve, 20, CAD.uBendOD / 2, 10, false);
+    const outerMesh = new THREE.Mesh(outerGeo, materials.ppPlasticCad);
+    outerMesh.userData = { component:'PP U-BEND BODY', bore:'104 mm', od:'119 mm', clr:'165 mm' };
+    // Edges are intentionally omitted on repeated U-bends for performance.
+    group.add(outerMesh);
+
+    const boreMat = new THREE.MeshStandardMaterial({
+        color:0x263238, metalness:0.05, roughness:0.65, side:THREE.DoubleSide
+    });
+    group.add(new THREE.Mesh(
+        new THREE.TubeGeometry(curve, 20, CAD.uBendBore / 2, 10, false), boreMat
+    ));
+
+    const socketGeo = new THREE.CylinderGeometry(
+        CAD.uBendOD / 2, CAD.uBendOD / 2, CAD.insertionDepth, 12, 1, true
+    );
+    socketGeo.rotateZ(Math.PI / 2);
+    const xAxis = new THREE.Vector3(1,0,0);
+    const s1 = new THREE.Mesh(socketGeo, materials.ppPlasticCad);
+    const s2 = new THREE.Mesh(socketGeo, materials.ppPlasticCad);
+    s1.quaternion.setFromUnitVectors(xAxis, dir);
+    s2.quaternion.setFromUnitVectors(xAxis, dir.clone().negate());
+    s1.position.copy(start).addScaledVector(dir, CAD.insertionDepth / 2);
+    s2.position.copy(end).addScaledVector(dir, -CAD.insertionDepth / 2);
+    addEdgesToMesh(s1); addEdgesToMesh(s2);
+    s1.userData = {part:'U-BEND SOCKET A', socketID:'111 mm', insertion:'25 mm'};
+    s2.userData = {part:'U-BEND SOCKET B', socketID:'111 mm', insertion:'25 mm'};
+    group.add(s1); group.add(s2);
+
+    group.userData = {
+        component:'PP 180-DEGREE U-BEND', clr:'165 mm', bore:'104 mm', od:'119 mm',
+        socketID:'111 mm', insertion:'25 mm', radialClearance:'0.5 mm',
+        connection:'TANGENT-CONNECTED TO STRAIGHT TUBES'
+    };
+    return group;
+}
+
+function build12LoopsGeometry() {
+    loopsData = [];
+
+    /*
+     * COMPACT LOOP MATRIX
+     * Front view of complete reactor:
+     *   L01  L02  L03  L04
+     *   L05  L06  L07  L08
+     *   L09  L10  L11  L12
+     *
+     * Inside each loop the tubes are also arranged as rows + columns:
+     *   49-tube loops = 7 rows x 7 columns
+     *   48-tube loop  = 6 rows x 8 columns
+     *
+     * Tubes are 1500 mm long and run in Z (reactor depth). Adjacent tubes
+     * are joined by 180° U-bends, creating a compact serpentine rather than
+     * one long vertical chain. U-bend centreline radius remains 165 mm.
+     */
+
+    const COLS = 4, ROWS = 3;
+    const modulePitchX = 2.05;
+    const modulePitchY = 2.15;
+    const startModuleX = -((COLS - 1) * modulePitchX) / 2;
+    const startModuleY = 2.55;
+
+    // Tube-to-tube pitch is 2*CLR for tangent U-bend connection.
+    const tubePitch = 2 * CAD.uBendCLR; // 0.330 m
+
+    for (let loopIdx = 1; loopIdx <= 12; loopIdx++) {
+        const loopGroup = new THREE.Group();
+        loopGroup.name = `LOOP_${loopIdx}`;
+
+        const numTubes = (loopIdx === 12) ? 48 : 49;
+        const numUBends = numTubes - 1;
+        const moduleRow = Math.floor((loopIdx - 1) / COLS);
+        const moduleCol = (loopIdx - 1) % COLS;
+        const moduleX = startModuleX + moduleCol * modulePitchX;
+        const moduleY = startModuleY - moduleRow * modulePitchY;
+
+        const nRows = (numTubes === 48) ? 6 : 7;
+        const nCols = (numTubes === 48) ? 8 : 7;
+        const xStart = moduleX - ((nCols - 1) * tubePitch) / 2;
+        const yStart = moduleY + ((nRows - 1) * tubePitch) / 2;
+
+        const tubeElements = [];
+        const bendElements = [];
+        const centerlinePath = new THREE.CurvePath();
+
+        let sequence = 0;
+        for (let r = 0; r < nRows; r++) {
+            // Snake across columns: odd rows go left-to-right, even rows right-to-left.
+            const leftToRight = (r % 2 === 0);
+            const cOrder = leftToRight
+                ? [...Array(nCols).keys()]
+                : [...Array(nCols).keys()].reverse();
+            const dirSign = leftToRight ? 1 : -1;
+
+            for (let k = 0; k < cOrder.length; k++) {
+                const c = cOrder[k];
+                const x = xStart + c * tubePitch;
+                const y = yStart - r * tubePitch;
+
+                // Alternate tube tangent after every U-bend so the flow snakes.
+                const tubeStartZ = (sequence % 2 === 0) ? -CAD.tubeLength/2 : CAD.tubeLength/2;
+                const tubeEndZ   = (sequence % 2 === 0) ?  CAD.tubeLength/2 : -CAD.tubeLength/2;
+                const tubeStart = new THREE.Vector3(x, y, tubeStartZ);
+                const tubeEnd   = new THREE.Vector3(x, y, tubeEndZ);
+                const tubeDir = new THREE.Vector3(0,0, sequence % 2 === 0 ? 1 : -1);
+
+                const tubeGroup = createHollowGlassTubeCad(CAD.tubeLength);
+                tubeGroup.rotation.y = Math.PI / 2;
+                tubeGroup.position.copy(tubeStart).add(tubeEnd).multiplyScalar(0.5);
+                tubeGroup.userData = {
+                    component:'GLASS TUBE',
+                    loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
+                    tubeNo:sequence + 1,
+                    od:'110 mm', id:'104 mm', length:'1500 mm',
+                    material:'Borosilicate Glass 3.3', flow:'2.318 L/h',
+                    pressureDrop:'0.01648 Pa (Path Total)',
+                    matrix:`${nRows} ROWS × ${nCols} COLUMNS`,
+                    matrixRow:r+1, matrixColumn:c+1,
+                    moduleRow:moduleRow+1, moduleColumn:moduleCol+1
+                };
+                loopGroup.add(tubeGroup);
+                tubeElements.push({
+                    group:tubeGroup, start:tubeStart.clone(), end:tubeEnd.clone(),
+                    center:tubeStart.clone().add(tubeEnd).multiplyScalar(0.5),
+                    dir:tubeDir.clone(), row:r+1, column:c+1
+                });
+                centerlinePath.add(new THREE.LineCurve3(tubeStart, tubeEnd));
+                sequence++;
+
+                // Connect to the next tube in the same row OR to the first tube
+                // of the next row. The connection is always exactly 330 mm.
+                const hasNext = !(r === nRows-1 && k === cOrder.length-1);
+                if (hasNext) {
+                    let nextX, nextY, radial;
+                    if (k < cOrder.length - 1) {
+                        const nextC = cOrder[k+1];
+                        nextX = xStart + nextC * tubePitch;
+                        nextY = y;
+                        radial = new THREE.Vector3(nextX - x, 0, 0).normalize();
+                    } else {
+                        // End of row: drop one row at the same column.
+                        nextX = x;
+                        nextY = y - tubePitch;
+                        radial = new THREE.Vector3(0, -1, 0);
+                    }
+                    const bendStart = tubeEnd.clone();
+                    const bendEnd = new THREE.Vector3(nextX, nextY, tubeEnd.z);
+                    const bend = createHollowPPUBendCad(bendStart, bendEnd, tubeDir, radial);
+                    bend.userData = {
+                        component:'PP U-BEND', loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
+                        bendNo:bendElements.length+1, clr:'165 mm', bore:'104 mm', od:'119 mm',
+                        socketID:'111 mm', insertion:'25 mm', radialClearance:'0.5 mm',
+                        connection:'TUBE-TO-TUBE SERPENTINE'
+                    };
+                    loopGroup.add(bend);
+                    bendElements.push({mesh:bend, center:bendStart.clone().add(bendEnd).multiplyScalar(0.5)});
+
+                    const arc = new THREE.CurvePath();
+                    const R = CAD.uBendCLR;
+                    class MatrixUBendCurve extends THREE.Curve {
+                        getPoint(t, target=new THREE.Vector3()) {
+                            const a=Math.PI*t;
+                            return target.copy(bendStart)
+                                .addScaledVector(tubeDir, R*Math.sin(a))
+                                .addScaledVector(radial, R*(1-Math.cos(a)));
+                        }
+                    }
+                    centerlinePath.add(new MatrixUBendCurve());
+                }
+            }
+        }
+
+        loopsData.push({
+            group:loopGroup, loopIndex:loopIdx, numTubes, numUBends,
+            tubeRows:nRows, tubeColumns:nCols,
+            moduleRow:moduleRow+1, moduleColumn:moduleCol+1,
+            tubeElements, bendElements, centerlinePath,
+            inletPos:tubeElements[0].start.clone(),
+            outletPos:tubeElements[tubeElements.length-1].end.clone(),
+            row:moduleRow+1, column:moduleCol+1
+        });
+        loopsGroup.add(loopGroup);
+    }
+}
+
+function buildHeadersAndBranches() {
+    // ENGINEERING MANIFOLD ARRANGEMENT
+    // One common INLET HEADER is mounted ABOVE the reactor rack.
+    // It distributes the culture simultaneously to all 12 loop branches.
+    // A separate COLLECTION HEADER is mounted BELOW the rack and collects
+    // all 12 outlet branches before the broth goes to the collection tank.
+    const TOP_HEADER_Y = 4.05;
+    const BOTTOM_HEADER_Y = -2.10;
+    const HEADER_Z_IN = -0.75;
+    const HEADER_Z_OUT = 0.75;
+
+    const xs = loopsData.map(l => l.inletPos.x);
+    const minX = Math.min(...xs) - 0.45;
+    const maxX = Math.max(...xs) + 0.45;
+    const headerLen = maxX - minX;
+    const headerCenterX = (minX + maxX) / 2;
+
+    // ---------- MAIN INLET HEADER (TOP) ----------
+    const inletGeo = new THREE.CylinderGeometry(
+        CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true
+    );
+    inletGeo.rotateZ(Math.PI / 2);
+    const inletHeader = new THREE.Mesh(inletGeo, materials.ss304Cad);
+    inletHeader.position.set(headerCenterX, TOP_HEADER_Y, HEADER_Z_IN);
+    addEdgesToMesh(inletHeader);
+    inletHeader.userData = {
+        component: 'MAIN INLET HEADER — TOP DISTRIBUTION MANIFOLD',
+        id: '25 mm',
+        totalFlow: '27.81 L/h',
+        branches: 12,
+        flowPerBranch: '2.318 L/h',
+        velocity: '0.01574 m/s',
+        reynolds: '401.3',
+        frictionFactor: '0.1594',
+        pressureDrop: '2.337 Pa',
+        location: 'TOP OF REACTOR RACK',
+        flowPath: 'Feed Buffer Tank → Pump → TOP INLET HEADER → 12 INLET BRANCHES → 12 LOOPS'
+    };
+    headersGroup.add(inletHeader);
+
+    // ---------- COLLECTION HEADER (BOTTOM) ----------
+    const outletGeo = new THREE.CylinderGeometry(
+        CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true
+    );
+    outletGeo.rotateZ(Math.PI / 2);
+    const outletHeader = new THREE.Mesh(outletGeo, materials.ss304Cad);
+    outletHeader.position.set(headerCenterX, BOTTOM_HEADER_Y, HEADER_Z_OUT);
+    addEdgesToMesh(outletHeader);
+    outletHeader.userData = {
+        component: 'COLLECTION HEADER — BOTTOM MANIFOLD',
+        id: '25 mm',
+        totalFlow: '27.81 L/h',
+        branches: 12,
+        flowPerBranch: '2.318 L/h',
+        velocity: '0.01574 m/s',
+        reynolds: '401.3',
+        frictionFactor: '0.1594',
+        pressureDrop: '2.337 Pa',
+        location: 'BOTTOM OF REACTOR RACK',
+        flowPath: '12 LOOPS → 12 OUTLET BRANCHES → COLLECTION HEADER → Collection Buffer Tank'
+    };
+    headersGroup.add(outletHeader);
+
+    // ---------- 12 INLET BRANCHES + 12 OUTLET BRANCHES ----------
+    for (let i = 0; i < 12; i++) {
+        const loop = loopsData[i];
+
+        const topHeaderPoint = new THREE.Vector3(
+            loop.inletPos.x, TOP_HEADER_Y, HEADER_Z_IN
+        );
+        const inletCurve = new THREE.LineCurve3(topHeaderPoint, loop.inletPos);
+        const inletBranch = new THREE.Mesh(
+            new THREE.TubeGeometry(inletCurve, 10, CAD.branchR_out, 8, false),
+            materials.ss304Cad
+        );
+        addEdgesToMesh(inletBranch);
+        inletBranch.userData = {
+            component: `INLET BRANCH ${String(i+1).padStart(2,'0')}`,
+            id: '10 mm',
+            flow: '2.318 L/h',
+            velocity: '0.008197 m/s',
+            reynolds: '83.60',
+            pressureDrop: '2.623 Pa',
+            connection: `TOP INLET HEADER → LOOP-${String(i+1).padStart(2,'0')}`,
+            direction: 'DOWNWARD TO LOOP'
+        };
+        headersGroup.add(inletBranch);
+
+        const bottomHeaderPoint = new THREE.Vector3(
+            loop.outletPos.x, BOTTOM_HEADER_Y, HEADER_Z_OUT
+        );
+        const outletCurve = new THREE.LineCurve3(loop.outletPos, bottomHeaderPoint);
+        const outletBranch = new THREE.Mesh(
+            new THREE.TubeGeometry(outletCurve, 10, CAD.branchR_out, 8, false),
+            materials.ss304Cad
+        );
+        addEdgesToMesh(outletBranch);
+        outletBranch.userData = {
+            component: `OUTLET BRANCH ${String(i+1).padStart(2,'0')}`,
+            id: '10 mm',
+            flow: '2.318 L/h',
+            velocity: '0.008197 m/s',
+            reynolds: '83.60',
+            pressureDrop: '2.623 Pa',
+            connection: `LOOP-${String(i+1).padStart(2,'0')} → BOTTOM COLLECTION HEADER`,
+            direction: 'DOWNWARD FROM LOOP'
+        };
+        headersGroup.add(outletBranch);
+    }
+
+    headersGroup.userData = {
+        component: 'MANIFOLD SYSTEM',
+        arrangement: 'TOP INLET HEADER + BOTTOM COLLECTION HEADER',
+        loops: 12,
+        totalFlow: '27.81 L/h',
+        flowPerLoop: '2.318 L/h',
+        inletHeaderPressureDrop: '2.337 Pa',
+        outletHeaderPressureDrop: '2.337 Pa',
+        branchPressureDrop: '2.623 Pa per branch',
+        hydraulicSequence: 'Feed Buffer Tank → Pump → Top Header → 12 Loops → Bottom Header → Collection Buffer Tank'
+    };
+}
+
+function buildFrameGeometry() {
+    // Stated reactor envelope: 5.8 m W × 3.4 m H × 1.8 m D.
+    const W = 5.8, H = 3.4, D = 1.8;
+    const beam = 0.06;
+
+    const verticalGeo = new THREE.BoxGeometry(beam, H, beam);
+    const horizontalGeo = new THREE.BoxGeometry(W, beam, beam);
+    const depthGeo = new THREE.BoxGeometry(beam, beam, D);
+
+    // Four front/rear corner posts.
+    [-W/2 + beam/2, W/2 - beam/2].forEach(x => {
+        [-D/2 + beam/2, D/2 - beam/2].forEach(z => {
+            const col = new THREE.Mesh(verticalGeo, materials.frameCad);
+            col.position.set(x, H/2 - 0.05, z);
+            addEdgesToMesh(col);
+            frameGroup.add(col);
+        });
+    });
+
+    // Top and bottom rails.
+    [-D/2 + beam/2, D/2 - beam/2].forEach(z => {
+        const top = new THREE.Mesh(horizontalGeo, materials.frameCad);
+        top.position.set(0, H - beam/2, z);
+        addEdgesToMesh(top);
+        frameGroup.add(top);
+
+        const bottom = new THREE.Mesh(horizontalGeo, materials.frameCad);
+        bottom.position.set(0, beam/2, z);
+        addEdgesToMesh(bottom);
+        frameGroup.add(bottom);
+    });
+
+    // Depth rails at top/bottom.
+    [-W/2 + beam/2, W/2 - beam/2].forEach(x => {
+        [beam/2, H - beam/2].forEach(y => {
+            const rail = new THREE.Mesh(depthGeo, materials.frameCad);
+            rail.position.set(x, y, 0);
+            addEdgesToMesh(rail);
+            frameGroup.add(rail);
+        });
+    });
+
+    frameGroup.userData = {
+        component: "REACTOR SUPPORT FRAME",
+        width: "5.8 m",
+        height: "3.4 m",
+        depth: "1.8 m",
+        arrangement: "12 loops = 3 rows × 4 columns; each loop internally matrixed (MRPL-style rack layout)",
+        engineeringNote: "Internal 7-row loops require 1.98 m vertical tube-matrix span at 330 mm tangent pitch; 3 stacked loop modules therefore exceed the 3.4 m envelope unless the loop planes are staggered/rotated in depth or the routing pitch/CLR is revised."
+    };
+}
+
+function buildTanksAndPumpGeometry() {
+    // PROCESS EQUIPMENT ARRANGEMENT:
+    // FEED BUFFER TANK → PUMP → TOP INLET HEADER → REACTOR →
+    // BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK
+    const feedX = -4.45, feedY = 0.65, feedZ = -0.75;
+    const pumpX = -3.65, pumpY = 0.30, pumpZ = -0.75;
+    const collectionX = 4.45, collectionY = 0.65, collectionZ = 0.75;
+    const TOP_HEADER_Y = 4.05;
+    const BOTTOM_HEADER_Y = -2.10;
+    const HEADER_X = -4.0;
+
+    // Feed buffer tank — upstream of pump.
+    const feedTank = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.52, 0.52, 1.45, 24),
+        materials.tankCad
+    );
+    feedTank.position.set(feedX, feedY, feedZ);
+    feedTank.userData = {
+        component: 'FEED BUFFER TANK',
+        service: 'PRE-REACTOR CULTURE BUFFER',
+        capacity: '500 L',
+        workingVolume: '425 L',
+        flowTo: 'Progressive Cavity Pump',
+        processFlow: 'FEED BUFFER TANK → PUMP → TOP INLET HEADER',
+        designRole: 'Culture enters reactor from this tank'
+    };
+    addEdgesToMesh(feedTank);
+    tanksGroup.add(feedTank);
+
+    // Pump between feed tank and top header riser.
+    const pump = new THREE.Mesh(
+        new THREE.BoxGeometry(0.42, 0.30, 0.34),
+        materials.ss304Cad
+    );
+    pump.position.set(pumpX, pumpY, pumpZ);
+    pump.userData = {
+        component: 'PROGRESSIVE CAVITY PUMP',
+        duty: '27.81 L/h',
+        totalPressureDrop: '9.936 Pa',
+        frictionHead: '0.000993 m',
+        staticHead: '3.400 m',
+        calcHead: '3.401 m',
+        hydraulicPower: '0.4382 W',
+        assumedEfficiency: '60%',
+        flowPath: 'Feed Buffer Tank → Pump → Top Inlet Header'
+    };
+    addEdgesToMesh(pump);
+    tanksGroup.add(pump);
+
+    // Collection buffer tank — downstream of collection header.
+    const collectionTank = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.52, 0.52, 1.45, 24),
+        materials.tankCad
+    );
+    collectionTank.position.set(collectionX, collectionY, collectionZ);
+    collectionTank.userData = {
+        component: 'COLLECTION BUFFER TANK',
+        service: 'POST-REACTOR CULTURE BUFFER',
+        capacity: '500 L',
+        workingVolume: '75 L',
+        flowFrom: 'Bottom Collection Header',
+        processFlow: 'REACTOR → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK',
+        designRole: 'Receives culture leaving reactor'
+    };
+    addEdgesToMesh(collectionTank);
+    tanksGroup.add(collectionTank);
+
+    // Feed line: tank → pump.
+    const feedLine = new THREE.Mesh(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+            new THREE.Vector3(feedX + 0.52, feedY, feedZ),
+            new THREE.Vector3(pumpX - 0.22, feedY, feedZ),
+            new THREE.Vector3(pumpX, pumpY, pumpZ)
+        ]), 18, 0.018, 10, false),
+        materials.ss304Cad
+    );
+    feedLine.userData = {
+        component: 'FEED PROCESS LINE',
+        flow: '27.81 L/h',
+        connection: 'Feed Buffer Tank → Pump'
+    };
+    tanksGroup.add(feedLine);
+
+    // Pump discharge rises to the TOP INLET HEADER.
+    const pumpToHeader = new THREE.Mesh(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+            new THREE.Vector3(pumpX, pumpY, pumpZ),
+            new THREE.Vector3(HEADER_X, pumpY, pumpZ),
+            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75)
+        ]), 28, 0.018, 10, false),
+        materials.ss304Cad
+    );
+    pumpToHeader.userData = {
+        component: 'PUMP DISCHARGE RISER',
+        flow: '27.81 L/h',
+        connection: 'Pump → TOP INLET HEADER',
+        direction: 'UPWARD TO DISTRIBUTION HEADER'
+    };
+    tanksGroup.add(pumpToHeader);
+
+    // Bottom collection header → collection tank.
+    const collectionLine = new THREE.Mesh(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+            new THREE.Vector3(4.0, BOTTOM_HEADER_Y, 0.75),
+            new THREE.Vector3(collectionX, BOTTOM_HEADER_Y, 0.75),
+            new THREE.Vector3(collectionX, collectionY, collectionZ)
+        ]), 28, 0.018, 10, false),
+        materials.ss304Cad
+    );
+    collectionLine.userData = {
+        component: 'COLLECTION PROCESS LINE',
+        flow: '27.81 L/h',
+        connection: 'BOTTOM COLLECTION HEADER → Collection Buffer Tank',
+        direction: 'REACTOR OUTLET → POST-REACTOR BUFFER'
+    };
+    tanksGroup.add(collectionLine);
+
+    tanksGroup.userData = {
+        component: 'PROCESS EQUIPMENT ARRANGEMENT',
+        upstream: 'FEED BUFFER TANK',
+        pump: 'PROGRESSIVE CAVITY PUMP',
+        distribution: 'TOP INLET HEADER',
+        reactor: '12 PARALLEL LOOPS',
+        collection: 'BOTTOM COLLECTION HEADER',
+        downstream: 'COLLECTION BUFFER TANK',
+        completeFlowPath: 'FEED BUFFER TANK → PUMP → TOP HEADER → 12 PARALLEL LOOPS → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK'
+    };
+}
+
+function createDimensionAnnotation(p1, p2, text, offsetVector) {
+    const dimGroup = new THREE.Group();
+    const p1Off = p1.clone().add(offsetVector);
+    const p2Off = p2.clone().add(offsetVector);
+
+    const ext1 = new THREE.BufferGeometry().setFromPoints([p1, p1Off]);
+    const ext2 = new THREE.BufferGeometry().setFromPoints([p2, p2Off]);
+    dimGroup.add(new THREE.Line(ext1, materials.dimLine));
+    dimGroup.add(new THREE.Line(ext2, materials.dimLine));
+
+    const mainLine = new THREE.BufferGeometry().setFromPoints([p1Off, p2Off]);
+    dimGroup.add(new THREE.Line(mainLine, materials.dimLine));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 256; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,256,64);
+    ctx.strokeStyle = '#0969da'; ctx.lineWidth = 4; ctx.strokeRect(0,0,256,64);
+    ctx.fillStyle = '#0969da'; ctx.font = 'bold 22px monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(text, 128, 32);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    const spriteMat = new THREE.SpriteMaterial({ map: texture });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.scale.set(0.4, 0.1, 1);
+    sprite.position.copy(p1Off).add(p2Off).multiplyScalar(0.5).add(new THREE.Vector3(0, 0.06, 0));
+    dimGroup.add(sprite);
+
+    return dimGroup;
+}
+
+function buildDimensionsAndLabels() {
+    dimsGroup.clear();
+    labelsGroup.clear();
+
+    const loop1 = loopsData[0];
+    const tube1 = loop1.tubeElements[0];
+
+    dimsGroup.add(createDimensionAnnotation(
+        tube1.start, tube1.end, "L = 1500 mm", new THREE.Vector3(0, 0.15, 0)
+    ));
+
+    // Reactor envelope dimensions.
+    dimsGroup.add(createDimensionAnnotation(
+        new THREE.Vector3(-2.9, 0, -0.9),
+        new THREE.Vector3(2.9, 0, -0.9),
+        "REACTOR WIDTH = 5800 mm",
+        new THREE.Vector3(0, -0.15, 0)
+    ));
+
+    dimsGroup.add(createDimensionAnnotation(
+        new THREE.Vector3(-2.9, 0, 0),
+        new THREE.Vector3(-2.9, 3.4, 0),
+        "REACTOR HEIGHT = 3400 mm",
+        new THREE.Vector3(-0.2, 0, 0)
+    ));
+
+    dimsGroup.add(createDimensionAnnotation(
+        new THREE.Vector3(0, 0, -0.9),
+        new THREE.Vector3(0, 0, 0.9),
+        "REACTOR DEPTH = 1800 mm",
+        new THREE.Vector3(0, -0.15, 0)
+    ));
+
+    for (let i = 0; i < 12; i++) {
+        const l = loopsData[i];
+        const canvas = document.createElement('canvas');
+        canvas.width = 180; canvas.height = 48;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#24292f'; ctx.fillRect(0,0,180,48);
+        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 17px monospace';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(
+            `L${String(i+1).padStart(2,'0')}  R${l.row} C${l.column}`,
+            90, 24
+        );
+
+        const texture = new THREE.CanvasTexture(canvas);
+        const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture }));
+        sprite.scale.set(0.42, 0.11, 1);
+        sprite.position.set(l.inletPos.x - 0.35, 1.72, l.inletPos.z);
+        labelsGroup.add(sprite);
+    }
+}
+
+
+// Add process-flow labels for the two buffer tanks and the distribution header.
+function addProcessEquipmentLabels() {
+    const items = [
+        { text:'FEED BUFFER TANK • CULTURE IN', pos:new THREE.Vector3(-4.45,1.55,-0.75) },
+        { text:'PUMP • 27.81 L/h • 3.401 m HEAD', pos:new THREE.Vector3(-3.65,0.58,-0.75) },
+        { text:'TOP MAIN INLET HEADER • 25 mm • 12 BRANCHES', pos:new THREE.Vector3(0,4.38,-0.75) },
+        { text:'BOTTOM COLLECTION HEADER • 25 mm', pos:new THREE.Vector3(0,-2.42,0.75) },
+        { text:'COLLECTION BUFFER TANK • CULTURE OUT', pos:new THREE.Vector3(4.45,1.55,0.75) }
+    ];
+    items.forEach(item => {
+        const canvas=document.createElement('canvas'); canvas.width=520; canvas.height=48;
+        const ctx=canvas.getContext('2d');
+        ctx.fillStyle='#24292f'; ctx.fillRect(0,0,520,48);
+        ctx.fillStyle='#ffffff'; ctx.font='bold 16px monospace';
+        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(item.text,260,24);
+        const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(canvas),transparent:true}));
+        sprite.scale.set(1.25,0.115,1); sprite.position.copy(item.pos); labelsGroup.add(sprite);
+    });
+}
+
+function buildSectionCutawayGeometry() {
+    sectionGroup.clear();
+
+    // Put a real section detail beside the assembly, not outside the model.
+    // It is an enlarged half-cut showing glass wall + bore + PP U-bend connection.
+    const detail = new THREE.Group();
+    detail.position.set(0, 0.0, 0.8);
+
+    const outerR = CAD.tubeR_out;
+    const innerR = CAD.tubeR_in;
+    const len = 0.9;
+
+    // Half-cylinder shell for the straight glass tube.
+    const shellGeo = new THREE.CylinderGeometry(outerR, outerR, len, 32, 1, false, 0, Math.PI);
+    shellGeo.rotateZ(Math.PI / 2);
+    const shell = new THREE.Mesh(shellGeo, materials.glassCad);
+    addEdgesToMesh(shell);
+    detail.add(shell);
+
+    // Dark bore surface, slightly smaller than the glass OD, to make the section readable.
+    const boreGeo = new THREE.CylinderGeometry(innerR, innerR, len + 0.01, 32, 1, false, 0, Math.PI);
+    boreGeo.rotateZ(Math.PI / 2);
+    const boreMat = new THREE.MeshStandardMaterial({
+        color: 0x263238,
+        roughness: 0.7,
+        side: THREE.DoubleSide
+    });
+    detail.add(new THREE.Mesh(boreGeo, boreMat));
+
+    // Sectioned PP socket ring at the tube end.
+    const socketGeo = new THREE.CylinderGeometry(CAD.uBendOD/2, CAD.uBendOD/2, CAD.insertionDepth, 32, 1, false, 0, Math.PI);
+    socketGeo.rotateZ(Math.PI / 2);
+    const socket = new THREE.Mesh(socketGeo, materials.ppPlasticCad);
+    socket.position.x = len/2 + CAD.insertionDepth/2;
+    addEdgesToMesh(socket);
+    detail.add(socket);
+
+    // Dimension / section labels.
+    const label = document.createElement('canvas');
+    label.width = 700; label.height = 180;
+    const ctx = label.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,label.width,label.height);
+    ctx.strokeStyle = '#0969da'; ctx.lineWidth = 5; ctx.strokeRect(2,2,label.width-4,label.height-4);
+    ctx.fillStyle = '#1f2328'; ctx.font = 'bold 30px monospace';
+    ctx.fillText('SECTION A-A — TUBE / U-BEND SOCKET', 24, 48);
+    ctx.font = '24px monospace';
+    ctx.fillText('Glass OD 110 mm | ID 104 mm | Wall 3 mm', 24, 88);
+    ctx.fillText('Socket ID 111 mm | Insertion 25 mm | Clearance 0.5 mm', 24, 124);
+    ctx.fillText('PP U-Bend Bore 104 mm | OD 119 mm', 24, 160);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(label), transparent: true }));
+    sprite.scale.set(1.8, 0.46, 1);
+    sprite.position.set(0, 0.55, 0);
+    detail.add(sprite);
+
+    sectionGroup.add(detail);
+}
+
+function constructFullNetworkPaths() {
+    networkPaths = [];
+
+    const TOP_HEADER_Y = 4.05;
+    const BOTTOM_HEADER_Y = -2.10;
+    const HEADER_X = -4.0;
+    const HEADER_OUT_X = 4.0;
+
+    for (let i = 0; i < 12; i++) {
+        const path = new THREE.CurvePath();
+        const loop = loopsData[i];
+
+        // FEED BUFFER TANK → PUMP → TOP HEADER
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(-3.93, 0.65, -0.75),
+            new THREE.Vector3(-3.65, 0.30, -0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(-3.65, 0.30, -0.75),
+            new THREE.Vector3(HEADER_X, 0.30, -0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(HEADER_X, 0.30, -0.75),
+            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75)
+        ));
+
+        // TOP DISTRIBUTION HEADER → LOOP-SPECIFIC INLET BRANCH
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75),
+            new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75),
+            loop.inletPos
+        ));
+
+        // Complete serpentine loop path.
+        loop.centerlinePath.curves.forEach(c => path.add(c));
+
+        // LOOP OUTLET → BOTTOM COLLECTION HEADER
+        path.add(new THREE.LineCurve3(
+            loop.outletPos,
+            new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, 0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, 0.75),
+            new THREE.Vector3(HEADER_OUT_X, BOTTOM_HEADER_Y, 0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(HEADER_OUT_X, BOTTOM_HEADER_Y, 0.75),
+            new THREE.Vector3(4.45, 0.65, 0.75)
+        ));
+
+        networkPaths.push(path);
+    }
+}
+
+function setupFlowParticles() {
+    particlesGroup = new THREE.Group();
+    particlesGroup.visible = false;
+
+    const pGeo = new THREE.SphereGeometry(0.018, 8, 8);
+    flowParticlesMesh = new THREE.InstancedMesh(pGeo, materials.particleMat, TOTAL_PARTICLES);
+
+    particleProgress = [];
+    particleLoopIndices = [];
+
+    for (let l = 0; l < 12; l++) {
+        for (let p = 0; p < PARTICLES_PER_LOOP; p++) {
+            particleProgress.push(p / PARTICLES_PER_LOOP);
+            particleLoopIndices.push(l);
+        }
+    }
+    particlesGroup.add(flowParticlesMesh);
+    mainGroup.add(particlesGroup);
+}
+
+function updateFlowParticles() {
+    if (!isFlowRunning) return;
+
+    const dummy = new THREE.Object3D();
+    const step = 0.0003 * flowSpeed;
+
+    for (let i = 0; i < TOTAL_PARTICLES; i++) {
+        let prog = particleProgress[i] + step;
+        if (prog > 1) prog = 0;
+        particleProgress[i] = prog;
+
+        const loopIdx = particleLoopIndices[i];
+        const path = networkPaths[loopIdx];
+
+        const point = path.getPointAt(prog);
+        if (point) {
+            dummy.position.copy(point);
+            dummy.scale.set(1, 1, 1);
+        }
+        dummy.updateMatrix();
+        flowParticlesMesh.setMatrixAt(i, dummy.matrix);
+    }
+    flowParticlesMesh.instanceMatrix.needsUpdate = true;
+}
+
+// 3D Viewport Controls & Inspection
+function fitModelZoomExtents() {
+    setCameraPreset('FRONT');
+}
+
+function setCameraPreset(preset) {
+    switch(preset) {
+        // Front view is deliberately the 3-row × 4-column loop layout.
+        case 'FRONT':
+            activeCamera.position.set(0, 2.6, 16.5);
+            break;
+        case 'TOP':
+            activeCamera.position.set(0, 12, 0.001);
+            break;
+        case 'SIDE':
+            activeCamera.position.set(12, 1.7, 0);
+            break;
+        case 'ISO':
+        default:
+            activeCamera.position.set(8.5, 6.0, 10.5);
+            break;
+    }
+    activeCamera.lookAt(0, 2.6, 0);
+    controls.object = activeCamera;
+    controls.target.set(0, 2.6, 0);
+    controls.update();
+}
+
+function toggleProjection() {
+    isOrtho = !isOrtho;
+    document.getElementById('btn-projection').innerText = `PROJECTION: ${isOrtho ? 'ORTHOGRAPHIC' : 'PERSPECTIVE'}`;
+    const prevPos = activeCamera.position.clone();
+    activeCamera = isOrtho ? orthoCamera : perspectiveCamera;
+    activeCamera.position.copy(prevPos);
+    activeCamera.lookAt(0, 0, 0);
+    controls.object = activeCamera;
+    controls.update();
+}
+
+function zoomIsolateUBend() {
+    const loop1 = loopsData[0];
+    const bend1 = loop1.bendElements[0];
+    activeCamera.position.set(bend1.center.x + 0.6, bend1.center.y + 0.2, bend1.center.z + 0.8);
+    controls.target.copy(bend1.center);
+    controls.update();
+}
+
+function zoomDetailA() {
+    zoomIsolateUBend();
+    displayInspectorData({
+        component: "DETAIL A — SOCKET CONNECTION",
+        glassTubeOD: "110 mm",
+        glassTubeID: "104 mm",
+        wallThickness: "3 mm",
+        uBendBore: "104 mm",
+        uBendOD: "119 mm",
+        socketID: "111 mm",
+        insertionDepth: "25 mm",
+        radialClearance: "0.5 mm"
+    });
+}
+
+function toggleExplodedConnection() {
+    isExplodedConn = !isExplodedConn;
+    const loop1 = loopsData[0];
+    const tube1 = loop1.tubeElements[0];
+    const shift = isExplodedConn ? -0.06 : 0;
+    tube1.group.position.x = tube1.center.x + shift;
+}
+
+function toggleSectionA() {
+    isSectionA = !isSectionA;
+    sectionGroup.visible = isSectionA;
+
+    const btn = document.getElementById('btn-section-a');
+    if (btn) btn.innerText = isSectionA ? 'HIDE SECTION A-A' : 'SECTION A-A CUTAWAY';
+
+    if (isSectionA) {
+        // Move camera to the dedicated enlarged cutaway detail.
+        activeCamera.position.set(2.6, 1.8, 3.8);
+        controls.target.set(0, 0.15, 0.8);
+        controls.update();
+    } else {
+        setCameraPreset('ISO');
+    }
+}
+
+function onLoopSelect(val) {
+    if (val === 'ALL') {
+        loopsGroup.children.forEach(lg => lg.visible = true);
+    } else {
+        selectedLoopIndex = parseInt(val);
+        loopsGroup.children.forEach((lg, idx) => {
+            lg.visible = (idx + 1 === selectedLoopIndex);
+        });
+    }
+}
+
+function toggleFlow() {
+    isFlowRunning = !isFlowRunning;
+    particlesGroup.visible = isFlowRunning;
+    document.getElementById('btn-flow-toggle').innerText = isFlowRunning ? "HIDE FLOW" : "SHOW FLOW";
+}
+
+function setupEventListeners() {
+    const canvas = document.getElementById('canvas3d');
+    canvas.addEventListener('click', onCanvasClick);
+}
+
+function onCanvasClick(event) {
+    const rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, activeCamera);
+    const intersects = raycaster.intersectObjects(mainGroup.children, true);
+
+    if (intersects.length > 0) {
+        let obj = intersects[0].object;
+        if (obj.parent && obj.parent.userData && obj.parent.userData.component) {
+            displayInspectorData(obj.parent.userData);
+        } else if (obj.userData && obj.userData.component) {
+            displayInspectorData(obj.userData);
+        }
+    }
+}
+
+function displayInspectorData(data) {
+    const container = document.getElementById('inspector-content');
+    let html = `<div style="font-weight:bold; color:var(--accent-blue); margin-bottom:6px; font-family:var(--font-mono); font-size:12px;">${data.component}</div>`;
+    for (const [key, val] of Object.entries(data)) {
+        if (key !== 'component') {
+            html += `<div class="data-row"><span class="data-label">${key.toUpperCase()}:</span><span class="data-value">${val}</span></div>`;
+        }
+    }
+    container.innerHTML = html;
+}
+
+function onWindowResize() {
+    const container = document.getElementById('viewport-container');
+    const width = container.clientWidth || 800;
+    const height = container.clientHeight || 600;
+    if (width === 0 || height === 0) return;
+
+    const aspect = width / height;
+
+    perspectiveCamera.aspect = aspect;
+    perspectiveCamera.updateProjectionMatrix();
+
+    const frustumSize = 7.5;
+    orthoCamera.left = -frustumSize * aspect / 2;
+    orthoCamera.right = frustumSize * aspect / 2;
+    orthoCamera.top = frustumSize / 2;
+    orthoCamera.bottom = -frustumSize / 2;
+    orthoCamera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    const speedSlider = document.getElementById('flow-speed');
+    if (speedSlider) flowSpeed = parseFloat(speedSlider.value);
+
+    updateFlowParticles();
+    controls.update();
+    renderer.render(scene, activeCamera);
+}
+</script>
+</body>
+</html>
