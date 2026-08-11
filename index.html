@@ -99,6 +99,37 @@
         footer { grid-column: 1 / -1; background: #24292f; color: #8c959f; border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; font-size: 10px; font-family: var(--font-mono); z-index: 100; }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
+        /* SECTION 3: PROCESS DESIGN / PFD */
+        #process-section { width:100%; height:100%; overflow-y:auto; background:#f4f5f7; padding:28px 34px; }
+        .process-shell { max-width:1280px; margin:0 auto; }
+        .process-header { background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:18px 20px; margin-bottom:16px; }
+        .process-title { font:700 22px var(--font-mono); color:#0969da; }
+        .process-subtitle { margin-top:5px; color:var(--text-dim); font:12px var(--font-mono); }
+        .pfd-card { background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:20px; margin-bottom:16px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+        .pfd-title { font:700 13px var(--font-mono); color:#24292f; border-bottom:1px solid var(--border-color); padding-bottom:9px; margin-bottom:16px; }
+        .pfd-flow { display:grid; grid-template-columns:1fr .22fr .8fr .22fr 1fr .22fr 1fr .22fr 1fr; align-items:center; gap:7px; min-height:270px; }
+        .pfd-node { min-height:120px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border:2px solid #0969da; border-radius:10px; background:#f8fbff; padding:12px 9px; }
+        .pfd-node.tank { border-color:#57606a; background:#f6f8fa; }
+        .pfd-node.pump { border-color:#bc4c00; background:#fff8f2; }
+        .pfd-node.reactor { border-color:#1a7f37; background:#f3fbf5; }
+        .pfd-tag { font:700 10px var(--font-mono); color:#656d76; margin-bottom:7px; }
+        .pfd-name { font:700 12px var(--font-mono); color:#24292f; }
+        .pfd-spec { font:10px var(--font-mono); color:#57606a; margin-top:7px; line-height:1.45; }
+        .pfd-arrow { text-align:center; color:#0969da; font:bold 22px Arial; }
+        .pfd-arrow-label { display:block; color:#656d76; font:8px var(--font-mono); margin-top:2px; }
+        .loop-bank { border:2px solid #1a7f37; border-radius:8px; padding:9px; background:#f8fff9; display:grid; grid-template-columns:repeat(4,1fr); gap:5px; width:100%; margin-top:10px; }
+        .loop-chip { border:1px solid #8bc99a; background:#fff; border-radius:4px; padding:6px 2px; text-align:center; font:700 9px var(--font-mono); color:#1a7f37; }
+        .process-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:16px; }
+        .process-table { width:100%; border-collapse:collapse; font:11px var(--font-mono); }
+        .process-table th,.process-table td { border:1px solid var(--border-color); padding:9px 10px; text-align:left; }
+        .process-table th { background:#24292f; color:#fff; }
+        .process-table tr:nth-child(even) { background:#f6f8fa; }
+        .process-note { border-left:4px solid #bc4c00; background:#fff8f2; padding:12px 14px; font:11px/1.55 var(--font-mono); color:#57606a; }
+        .process-note strong { color:#24292f; }
+        .legend { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; font:10px var(--font-mono); color:#57606a; }
+        .legend span { display:flex; align-items:center; gap:5px; }
+        .legend i { width:11px; height:11px; border-radius:2px; display:inline-block; border:1px solid #999; }
+
         ::-webkit-scrollbar-track { background: var(--cad-bg); }
         ::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 3px; }
     </style>
@@ -114,6 +145,7 @@
         <div class="main-tabs">
             <button class="tab-btn active" onclick="switchMainSection('CALC')">1. ENGINEERING CALCULATIONS</button>
             <button class="tab-btn" onclick="switchMainSection('CAD')">2. 3D CAD MODEL</button>
+            <button class="tab-btn" onclick="switchMainSection('PROCESS')">3. PROCESS DESIGN</button>
         </div>
         <div>
             <span style="color:#d0d7de; font-size:11px; font-family:var(--font-mono);">DWG: PBR-10K-GA-001 | REV: PP U-BEND</span>
@@ -330,6 +362,74 @@
         </div>
     </div>
 
+    <!-- SECTION 3: PROCESS DESIGN / PFD -->
+    <div id="process-section" class="page-section">
+        <div class="process-shell">
+            <div class="process-header">
+                <div class="process-title">10,000 L TUBULAR PBR — PROCESS DESIGN</div>
+                <div class="process-subtitle">PRELIMINARY PROCESS FLOW DIAGRAM • FEED / PUMP / TOP DISTRIBUTION / 12 PARALLEL LOOPS / COLLECTION</div>
+            </div>
+
+            <div class="pfd-card">
+                <div class="pfd-title">PROCESS FLOW — MATERIAL PATH</div>
+                <div class="pfd-flow">
+                    <div class="pfd-node tank"><div class="pfd-tag">TK-101</div><div class="pfd-name">FEED BUFFER TANK</div><div class="pfd-spec">500 L nominal<br>~425 L working<br>Culture feed</div></div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">27.81 L/h</span></div>
+                    <div class="pfd-node pump"><div class="pfd-tag">P-101</div><div class="pfd-name">PROGRESSIVE<br>CAVITY PUMP</div><div class="pfd-spec">27.81 L/h<br>3.401 m calculated head<br>0.4382 W hydraulic power</div></div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">PRESSURIZED FEED</span></div>
+                    <div class="pfd-node"><div class="pfd-tag">M-101</div><div class="pfd-name">TOP INLET HEADER</div><div class="pfd-spec">25 mm ID<br>12 × 10 mm branches<br>2.318 L/h per loop</div></div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">12-WAY SPLIT</span></div>
+                    <div class="pfd-node reactor" style="min-height:170px;"><div class="pfd-tag">PBR-101</div><div class="pfd-name">10,000 L TUBULAR PBR</div><div class="pfd-spec">12 parallel loops • 587 glass tubes • 575 PP U-bends • 15-day HRT</div>
+                        <div class="loop-bank">
+                            <div class="loop-chip">L01</div><div class="loop-chip">L02</div><div class="loop-chip">L03</div><div class="loop-chip">L04</div>
+                            <div class="loop-chip">L05</div><div class="loop-chip">L06</div><div class="loop-chip">L07</div><div class="loop-chip">L08</div>
+                            <div class="loop-chip">L09</div><div class="loop-chip">L10</div><div class="loop-chip">L11</div><div class="loop-chip">L12</div>
+                        </div>
+                    </div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">COLLECT</span></div>
+                    <div class="pfd-node"><div class="pfd-tag">M-102</div><div class="pfd-name">BOTTOM COLLECTION HEADER</div><div class="pfd-spec">25 mm ID<br>12 outlet branches<br>27.81 L/h total</div></div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">CULTURE OUT</span></div>
+                    <div class="pfd-node tank"><div class="pfd-tag">TK-102</div><div class="pfd-name">COLLECTION BUFFER TANK</div><div class="pfd-spec">500 L nominal<br>~75 L working basis<br>Post-reactor buffer</div></div>
+                </div>
+                <div class="legend">
+                    <span><i style="background:#f6f8fa;border-color:#57606a;"></i> Tank</span>
+                    <span><i style="background:#fff8f2;border-color:#bc4c00;"></i> Pump</span>
+                    <span><i style="background:#f3fbf5;border-color:#1a7f37;"></i> Reactor / loops</span>
+                    <span><i style="background:#f8fbff;border-color:#0969da;"></i> Header / manifold</span>
+                </div>
+            </div>
+
+            <div class="process-grid">
+                <div class="pfd-card">
+                    <div class="pfd-title">PROCESS EQUIPMENT & CONNECTIONS</div>
+                    <table class="process-table">
+                        <thead><tr><th>Tag</th><th>Equipment</th><th>Connection / Service</th><th>Key Basis</th></tr></thead>
+                        <tbody>
+                            <tr><td>TK-101</td><td>Feed Buffer Tank</td><td>TK-101 → P-101</td><td>500 L nominal</td></tr>
+                            <tr><td>P-101</td><td>Progressive Cavity Pump</td><td>P-101 → M-101</td><td>27.81 L/h; 3.401 m head</td></tr>
+                            <tr><td>M-101</td><td>Top Inlet Header</td><td>1 header → 12 inlet branches</td><td>25 mm ID; ±5% balance target</td></tr>
+                            <tr><td>PBR-101</td><td>Tubular PBR</td><td>12 parallel serpentine loops</td><td>10,011.7 L; 15 d HRT</td></tr>
+                            <tr><td>M-102</td><td>Bottom Collection Header</td><td>12 outlet branches → header</td><td>25 mm ID</td></tr>
+                            <tr><td>TK-102</td><td>Collection Buffer Tank</td><td>M-102 → TK-102</td><td>500 L nominal</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pfd-card">
+                    <div class="pfd-title">DESIGN CONTROL POINTS</div>
+                    <div class="process-note">
+                        <strong>Flow distribution:</strong> Each loop is targeted at 2.318 L/h with a ±5% balancing band.<br><br>
+                        <strong>Reactor flow regime:</strong> Tube Reynolds number = 8.04, preliminary laminar basis.<br><br>
+                        <strong>Hydraulic sequence:</strong> Feed buffer → pump → top header → 12 loops → bottom header → collection buffer.<br><br>
+                        <strong>3D traceability:</strong> CAD tab shows the top header, all 12 inlet branches and individual gate-valve/connection points.
+                    </div>
+                    <div style="margin-top:12px;" class="process-note">
+                        <strong>Engineering status:</strong> Preliminary process/design representation only. Final valve sizing, fitting losses, sealing, pressure rating, structural checks and GA routing remain subject to verification before fabrication.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- SECTION 2: COMPLETE 3D CAD MODEL -->
     <div id="cad-section" class="page-section">
         <!-- Left Side Controls -->
@@ -380,6 +480,7 @@
             <div style="position:absolute;top:12px;right:12px;z-index:20;background:#fff;border:1px solid #d0d7de;border-radius:4px;padding:6px 10px;font:700 10px SFMono-Regular,Consolas,monospace;color:#57606a;">MRPL-STYLE RACK ARRANGEMENT • PRELIMINARY / NOT FOR FABRICATION</div>
         <div class="viewport-overlay">
                 <button class="btn" onclick="fitModelZoomExtents()">ZOOM EXTENTS</button>
+                <button class="btn" onclick="highlightInletManifold()">SHOW 12 INLET CONNECTIONS</button>
             </div>
 
             <div class="flow-overlay">
@@ -430,8 +531,8 @@
     </div>
 
     <footer>
-        <div>10,000L PBR | MRPL-STYLE LOOP RACK ARRANGEMENT | PRELIMINARY DESIGN</div>
-        <div>12 LOOPS: 3 ROWS × 4 COLUMNS | TUBE/BEND COUNTS PRESERVED</div>
+        <div>10,000L PBR | ENGINEERING + 3D CAD + PROCESS DESIGN | PRELIMINARY</div>
+        <div>12 LOOPS | 587 TUBES | 575 U-BENDS | PROCESS FLOW IN TAB 3</div>
     </footer>
 </div>
 
@@ -478,7 +579,7 @@ let flowSpeed = 1.0;
 let selectedLoopIndex = 1;
 
 // Scene Groups
-let mainGroup, loopsGroup, headersGroup, frameGroup, tanksGroup, particlesGroup, dimsGroup, labelsGroup, sectionGroup, connDetailGroup;
+let mainGroup, loopsGroup, headersGroup, frameGroup, tanksGroup, particlesGroup, dimsGroup, labelsGroup, sectionGroup, connDetailGroup, inletAssembliesGroup;
 let loopsData = [];
 let materials = {};
 
@@ -550,14 +651,14 @@ function switchMainSection(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
 
-    if (tab === 'CALC') {
-        document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        document.getElementById('calc-section').classList.add('active');
-    } else {
-        document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        document.getElementById('cad-section').classList.add('active');
-        
-        // Immediate WebGL canvas recalculation and camera frustum positioning
+    const tabMap = { CALC: 0, CAD: 1, PROCESS: 2 };
+    const sectionMap = { CALC: 'calc-section', CAD: 'cad-section', PROCESS: 'process-section' };
+    const idx = tabMap[tab] ?? 0;
+
+    document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+    document.getElementById(sectionMap[tab]).classList.add('active');
+
+    if (tab === 'CAD') {
         setTimeout(() => {
             onWindowResize();
             fitModelZoomExtents();
@@ -620,6 +721,8 @@ function createMaterials() {
     materials.edgeLine = new THREE.LineBasicMaterial({ color: 0x111111, linewidth: 1.2 });
     materials.dimLine = new THREE.LineBasicMaterial({ color: 0x0969da, linewidth: 1.5 });
     materials.particleMat = new THREE.MeshBasicMaterial({ color: 0x1a7f37 });
+    materials.valveStem = new THREE.MeshStandardMaterial({ color: 0x263238, metalness: 0.9, roughness: 0.25 });
+    materials.valveHandwheel = new THREE.MeshStandardMaterial({ color: 0xbc4c00, metalness: 0.65, roughness: 0.3 });
 }
 
 function addEdgesToMesh(mesh) {
@@ -639,9 +742,11 @@ function buildAll3DCADAssembly() {
     labelsGroup = new THREE.Group();
     sectionGroup = new THREE.Group(); sectionGroup.visible = false;
     connDetailGroup = new THREE.Group(); connDetailGroup.visible = false;
+    inletAssembliesGroup = new THREE.Group();
 
     mainGroup.add(loopsGroup);
     mainGroup.add(headersGroup);
+    mainGroup.add(inletAssembliesGroup);
     mainGroup.add(frameGroup);
     mainGroup.add(tanksGroup);
     mainGroup.add(dimsGroup);
@@ -884,14 +989,121 @@ function build12LoopsGeometry() {
     }
 }
 
+function createGateValveAssembly(index, center) {
+    const n = String(index + 1).padStart(2,'0');
+    const g = new THREE.Group();
+    g.name = `GV-${n}_ASSEMBLY`;
+
+    // Vertical flow axis: header nozzle → valve → branch → loop inlet.
+    const body = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.075, 0.075, 0.22, 16),
+        materials.ss304Cad
+    );
+    body.position.copy(center);
+    addEdgesToMesh(body);
+    g.add(body);
+
+    // Compact flange faces make the valve mechanically readable at the pipe ends.
+    const flangeTop = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.052, 0.052, 0.035, 16),
+        materials.ss304Cad
+    );
+    flangeTop.position.set(center.x, center.y + 0.115, center.z);
+    addEdgesToMesh(flangeTop);
+    g.add(flangeTop);
+
+    const flangeBottom = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.052, 0.052, 0.035, 16),
+        materials.ss304Cad
+    );
+    flangeBottom.position.set(center.x, center.y - 0.115, center.z);
+    addEdgesToMesh(flangeBottom);
+    g.add(flangeBottom);
+
+    // Bonnet + stem.
+    const bonnet = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.045, 0.055, 0.10, 14),
+        materials.ss304Cad
+    );
+    bonnet.position.set(center.x, center.y + 0.155, center.z);
+    addEdgesToMesh(bonnet);
+    g.add(bonnet);
+
+    const stem = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.012, 0.012, 0.16, 10),
+        materials.valveStem
+    );
+    stem.position.set(center.x, center.y + 0.245, center.z);
+    addEdgesToMesh(stem);
+    g.add(stem);
+
+    // Handwheel: torus in the horizontal X-Z plane with four engineering spokes.
+    const wheel = new THREE.Mesh(
+        new THREE.TorusGeometry(0.085, 0.012, 8, 20),
+        materials.valveHandwheel
+    );
+    wheel.rotation.x = Math.PI / 2;
+    wheel.position.set(center.x, center.y + 0.335, center.z);
+    addEdgesToMesh(wheel);
+    g.add(wheel);
+
+    for (let a = 0; a < 4; a++) {
+        const ang = a * Math.PI / 2;
+        const spoke = new THREE.Mesh(
+            new THREE.BoxGeometry(0.115, 0.018, 0.018),
+            materials.valveHandwheel
+        );
+        spoke.position.set(
+            center.x + Math.cos(ang) * 0.047,
+            center.y + 0.335,
+            center.z + Math.sin(ang) * 0.047
+        );
+        spoke.rotation.y = -ang;
+        g.add(spoke);
+    }
+
+    const hub = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.022, 0.022, 0.028, 12),
+        materials.valveHandwheel
+    );
+    hub.position.set(center.x, center.y + 0.335, center.z);
+    addEdgesToMesh(hub);
+    g.add(hub);
+
+    g.userData = {
+        component: `GATE VALVE GV-${n}`,
+        tag: `GV-${n}`,
+        service: `LOOP-${n} FLOW ISOLATION / BALANCING`,
+        size: '10 mm branch',
+        flow: '2.318 L/h target',
+        connection: `TOP HEADER NOZZLE ${n} → GV-${n} → 10 mm BRANCH ${n} → LOOP-${n}`,
+        orientation: 'VERTICAL / DOWNWARD FLOW',
+        type: 'MANUAL GATE VALVE — HANDWHEEL OPERATED'
+    };
+    return g;
+}
+
+function createValveTag(text, position) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 180; canvas.height = 52;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.strokeStyle = '#0969da'; ctx.lineWidth = 4; ctx.strokeRect(2,2,canvas.width-4,canvas.height-4);
+    ctx.fillStyle = '#0969da'; ctx.font = 'bold 25px monospace';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 90, 26);
+    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(canvas), transparent:true, depthTest:false}));
+    sprite.scale.set(0.34,0.10,1);
+    sprite.position.copy(position);
+    labelsGroup.add(sprite);
+}
+
 function buildHeadersAndBranches() {
     // ENGINEERING MANIFOLD ARRANGEMENT
     // One common INLET HEADER is mounted ABOVE the reactor rack.
-    // It distributes the culture simultaneously to all 12 loop branches.
-    // A separate COLLECTION HEADER is mounted BELOW the rack and collects
-    // all 12 outlet branches before the broth goes to the collection tank.
-    const TOP_HEADER_Y = 4.05;
-    const BOTTOM_HEADER_Y = -2.10;
+    // Each of its 12 nozzles has a physically connected gate valve followed
+    // immediately by the 10 mm branch leading to the matching loop inlet.
+    const TOP_HEADER_Y = 4.15;
+    const BOTTOM_HEADER_Y = -3.15;
     const HEADER_Z_IN = -0.75;
     const HEADER_Z_OUT = 0.75;
 
@@ -901,109 +1113,111 @@ function buildHeadersAndBranches() {
     const headerLen = maxX - minX;
     const headerCenterX = (minX + maxX) / 2;
 
-    // ---------- MAIN INLET HEADER (TOP) ----------
-    const inletGeo = new THREE.CylinderGeometry(
-        CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true
-    );
+    const inletGeo = new THREE.CylinderGeometry(CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true);
     inletGeo.rotateZ(Math.PI / 2);
     const inletHeader = new THREE.Mesh(inletGeo, materials.ss304Cad);
     inletHeader.position.set(headerCenterX, TOP_HEADER_Y, HEADER_Z_IN);
     addEdgesToMesh(inletHeader);
     inletHeader.userData = {
-        component: 'MAIN INLET HEADER — TOP DISTRIBUTION MANIFOLD',
-        id: '25 mm',
-        totalFlow: '27.81 L/h',
-        branches: 12,
-        flowPerBranch: '2.318 L/h',
-        velocity: '0.01574 m/s',
-        reynolds: '401.3',
-        frictionFactor: '0.1594',
-        pressureDrop: '2.337 Pa',
-        location: 'TOP OF REACTOR RACK',
-        flowPath: 'Feed Buffer Tank → Pump → TOP INLET HEADER → 12 INLET BRANCHES → 12 LOOPS'
+        component:'MAIN INLET HEADER — TOP DISTRIBUTION MANIFOLD', id:'25 mm', totalFlow:'27.81 L/h',
+        branches:12, flowPerBranch:'2.318 L/h', velocity:'0.01574 m/s', reynolds:'401.3',
+        frictionFactor:'0.1594', pressureDrop:'2.337 Pa', location:'TOP OF REACTOR RACK',
+        flowPath:'Feed Buffer Tank → Pump → TOP INLET HEADER → 12 NOZZLES → 12 GATE VALVES → 12 LOOPS'
     };
     headersGroup.add(inletHeader);
 
-    // ---------- COLLECTION HEADER (BOTTOM) ----------
-    const outletGeo = new THREE.CylinderGeometry(
-        CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true
-    );
+    const outletGeo = new THREE.CylinderGeometry(CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true);
     outletGeo.rotateZ(Math.PI / 2);
     const outletHeader = new THREE.Mesh(outletGeo, materials.ss304Cad);
     outletHeader.position.set(headerCenterX, BOTTOM_HEADER_Y, HEADER_Z_OUT);
     addEdgesToMesh(outletHeader);
     outletHeader.userData = {
-        component: 'COLLECTION HEADER — BOTTOM MANIFOLD',
-        id: '25 mm',
-        totalFlow: '27.81 L/h',
-        branches: 12,
-        flowPerBranch: '2.318 L/h',
-        velocity: '0.01574 m/s',
-        reynolds: '401.3',
-        frictionFactor: '0.1594',
-        pressureDrop: '2.337 Pa',
-        location: 'BOTTOM OF REACTOR RACK',
-        flowPath: '12 LOOPS → 12 OUTLET BRANCHES → COLLECTION HEADER → Collection Buffer Tank'
+        component:'COLLECTION HEADER — BOTTOM MANIFOLD', id:'25 mm', totalFlow:'27.81 L/h',
+        branches:12, flowPerBranch:'2.318 L/h', velocity:'0.01574 m/s', reynolds:'401.3',
+        frictionFactor:'0.1594', pressureDrop:'2.337 Pa', location:'BOTTOM OF REACTOR RACK',
+        flowPath:'12 LOOPS → 12 OUTLET BRANCHES → COLLECTION HEADER → Collection Buffer Tank'
     };
     headersGroup.add(outletHeader);
 
-    // ---------- 12 INLET BRANCHES + 12 OUTLET BRANCHES ----------
+    inletAssembliesGroup.clear();
+
     for (let i = 0; i < 12; i++) {
         const loop = loopsData[i];
-
-        const topHeaderPoint = new THREE.Vector3(
-            loop.inletPos.x, TOP_HEADER_Y, HEADER_Z_IN
-        );
-        const inletCurve = new THREE.LineCurve3(topHeaderPoint, loop.inletPos);
-        const inletBranch = new THREE.Mesh(
-            new THREE.TubeGeometry(inletCurve, 10, CAD.branchR_out, 8, false),
-            materials.ss304Cad
-        );
-        addEdgesToMesh(inletBranch);
-        inletBranch.userData = {
-            component: `INLET BRANCH ${String(i+1).padStart(2,'0')}`,
-            id: '10 mm',
-            flow: '2.318 L/h',
-            velocity: '0.008197 m/s',
-            reynolds: '83.60',
-            pressureDrop: '2.623 Pa',
-            connection: `TOP INLET HEADER → LOOP-${String(i+1).padStart(2,'0')}`,
-            direction: 'DOWNWARD TO LOOP'
+        const n = String(i+1).padStart(2,'0');
+        const assembly = new THREE.Group();
+        assembly.name = `INLET_CONNECTION_${n}`;
+        assembly.userData = {
+            component:`INLET CONNECTION ASSEMBLY ${n}`,
+            tag:`GV-${n}`,
+            loop:`LOOP-${n}`,
+            flow:'2.318 L/h',
+            sequence:`TOP HEADER NOZZLE ${n} → GV-${n} → 10 mm BRANCH ${n} → LOOP-${n}`
         };
-        headersGroup.add(inletBranch);
 
-        const bottomHeaderPoint = new THREE.Vector3(
-            loop.outletPos.x, BOTTOM_HEADER_Y, HEADER_Z_OUT
+        // Header nozzle is directly attached to the 25 mm header wall.
+        const nozzleCenter = new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y - 0.10, HEADER_Z_IN);
+        const nozzle = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.018, 0.018, 0.20, 14), materials.ss304Cad
         );
+        nozzle.position.copy(nozzleCenter);
+        addEdgesToMesh(nozzle);
+        nozzle.userData = {component:`HEADER NOZZLE ${n}`, id:'25 mm header / 10 mm branch connection', loop:`LOOP-${n}`};
+        assembly.add(nozzle);
+
+        // Gate valve immediately downstream of the nozzle.
+        const valveCenterY = TOP_HEADER_Y - 0.30;
+        const valve = createGateValveAssembly(i, new THREE.Vector3(loop.inletPos.x, valveCenterY, HEADER_Z_IN));
+        assembly.add(valve);
+
+        // Short 10 mm branch segment from valve outlet to the actual loop inlet.
+        const valveBottomY = valveCenterY - 0.1325;
+        const branchCurve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(loop.inletPos.x, valveBottomY, HEADER_Z_IN),
+            new THREE.Vector3(loop.inletPos.x, (valveBottomY + loop.inletPos.y) / 2, HEADER_Z_IN),
+            loop.inletPos.clone()
+        ]);
+        const branch = new THREE.Mesh(
+            new THREE.TubeGeometry(branchCurve, 18, CAD.branchR_out, 8, false), materials.ss304Cad
+        );
+        branch.userData = {
+            component:`INLET BRANCH ${n}`, id:'10 mm', flow:'2.318 L/h', velocity:'0.008197 m/s',
+            reynolds:'83.60', pressureDrop:'2.623 Pa',
+            connection:`GV-${n} → LOOP-${n}`, direction:'DOWNWARD TO LOOP'
+        };
+        addEdgesToMesh(branch);
+        assembly.add(branch);
+
+        // A small union/coupling at the actual loop nozzle makes the termination visible.
+        const loopNozzle = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.014, 0.014, 0.055, 12), materials.ss304Cad
+        );
+        loopNozzle.position.copy(loop.inletPos).add(new THREE.Vector3(0,0.028,0));
+        addEdgesToMesh(loopNozzle);
+        loopNozzle.userData = {component:`LOOP-${n} INLET NOZZLE`, connection:`10 mm branch → LOOP-${n}`};
+        assembly.add(loopNozzle);
+
+        inletAssembliesGroup.add(assembly);
+
+        // Bottom collection branch remains unchanged in engineering basis.
+        const bottomHeaderPoint = new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, HEADER_Z_OUT);
         const outletCurve = new THREE.LineCurve3(loop.outletPos, bottomHeaderPoint);
         const outletBranch = new THREE.Mesh(
-            new THREE.TubeGeometry(outletCurve, 10, CAD.branchR_out, 8, false),
-            materials.ss304Cad
+            new THREE.TubeGeometry(outletCurve, 10, CAD.branchR_out, 8, false), materials.ss304Cad
         );
         addEdgesToMesh(outletBranch);
         outletBranch.userData = {
-            component: `OUTLET BRANCH ${String(i+1).padStart(2,'0')}`,
-            id: '10 mm',
-            flow: '2.318 L/h',
-            velocity: '0.008197 m/s',
-            reynolds: '83.60',
-            pressureDrop: '2.623 Pa',
-            connection: `LOOP-${String(i+1).padStart(2,'0')} → BOTTOM COLLECTION HEADER`,
-            direction: 'DOWNWARD FROM LOOP'
+            component:`OUTLET BRANCH ${n}`, id:'10 mm', flow:'2.318 L/h', velocity:'0.008197 m/s',
+            reynolds:'83.60', pressureDrop:'2.623 Pa',
+            connection:`LOOP-${n} → BOTTOM COLLECTION HEADER`, direction:'DOWNWARD FROM LOOP'
         };
         headersGroup.add(outletBranch);
     }
 
     headersGroup.userData = {
-        component: 'MANIFOLD SYSTEM',
-        arrangement: 'TOP INLET HEADER + BOTTOM COLLECTION HEADER',
-        loops: 12,
-        totalFlow: '27.81 L/h',
-        flowPerLoop: '2.318 L/h',
-        inletHeaderPressureDrop: '2.337 Pa',
-        outletHeaderPressureDrop: '2.337 Pa',
-        branchPressureDrop: '2.623 Pa per branch',
-        hydraulicSequence: 'Feed Buffer Tank → Pump → Top Header → 12 Loops → Bottom Header → Collection Buffer Tank'
+        component:'MANIFOLD SYSTEM', arrangement:'TOP INLET HEADER + BOTTOM COLLECTION HEADER', loops:12,
+        totalFlow:'27.81 L/h', flowPerLoop:'2.318 L/h', inletHeaderPressureDrop:'2.337 Pa',
+        outletHeaderPressureDrop:'2.337 Pa', branchPressureDrop:'2.623 Pa per branch',
+        hydraulicSequence:'Feed Buffer Tank → Pump → Top Header → 12 Nozzles → 12 Gate Valves → 12 Loops → Bottom Header → Collection Buffer Tank'
     };
 }
 
@@ -1059,133 +1273,107 @@ function buildFrameGeometry() {
     };
 }
 
+function createBufferTankGeometry(tag, center, workingVolume, service) {
+    const g = new THREE.Group();
+    const D = 0.90;              // proportional 500 L-class vessel visual diameter
+    const straightH = 0.72;
+    const shell = new THREE.Mesh(new THREE.CylinderGeometry(D/2, D/2, straightH, 28), materials.tankCad);
+    shell.position.set(center.x, center.y + straightH/2, center.z);
+    addEdgesToMesh(shell); g.add(shell);
+
+    // Shallow top/bottom heads rather than a tall generic cylinder.
+    const topHead = new THREE.Mesh(new THREE.SphereGeometry(D/2, 24, 12, 0, Math.PI*2, 0, Math.PI/2), materials.tankCad);
+    topHead.scale.y = 0.42;
+    topHead.position.set(center.x, center.y + straightH, center.z);
+    addEdgesToMesh(topHead); g.add(topHead);
+    const bottomHead = new THREE.Mesh(new THREE.SphereGeometry(D/2, 24, 12, 0, Math.PI*2, Math.PI/2, Math.PI/2), materials.tankCad);
+    bottomHead.scale.y = 0.42;
+    bottomHead.position.set(center.x, center.y, center.z);
+    addEdgesToMesh(bottomHead); g.add(bottomHead);
+
+    const lid = new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.11,0.025,20), materials.ss304Cad);
+    lid.position.set(center.x, center.y + straightH + 0.19, center.z);
+    addEdgesToMesh(lid); g.add(lid);
+
+    // Bottom outlet and side process nozzle.
+    const bottomNozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.18,14), materials.ss304Cad);
+    bottomNozzle.position.set(center.x, center.y - 0.10, center.z);
+    addEdgesToMesh(bottomNozzle); g.add(bottomNozzle);
+    const sideNozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.18,14), materials.ss304Cad);
+    sideNozzle.rotation.z = Math.PI/2;
+    sideNozzle.position.set(center.x + D/2 + 0.07, center.y + 0.34, center.z);
+    addEdgesToMesh(sideNozzle); g.add(sideNozzle);
+
+    // Simple support feet.
+    [-0.28,0.28].forEach(dx => {
+        const foot = new THREE.Mesh(new THREE.BoxGeometry(0.09,0.20,0.09), materials.frameCad);
+        foot.position.set(center.x + dx, center.y - 0.15, center.z);
+        g.add(foot);
+    });
+
+    g.userData = {
+        component: tag === 'TK-101' ? 'FEED BUFFER TANK' : 'COLLECTION BUFFER TANK',
+        tag, service, capacity:'500 L nominal', workingVolume,
+        geometry:'Vertical cylindrical process vessel, approximately 0.90 m diameter × 0.72 m straight shell with shallow heads',
+        nozzleArrangement:'Top vent/fill, side process nozzle, bottom outlet'
+    };
+    return g;
+}
+
 function buildTanksAndPumpGeometry() {
     // PROCESS EQUIPMENT ARRANGEMENT:
     // FEED BUFFER TANK → PUMP → TOP INLET HEADER → REACTOR →
     // BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK
-    const feedX = -4.45, feedY = 0.65, feedZ = -0.75;
-    const pumpX = -3.65, pumpY = 0.30, pumpZ = -0.75;
-    const collectionX = 4.45, collectionY = 0.65, collectionZ = 0.75;
-    const TOP_HEADER_Y = 4.05;
-    const BOTTOM_HEADER_Y = -2.10;
-    const HEADER_X = -4.0;
+    const feedX = -4.55, feedY = 0.35, feedZ = -1.15;
+    const pumpX = -3.65, pumpY = 0.38, pumpZ = -1.15;
+    const collectionX = 4.55, collectionY = 0.35, collectionZ = 1.15;
+    const TOP_HEADER_Y = 4.15;
+    const BOTTOM_HEADER_Y = -3.15;
+    const HEADER_X = -3.525;
+    const HEADER_OUT_X = 3.525;
+    const HEADER_Z_IN = -0.75;
+    const HEADER_Z_OUT = 0.75;
 
-    // Feed buffer tank — upstream of pump.
-    const feedTank = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.52, 0.52, 1.45, 24),
-        materials.tankCad
-    );
-    feedTank.position.set(feedX, feedY, feedZ);
-    feedTank.userData = {
-        component: 'FEED BUFFER TANK',
-        service: 'PRE-REACTOR CULTURE BUFFER',
-        capacity: '500 L',
-        workingVolume: '425 L',
-        flowTo: 'Progressive Cavity Pump',
-        processFlow: 'FEED BUFFER TANK → PUMP → TOP INLET HEADER',
-        designRole: 'Culture enters reactor from this tank'
-    };
-    addEdgesToMesh(feedTank);
+    const feedTank = createBufferTankGeometry('TK-101', new THREE.Vector3(feedX,feedY,feedZ), '425 L', 'PRE-REACTOR CULTURE BUFFER');
     tanksGroup.add(feedTank);
 
-    // Pump between feed tank and top header riser.
-    const pump = new THREE.Mesh(
-        new THREE.BoxGeometry(0.42, 0.30, 0.34),
-        materials.ss304Cad
-    );
-    pump.position.set(pumpX, pumpY, pumpZ);
-    pump.userData = {
-        component: 'PROGRESSIVE CAVITY PUMP',
-        duty: '27.81 L/h',
-        totalPressureDrop: '9.936 Pa',
-        frictionHead: '0.000993 m',
-        staticHead: '3.400 m',
-        calcHead: '3.401 m',
-        hydraulicPower: '0.4382 W',
-        assumedEfficiency: '60%',
-        flowPath: 'Feed Buffer Tank → Pump → Top Inlet Header'
-    };
+    const pump = new THREE.Mesh(new THREE.BoxGeometry(0.42,0.30,0.34), materials.ss304Cad);
+    pump.position.set(pumpX,pumpY,pumpZ);
     addEdgesToMesh(pump);
+    pump.userData = {component:'PROGRESSIVE CAVITY PUMP', tag:'P-101', duty:'27.81 L/h', totalPressureDrop:'9.936 Pa', frictionHead:'0.000993 m', staticHead:'3.400 m', calcHead:'3.401 m', hydraulicPower:'0.4382 W', assumedEfficiency:'60%', flowPath:'Feed Buffer Tank → Pump → Top Inlet Header'};
     tanksGroup.add(pump);
 
-    // Collection buffer tank — downstream of collection header.
-    const collectionTank = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.52, 0.52, 1.45, 24),
-        materials.tankCad
-    );
-    collectionTank.position.set(collectionX, collectionY, collectionZ);
-    collectionTank.userData = {
-        component: 'COLLECTION BUFFER TANK',
-        service: 'POST-REACTOR CULTURE BUFFER',
-        capacity: '500 L',
-        workingVolume: '75 L',
-        flowFrom: 'Bottom Collection Header',
-        processFlow: 'REACTOR → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK',
-        designRole: 'Receives culture leaving reactor'
-    };
-    addEdgesToMesh(collectionTank);
+    const collectionTank = createBufferTankGeometry('TK-102', new THREE.Vector3(collectionX,collectionY,collectionZ), '75 L', 'POST-REACTOR CULTURE BUFFER');
     tanksGroup.add(collectionTank);
 
-    // Feed line: tank → pump.
-    const feedLine = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-            new THREE.Vector3(feedX + 0.52, feedY, feedZ),
-            new THREE.Vector3(pumpX - 0.22, feedY, feedZ),
-            new THREE.Vector3(pumpX, pumpY, pumpZ)
-        ]), 18, 0.018, 10, false),
-        materials.ss304Cad
-    );
-    feedLine.userData = {
-        component: 'FEED PROCESS LINE',
-        flow: '27.81 L/h',
-        connection: 'Feed Buffer Tank → Pump'
-    };
-    tanksGroup.add(feedLine);
+    // Feed tank side nozzle → pump inlet, with no floating pipe.
+    const feedLine = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+        new THREE.Vector3(feedX + 0.52, feedY + 0.34, feedZ),
+        new THREE.Vector3(pumpX - 0.22, feedY + 0.34, feedZ),
+        new THREE.Vector3(pumpX, pumpY, pumpZ)
+    ]),18,0.018,10,false), materials.ss304Cad);
+    feedLine.userData={component:'FEED PROCESS LINE',flow:'27.81 L/h',connection:'TK-101 SIDE NOZZLE → P-101 INLET'};
+    addEdgesToMesh(feedLine); tanksGroup.add(feedLine);
 
-    // Pump discharge rises to the TOP INLET HEADER.
-    const pumpToHeader = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-            new THREE.Vector3(pumpX, pumpY, pumpZ),
-            new THREE.Vector3(HEADER_X, pumpY, pumpZ),
-            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75)
-        ]), 28, 0.018, 10, false),
-        materials.ss304Cad
-    );
-    pumpToHeader.userData = {
-        component: 'PUMP DISCHARGE RISER',
-        flow: '27.81 L/h',
-        connection: 'Pump → TOP INLET HEADER',
-        direction: 'UPWARD TO DISTRIBUTION HEADER'
-    };
-    tanksGroup.add(pumpToHeader);
+    // Pump discharge rises to the actual TOP HEADER centerline.
+    const pumpToHeader = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+        new THREE.Vector3(pumpX,pumpY,pumpZ),
+        new THREE.Vector3(HEADER_X,pumpY,HEADER_Z_IN),
+        new THREE.Vector3(HEADER_X,TOP_HEADER_Y,HEADER_Z_IN)
+    ]),28,0.018,10,false), materials.ss304Cad);
+    pumpToHeader.userData={component:'PUMP DISCHARGE RISER',flow:'27.81 L/h',connection:'P-101 → TOP INLET HEADER',direction:'UPWARD TO DISTRIBUTION HEADER'};
+    addEdgesToMesh(pumpToHeader); tanksGroup.add(pumpToHeader);
 
-    // Bottom collection header → collection tank.
-    const collectionLine = new THREE.Mesh(
-        new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-            new THREE.Vector3(4.0, BOTTOM_HEADER_Y, 0.75),
-            new THREE.Vector3(collectionX, BOTTOM_HEADER_Y, 0.75),
-            new THREE.Vector3(collectionX, collectionY, collectionZ)
-        ]), 28, 0.018, 10, false),
-        materials.ss304Cad
-    );
-    collectionLine.userData = {
-        component: 'COLLECTION PROCESS LINE',
-        flow: '27.81 L/h',
-        connection: 'BOTTOM COLLECTION HEADER → Collection Buffer Tank',
-        direction: 'REACTOR OUTLET → POST-REACTOR BUFFER'
-    };
-    tanksGroup.add(collectionLine);
+    // Collection header → collection tank side nozzle.
+    const collectionLine = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+        new THREE.Vector3(HEADER_OUT_X,BOTTOM_HEADER_Y,HEADER_Z_OUT),
+        new THREE.Vector3(collectionX,BOTTOM_HEADER_Y,HEADER_Z_OUT),
+        new THREE.Vector3(collectionX,collectionY+0.34,collectionZ)
+    ]),28,0.018,10,false), materials.ss304Cad);
+    collectionLine.userData={component:'COLLECTION PROCESS LINE',flow:'27.81 L/h',connection:'BOTTOM COLLECTION HEADER → TK-102 SIDE NOZZLE',direction:'REACTOR OUTLET → POST-REACTOR BUFFER'};
+    addEdgesToMesh(collectionLine); tanksGroup.add(collectionLine);
 
-    tanksGroup.userData = {
-        component: 'PROCESS EQUIPMENT ARRANGEMENT',
-        upstream: 'FEED BUFFER TANK',
-        pump: 'PROGRESSIVE CAVITY PUMP',
-        distribution: 'TOP INLET HEADER',
-        reactor: '12 PARALLEL LOOPS',
-        collection: 'BOTTOM COLLECTION HEADER',
-        downstream: 'COLLECTION BUFFER TANK',
-        completeFlowPath: 'FEED BUFFER TANK → PUMP → TOP HEADER → 12 PARALLEL LOOPS → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK'
-    };
+    tanksGroup.userData={component:'PROCESS EQUIPMENT ARRANGEMENT',upstream:'FEED BUFFER TANK',pump:'PROGRESSIVE CAVITY PUMP',distribution:'TOP INLET HEADER',reactor:'12 PARALLEL LOOPS',collection:'BOTTOM COLLECTION HEADER',downstream:'COLLECTION BUFFER TANK',completeFlowPath:'FEED BUFFER TANK → PUMP → TOP HEADER → 12 NOZZLES → 12 GATE VALVES → 12 PARALLEL LOOPS → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK'};
 }
 
 function createDimensionAnnotation(p1, p2, text, offsetVector) {
@@ -1278,12 +1466,19 @@ function buildDimensionsAndLabels() {
 // Add process-flow labels for the two buffer tanks and the distribution header.
 function addProcessEquipmentLabels() {
     const items = [
-        { text:'FEED BUFFER TANK • CULTURE IN', pos:new THREE.Vector3(-4.45,1.55,-0.75) },
-        { text:'PUMP • 27.81 L/h • 3.401 m HEAD', pos:new THREE.Vector3(-3.65,0.58,-0.75) },
-        { text:'TOP MAIN INLET HEADER • 25 mm • 12 BRANCHES', pos:new THREE.Vector3(0,4.38,-0.75) },
-        { text:'BOTTOM COLLECTION HEADER • 25 mm', pos:new THREE.Vector3(0,-2.42,0.75) },
-        { text:'COLLECTION BUFFER TANK • CULTURE OUT', pos:new THREE.Vector3(4.45,1.55,0.75) }
+        { text:'FEED BUFFER TANK • CULTURE IN', pos:new THREE.Vector3(-4.55,1.72,-1.15) },
+        { text:'PUMP • 27.81 L/h • 3.401 m HEAD', pos:new THREE.Vector3(-3.65,0.58,-1.15) },
+        { text:'TOP MAIN INLET HEADER • 25 mm • 12 BRANCHES + GATE VALVES', pos:new THREE.Vector3(0,4.48,-0.75) },
+        { text:'BOTTOM COLLECTION HEADER • 25 mm', pos:new THREE.Vector3(0,-3.48,0.75) },
+        { text:'COLLECTION BUFFER TANK • CULTURE OUT', pos:new THREE.Vector3(4.55,1.72,1.15) }
     ];
+    // CAD valve tags are created after buildDimensionsAndLabels() clears labelsGroup.
+    for (let i = 0; i < 12; i++) {
+        const loop = loopsData[i];
+        const valveY = 4.15 - 0.30;
+        createValveTag(`GV-${String(i+1).padStart(2,'0')}`, new THREE.Vector3(loop.inletPos.x + 0.16, valveY + 0.10, -0.75));
+    }
+
     items.forEach(item => {
         const canvas=document.createElement('canvas'); canvas.width=520; canvas.height=48;
         const ctx=canvas.getContext('2d');
@@ -1355,10 +1550,10 @@ function buildSectionCutawayGeometry() {
 function constructFullNetworkPaths() {
     networkPaths = [];
 
-    const TOP_HEADER_Y = 4.05;
-    const BOTTOM_HEADER_Y = -2.10;
-    const HEADER_X = -4.0;
-    const HEADER_OUT_X = 4.0;
+    const TOP_HEADER_Y = 4.15;
+    const BOTTOM_HEADER_Y = -3.15;
+    const HEADER_X = -3.525;
+    const HEADER_OUT_X = 3.525;
 
     for (let i = 0; i < 12; i++) {
         const path = new THREE.CurvePath();
@@ -1366,11 +1561,11 @@ function constructFullNetworkPaths() {
 
         // FEED BUFFER TANK → PUMP → TOP HEADER
         path.add(new THREE.LineCurve3(
-            new THREE.Vector3(-3.93, 0.65, -0.75),
-            new THREE.Vector3(-3.65, 0.30, -0.75)
+            new THREE.Vector3(-4.03, 0.82, -1.15),
+            new THREE.Vector3(-3.65, 0.28, -1.15)
         ));
         path.add(new THREE.LineCurve3(
-            new THREE.Vector3(-3.65, 0.30, -0.75),
+            new THREE.Vector3(-3.65, 0.28, -1.15),
             new THREE.Vector3(HEADER_X, 0.30, -0.75)
         ));
         path.add(new THREE.LineCurve3(
@@ -1383,8 +1578,14 @@ function constructFullNetworkPaths() {
             new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75),
             new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75)
         ));
+        const valveY = TOP_HEADER_Y - 0.30;
+        const valveBottomY = valveY - 0.1325;
         path.add(new THREE.LineCurve3(
             new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75),
+            new THREE.Vector3(loop.inletPos.x, valveBottomY, -0.75)
+        ));
+        path.add(new THREE.LineCurve3(
+            new THREE.Vector3(loop.inletPos.x, valveBottomY, -0.75),
             loop.inletPos
         ));
 
@@ -1402,7 +1603,7 @@ function constructFullNetworkPaths() {
         ));
         path.add(new THREE.LineCurve3(
             new THREE.Vector3(HEADER_OUT_X, BOTTOM_HEADER_Y, 0.75),
-            new THREE.Vector3(4.45, 0.65, 0.75)
+            new THREE.Vector3(4.55, 0.82, 1.15)
         ));
 
         networkPaths.push(path);
@@ -1455,6 +1656,29 @@ function updateFlowParticles() {
 }
 
 // 3D Viewport Controls & Inspection
+function highlightInletManifold() {
+    const old = [];
+    inletAssembliesGroup.traverse(obj => {
+        if (obj.isMesh && obj.material && obj.material.color) {
+            old.push({obj, color:obj.material.color.getHex()});
+            obj.material.color.setHex(0x0969da);
+        }
+    });
+    setTimeout(() => old.forEach(x => x.obj.material.color.setHex(x.color)), 1800);
+    const rows = [];
+    for (let i=1;i<=12;i++) rows.push(`GV-${String(i).padStart(2,'0')} → LOOP-${String(i).padStart(2,'0')} → 2.318 L/h`);
+    displayInspectorData({
+        component:'TOP INLET MANIFOLD — 12 LOOP CONNECTIONS',
+        header:'25 mm ID',
+        nozzles:'12 × dedicated header nozzles',
+        branches:'12 × 10 mm ID',
+        flowPerLoop:'2.318 L/h',
+        valves:'GV-01 to GV-12',
+        connections:rows.join(' | '),
+        sequence:'Feed Buffer → Pump → Top Header → Nozzle → Gate Valve → Branch → Loop'
+    });
+}
+
 function fitModelZoomExtents() {
     setCameraPreset('FRONT');
 }
