@@ -130,6 +130,20 @@
         .legend span { display:flex; align-items:center; gap:5px; }
         .legend i { width:11px; height:11px; border-radius:2px; display:inline-block; border:1px solid #999; }
 
+
+        .design-studio { border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; background: #f6f8fa; }
+        .design-studio .studio-title { font-weight: bold; font-size: 11px; text-transform: uppercase; color: var(--accent-blue); margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; font-family: var(--font-mono); }
+        .param-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+        .param-field label { display:block; font:9px var(--font-mono); color:var(--text-dim); margin-bottom:2px; }
+        .param-field input { width:100%; padding:5px 6px; border:1px solid var(--border-color); border-radius:4px; font:10px var(--font-mono); background:#fff; color:var(--text-main); }
+        .studio-actions { display:grid; grid-template-columns:1fr 1fr; gap:5px; margin-top:7px; }
+        .studio-actions .btn { padding:6px 4px; }
+        .studio-status { margin-top:7px; padding:7px; border-radius:4px; background:#fff; border:1px solid var(--border-color); font:9px/1.4 var(--font-mono); color:var(--text-dim); }
+        .studio-status.ok { border-color:#8bc99a; color:var(--accent-green); background:#f3fbf5; }
+        .studio-status.warn { border-color:#f0b37e; color:var(--accent-orange); background:#fff8f2; }
+        .cad-grid-overlay { position:absolute; inset:0; pointer-events:none; opacity:0; transition:opacity .2s; background-image:linear-gradient(rgba(9,105,218,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(9,105,218,.07) 1px,transparent 1px); background-size:25px 25px; }
+        .cad-grid-overlay.visible { opacity:1; }
+
         ::-webkit-scrollbar-track { background: var(--cad-bg); }
         ::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 3px; }
     </style>
@@ -157,7 +171,7 @@
         <div class="doc-container">
             <div class="doc-header">
                 <div class="doc-title">10,000 L CONTINUOUS TUBULAR PHOTOBIOREACTOR (PFR)</div>
-                <div class="doc-subtitle">PRELIMINARY REACTOR DESIGN CALCULATION REPORT — REVISION: PLASTIC (PP) U-BEND</div>
+                <div class="doc-subtitle">PRELIMINARY REACTOR DESIGN CALCULATION REPORT — HYDRAULIC + BIOLOGICAL + GAS-TRANSFER BASIS — REVISION: PLASTIC (PP) U-BEND</div>
             </div>
 
             <!-- Section 1: Design Basis -->
@@ -327,6 +341,160 @@
                 </div>
             </div>
 
+
+            <!-- Section 20B: BIOLOGICAL / GAS-TRANSFER DESIGN CALCULATIONS -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    20B. BIOLOGICAL & GAS-TRANSFER DESIGN CALCULATIONS
+                    <button class="formula-btn" onclick="toggleFormula('f-bio')">Show Formulas</button>
+                </div>
+
+                <div class="calc-grid">
+                    <div class="calc-item">
+                        <div class="calc-label">Operating Biomass Concentration (X)</div>
+                        <div class="calc-value">8 g/L Dry Cell Weight (DCW)</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Maximum Biomass Concentration (X_max)</div>
+                        <div class="calc-value">23 g/L Dry Cell Weight (DCW)</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Total Biomass Inventory (M_X)</div>
+                        <div class="calc-value highlight">80.09 kg Dry Cell Weight (DCW)</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Maximum Biomass Inventory (M_X,max)</div>
+                        <div class="calc-value highlight">230.27 kg Dry Cell Weight (DCW)</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Biomass Productivity (P_X)</div>
+                        <div class="calc-value">0.25 g/L/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Biomass Production Rate (Ṁ_X)</div>
+                        <div class="calc-value highlight">2.503 kg/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Daily Biomass Production</div>
+                        <div class="calc-value highlight">60.07 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Specific Growth Rate (μ)</div>
+                        <div class="calc-value">0.045 h⁻¹</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Growth-Based HRT</div>
+                        <div class="calc-value">0.926 day (22.22 h)</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Biomass Doubling Time (t_d)</div>
+                        <div class="calc-value">15.40 h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Uptake Rate (r_CO₂)</div>
+                        <div class="calc-value">0.25 g/L/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Utilized</div>
+                        <div class="calc-value highlight">60.07 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Capture Efficiency (η_CO₂)</div>
+                        <div class="calc-value">85%</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Feed Rate</div>
+                        <div class="calc-value highlight">70.67 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Unutilized CO₂</div>
+                        <div class="calc-value">10.60 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Biomass Yield on CO₂ (Y_X/CO₂)</div>
+                        <div class="calc-value">0.35 g/g</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Demand — Yield Check</div>
+                        <div class="calc-value">171.63 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Feed — Yield Check @ 85%</div>
+                        <div class="calc-value">201.92 kg/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Oxygen Uptake Rate (OUR)</div>
+                        <div class="calc-value highlight">0.961 kg O₂/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Daily Oxygen Uptake</div>
+                        <div class="calc-value highlight">23.07 kg O₂/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Evolution Rate (CER)</div>
+                        <div class="calc-value">10.57–52.86 kg CO₂/day</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Volumetric Mass Transfer Coefficient (kLa)</div>
+                        <div class="calc-value">40 h⁻¹</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Minimum O₂ Saturation Concentration (C*)</div>
+                        <div class="calc-value">≥ 0.1071 mmol/L</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Gas Holdup Fraction (ε_g)</div>
+                        <div class="calc-value">5–15%</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Gas Holdup Volume (V_g)</div>
+                        <div class="calc-value">500.6–1501.8 L</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">PoC Gas Flow Rate (Q_g)</div>
+                        <div class="calc-value">1–4 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Superficial Gas Velocity (v_g)</div>
+                        <div class="calc-value">0.005–0.03 m/s</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">PoC Sparger/Gas Area (A_g)</div>
+                        <div class="calc-value">5.56×10⁻⁴–1.333×10⁻² m²</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Inoculum Volume (10% v/v)</div>
+                        <div class="calc-value highlight">1001.17 L</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Total Vessel Volume @ 85% Working</div>
+                        <div class="calc-value">11,778.5 L (11.78 m³)</div>
+                    </div>
+                </div>
+
+                <div id="f-bio" class="formula-box">
+                    <div class="formula-line"><b>Definitions:</b> V = Working Volume; X = Biomass Concentration; DCW = Dry Cell Weight; M_X = Total Biomass Inventory; X_max = Maximum Biomass Concentration; P_X = Biomass Productivity; μ = Specific Growth Rate; HRT = Hydraulic Residence Time; t_d = Biomass Doubling Time; r_CO₂ = CO₂ Uptake Rate; η_CO₂ = CO₂ Capture Efficiency; Y_X/CO₂ = Biomass Yield on CO₂; OUR = Oxygen Uptake Rate; CER = CO₂ Evolution Rate; kLa = Volumetric Mass Transfer Coefficient; OTR = Oxygen Transfer Rate; C* = Oxygen Saturation Concentration; ε_g = Gas Holdup Fraction; V_g = Gas Holdup Volume; Q_g = Gas Flow Rate; v_g = Superficial Gas Velocity; A_g = Gas/Sparger Area.</div>
+                    <div class="formula-line"><b>Biomass inventory:</b> M_X = V × X = 10,011.7 × 8 = 80,093.6 g = 80.09 kg Dry Cell Weight (DCW).</div>
+                    <div class="formula-line"><b>Maximum biomass inventory:</b> M_X,max = V × X_max = 10,011.7 × 23 = 230,269.1 g = 230.27 kg Dry Cell Weight (DCW).</div>
+                    <div class="formula-line"><b>Biomass production:</b> Ṁ_X = P_X × V = 0.25 × 10,011.7 = 2,502.925 g/h = 2.503 kg/h = 60.07 kg/day.</div>
+                    <div class="formula-line"><b>Growth-based HRT:</b> HRT = 1/μ = 1/0.045 = 22.22 h = 0.926 day.</div>
+                    <div class="formula-line"><b>Doubling time:</b> t_d = ln(2)/μ = 0.693/0.045 = 15.40 h.</div>
+                    <div class="formula-line"><b>CO₂ utilization:</b> ṁ_CO₂ = r_CO₂ × V = 0.25 × 10,011.7 = 2.503 kg/h = 60.07 kg/day.</div>
+                    <div class="formula-line"><b>CO₂ feed:</b> ṁ_CO₂,in = ṁ_CO₂,utilized / η_CO₂ = 60.07/0.85 = 70.67 kg/day.</div>
+                    <div class="formula-line"><b>Unutilized CO₂:</b> 70.67 − 60.07 = 10.60 kg/day.</div>
+                    <div class="formula-line"><b>Carbon-balance check:</b> ṁ_CO₂ = ṁ_X / Y_X/CO₂ = 60.07/0.35 = 171.63 kg/day; at 85% capture = 201.92 kg/day. This is a source-parameter consistency check, not the primary CO₂ design basis.</div>
+                    <div class="formula-line"><b>OUR conversion:</b> 3 mmol/L/h × 32 mg/mmol × 10,011.7 L = 0.961 kg O₂/h = 23.07 kg O₂/day.</div>
+                    <div class="formula-line"><b>CER:</b> 1–5 mmol/L/h × 44 mg/mmol × 10,011.7 L × 24 h/day = 10.57–52.86 kg CO₂/day.</div>
+                    <div class="formula-line"><b>OTR:</b> OTR = kLa(C* − C_L); at 30% dissolved oxygen saturation, C_L = 0.30C*, so OTR = 40(0.70C*) = 28C*. For OTR ≥ OUR, C* ≥ 3/28 = 0.1071 mmol/L. Actual OTR is not numerically finalized without an external/verified C* value.</div>
+                    <div class="formula-line"><b>Gas holdup:</b> V_g = ε_gV = 0.05×10,011.7 to 0.15×10,011.7 = 500.6–1501.8 L.</div>
+                    <div class="formula-line"><b>PoC sparger area:</b> A_g = Q_g/v_g. Using 1 L/min at 0.03 m/s gives 5.56×10⁻⁴ m²; using 4 L/min at 0.005 m/s gives 1.333×10⁻² m².</div>
+                    <div class="formula-line"><b>Inoculum:</b> V_inoculum = 0.10V = 1001.17 L.</div>
+                    <div class="formula-line"><b>Vessel volume check:</b> V_vessel = V_working/0.85 = 10,011.7/0.85 = 11,778.5 L = 11.78 m³.</div>
+                    <div class="formula-line"><b>Design note:</b> Existing hydraulic HRT remains 15 days; the 0.926-day value is the growth-based HRT from μ and should not replace the existing hydraulic basis without a separate design decision.</div>
+                    <div class="formula-line"><b>Design note:</b> The 1–4 L/min gas flow is a PoC basis; it should not be treated as the final 10,000-L sparger flow without further gas-transfer design.</div>
+                </div>
+            </div>
+
             <!-- Section 21: Final Engineering Summary Table -->
             <div class="calc-card">
                 <div class="calc-card-title">21. FINAL ENGINEERING SUMMARY TABLE</div>
@@ -356,6 +524,24 @@
                         <tr><td>Hydraulic Residence Time (HRT)</td><td>360 (15.0 Days)</td><td>h</td></tr>
                         <tr><td>Total Wetted Process Mass</td><td>12,904.62</td><td>kg</td></tr>
                         <tr><td>Total Wetted System Weight</td><td>126.59</td><td>kN</td></tr>
+                        <tr><td>Operating Biomass Concentration</td><td>8</td><td>g/L Dry Cell Weight (DCW)</td></tr>
+                        <tr><td>Total Biomass Inventory</td><td>80.09</td><td>kg Dry Cell Weight (DCW)</td></tr>
+                        <tr><td>Maximum Biomass Inventory</td><td>230.27</td><td>kg Dry Cell Weight (DCW)</td></tr>
+                        <tr><td>Biomass Production Rate</td><td>2.503</td><td>kg/h</td></tr>
+                        <tr><td>Daily Biomass Production</td><td>60.07</td><td>kg/day</td></tr>
+                        <tr><td>Growth-Based HRT</td><td>0.926</td><td>day</td></tr>
+                        <tr><td>Biomass Doubling Time</td><td>15.40</td><td>h</td></tr>
+                        <tr><td>CO₂ Utilization</td><td>60.07</td><td>kg/day</td></tr>
+                        <tr><td>CO₂ Feed @ 85% Capture</td><td>70.67</td><td>kg/day</td></tr>
+                        <tr><td>Oxygen Uptake Rate (OUR)</td><td>0.961</td><td>kg O₂/h</td></tr>
+                        <tr><td>Daily Oxygen Uptake</td><td>23.07</td><td>kg O₂/day</td></tr>
+                        <tr><td>CO₂ Evolution Rate (CER)</td><td>10.57–52.86</td><td>kg CO₂/day</td></tr>
+                        <tr><td>Volumetric Mass Transfer Coefficient (kLa)</td><td>40</td><td>h⁻¹</td></tr>
+                        <tr><td>Minimum O₂ Saturation Concentration (C*)</td><td>≥ 0.1071</td><td>mmol/L</td></tr>
+                        <tr><td>Gas Holdup Volume</td><td>500.6–1501.8</td><td>L</td></tr>
+                        <tr><td>PoC Sparger/Gas Area</td><td>5.56×10⁻⁴–1.333×10⁻²</td><td>m²</td></tr>
+                        <tr><td>Inoculum Volume</td><td>1001.17</td><td>L</td></tr>
+                        <tr><td>Total Vessel Volume @ 85% Working</td><td>11,778.5</td><td>L</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -419,6 +605,8 @@
                     <div class="process-note">
                         <strong>Flow distribution:</strong> Each loop is targeted at 2.318 L/h with a ±5% balancing band.<br><br>
                         <strong>Reactor flow regime:</strong> Tube Reynolds number = 8.04, preliminary laminar basis.<br><br>
+                        <strong>Biological basis:</strong> 8 g/L Dry Cell Weight (DCW), 60.07 kg/day biomass production, 70.67 kg/day preliminary CO₂ feed, and 0.961 kg O₂/h Oxygen Uptake Rate (OUR).<br><br>
+                        <strong>Gas-transfer basis:</strong> Volumetric Mass Transfer Coefficient (kLa) = 40 h⁻¹, 30% dissolved oxygen saturation, gas holdup = 5–15%.<br><br>
                         <strong>Hydraulic sequence:</strong> Feed buffer → pump → top header → 12 loops → bottom header → collection buffer.<br><br>
                         <strong>3D traceability:</strong> CAD tab shows the top header, all 12 inlet branches and individual gate-valve/connection points.
                     </div>
@@ -434,6 +622,34 @@
     <div id="cad-section" class="page-section">
         <!-- Left Side Controls -->
         <div class="side-panel">
+            <div class="design-studio">
+                <div class="studio-title">PARAMETRIC DESIGN STUDIO</div>
+                <div class="param-grid">
+                    <div class="param-field"><label>Tube OD (mm)</label><input id="p-tubeOD" type="number" step="0.1" value="110"></div>
+                    <div class="param-field"><label>Tube ID (mm)</label><input id="p-tubeID" type="number" step="0.1" value="104"></div>
+                    <div class="param-field"><label>Tube Length (mm)</label><input id="p-tubeLength" type="number" step="10" value="1500"></div>
+                    <div class="param-field"><label>U-Bend CLR (mm)</label><input id="p-uBendCLR" type="number" step="1" value="165"></div>
+                    <div class="param-field"><label>Frame Width (m)</label><input id="p-frameW" type="number" step="0.1" value="5.8"></div>
+                    <div class="param-field"><label>Frame Height (m)</label><input id="p-frameH" type="number" step="0.1" value="3.4"></div>
+                    <div class="param-field"><label>Frame Depth (m)</label><input id="p-frameD" type="number" step="0.1" value="1.8"></div>
+                    <div class="param-field"><label>Module Pitch X (m)</label><input id="p-pitchX" type="number" step="0.05" value="2.05"></div>
+                    <div class="param-field"><label>Module Pitch Y (m)</label><input id="p-pitchY" type="number" step="0.05" value="2.15"></div>
+                    <div class="param-field"><label>Header ID (mm)</label><input id="p-headerID" type="number" step="1" value="25"></div>
+                    <div class="param-field"><label>Branch ID (mm)</label><input id="p-branchID" type="number" step="1" value="10"></div>
+                </div>
+                <div class="studio-actions">
+                    <button class="btn primary" onclick="applyParametricDesign()">APPLY DESIGN</button>
+                    <button class="btn" onclick="resetParametricDesign()">RESET</button>
+                    <button class="btn" onclick="saveParametricDesign()">SAVE DESIGN</button>
+                    <button class="btn" onclick="exportParametricDesign()">EXPORT JSON</button>
+                </div>
+                <div class="studio-actions">
+                    <button class="btn" onclick="setDesignPreset('COMPACT')">COMPACT</button>
+                    <button class="btn" onclick="setDesignPreset('SERVICE')">SERVICE</button>
+                </div>
+                <div id="design-status" class="studio-status">Edit dimensions above, then click APPLY DESIGN. The 3D model regenerates automatically.</div>
+            </div>
+
             <div class="panel-group">
                 <div class="panel-title">Orthographic CAD Views</div>
                 <div class="control-grid">
@@ -477,10 +693,13 @@
 
         <!-- Center Viewport -->
         <div id="viewport-container">
+            <div id="cad-grid-overlay" class="cad-grid-overlay"></div>
             <div style="position:absolute;top:12px;right:12px;z-index:20;background:#fff;border:1px solid #d0d7de;border-radius:4px;padding:6px 10px;font:700 10px SFMono-Regular,Consolas,monospace;color:#57606a;">MRPL-STYLE RACK ARRANGEMENT • PRELIMINARY / NOT FOR FABRICATION</div>
         <div class="viewport-overlay">
                 <button class="btn" onclick="fitModelZoomExtents()">ZOOM EXTENTS</button>
                 <button class="btn" onclick="highlightInletManifold()">SHOW 12 INLET CONNECTIONS</button>
+                <button class="btn" onclick="toggleCadGrid()">GRID</button>
+                <button class="btn" onclick="toggleDimensionVisibility()">DIMENSIONS</button>
             </div>
 
             <div class="flow-overlay">
@@ -568,6 +787,16 @@ const CAD = {
     branchR_out: 0.007
 };
 
+// Parametric design settings — editable from the CAD UI without touching code.
+const DEFAULT_DESIGN = {
+    tubeOD: 0.110, tubeID: 0.104, tubeLength: 1.500, uBendCLR: 0.165,
+    frameW: 5.8, frameH: 3.4, frameD: 1.8, pitchX: 2.05, pitchY: 2.15,
+    headerID: 0.025, branchID: 0.010
+};
+const DESIGN = {...DEFAULT_DESIGN};
+let dimensionsVisible = true;
+let cadGridVisible = false;
+
 // Application State
 let activeMainTab = 'CALC';
 let scene, perspectiveCamera, orthoCamera, activeCamera, renderer, controls;
@@ -630,6 +859,9 @@ window.addEventListener('DOMContentLoaded', () => {
     buildAll3DCADAssembly();
     setupFlowParticles();
     setupEventListeners();
+    writeDesignInputs(DESIGN);
+    updateDesignStatus();
+    if (localStorage.getItem('PBR10K_DESIGN')) loadParametricDesign();
 
     // Start the Three.js render loop
     animate();
@@ -861,8 +1093,8 @@ function build12LoopsGeometry() {
      */
 
     const COLS = 4, ROWS = 3;
-    const modulePitchX = 2.05;
-    const modulePitchY = 2.15;
+    const modulePitchX = DESIGN.pitchX;
+    const modulePitchY = DESIGN.pitchY;
     const startModuleX = -((COLS - 1) * modulePitchX) / 2;
     const startModuleY = 2.55;
 
@@ -917,7 +1149,7 @@ function build12LoopsGeometry() {
                     component:'GLASS TUBE',
                     loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
                     tubeNo:sequence + 1,
-                    od:'110 mm', id:'104 mm', length:'1500 mm',
+                    od:`${Math.round(DESIGN.tubeOD*1000)} mm`, id:`${Math.round(DESIGN.tubeID*1000)} mm`, length:`${Math.round(DESIGN.tubeLength*1000)} mm`,
                     material:'Borosilicate Glass 3.3', flow:'2.318 L/h',
                     pressureDrop:'0.01648 Pa (Path Total)',
                     matrix:`${nRows} ROWS × ${nCols} COLUMNS`,
@@ -1102,8 +1334,8 @@ function buildHeadersAndBranches() {
     // One common INLET HEADER is mounted ABOVE the reactor rack.
     // Each of its 12 nozzles has a physically connected gate valve followed
     // immediately by the 10 mm branch leading to the matching loop inlet.
-    const TOP_HEADER_Y = 4.15;
-    const BOTTOM_HEADER_Y = -3.15;
+    const TOP_HEADER_Y = DESIGN.frameH + 0.75;
+    const BOTTOM_HEADER_Y = -0.25 - DESIGN.frameH;
     const HEADER_Z_IN = -0.75;
     const HEADER_Z_OUT = 0.75;
 
@@ -1113,7 +1345,7 @@ function buildHeadersAndBranches() {
     const headerLen = maxX - minX;
     const headerCenterX = (minX + maxX) / 2;
 
-    const inletGeo = new THREE.CylinderGeometry(CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true);
+    const inletGeo = new THREE.CylinderGeometry(DESIGN.headerID/2 + 0.0025, DESIGN.headerID/2 + 0.0025, headerLen, 16, 1, true);
     inletGeo.rotateZ(Math.PI / 2);
     const inletHeader = new THREE.Mesh(inletGeo, materials.ss304Cad);
     inletHeader.position.set(headerCenterX, TOP_HEADER_Y, HEADER_Z_IN);
@@ -1126,7 +1358,7 @@ function buildHeadersAndBranches() {
     };
     headersGroup.add(inletHeader);
 
-    const outletGeo = new THREE.CylinderGeometry(CAD.headerR_out, CAD.headerR_out, headerLen, 16, 1, true);
+    const outletGeo = new THREE.CylinderGeometry(DESIGN.headerID/2 + 0.0025, DESIGN.headerID/2 + 0.0025, headerLen, 16, 1, true);
     outletGeo.rotateZ(Math.PI / 2);
     const outletHeader = new THREE.Mesh(outletGeo, materials.ss304Cad);
     outletHeader.position.set(headerCenterX, BOTTOM_HEADER_Y, HEADER_Z_OUT);
@@ -1157,7 +1389,7 @@ function buildHeadersAndBranches() {
         // Header nozzle is directly attached to the 25 mm header wall.
         const nozzleCenter = new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y - 0.10, HEADER_Z_IN);
         const nozzle = new THREE.Mesh(
-            new THREE.CylinderGeometry(0.018, 0.018, 0.20, 14), materials.ss304Cad
+            new THREE.CylinderGeometry(DESIGN.branchID/2, DESIGN.branchID/2, 0.20, 14), materials.ss304Cad
         );
         nozzle.position.copy(nozzleCenter);
         addEdgesToMesh(nozzle);
@@ -1189,7 +1421,7 @@ function buildHeadersAndBranches() {
 
         // A small union/coupling at the actual loop nozzle makes the termination visible.
         const loopNozzle = new THREE.Mesh(
-            new THREE.CylinderGeometry(0.014, 0.014, 0.055, 12), materials.ss304Cad
+            new THREE.CylinderGeometry(DESIGN.branchID/2, DESIGN.branchID/2, 0.055, 12), materials.ss304Cad
         );
         loopNozzle.position.copy(loop.inletPos).add(new THREE.Vector3(0,0.028,0));
         addEdgesToMesh(loopNozzle);
@@ -1223,7 +1455,7 @@ function buildHeadersAndBranches() {
 
 function buildFrameGeometry() {
     // Stated reactor envelope: 5.8 m W × 3.4 m H × 1.8 m D.
-    const W = 5.8, H = 3.4, D = 1.8;
+    const W = DESIGN.frameW, H = DESIGN.frameH, D = DESIGN.frameD;
     const beam = 0.06;
 
     const verticalGeo = new THREE.BoxGeometry(beam, H, beam);
@@ -1421,23 +1653,23 @@ function buildDimensionsAndLabels() {
 
     // Reactor envelope dimensions.
     dimsGroup.add(createDimensionAnnotation(
-        new THREE.Vector3(-2.9, 0, -0.9),
-        new THREE.Vector3(2.9, 0, -0.9),
-        "REACTOR WIDTH = 5800 mm",
+        new THREE.Vector3(-DESIGN.frameW/2, 0, -DESIGN.frameD/2),
+        new THREE.Vector3(DESIGN.frameW/2, 0, -DESIGN.frameD/2),
+        "REACTOR WIDTH = " + Math.round(DESIGN.frameW*1000) + " mm",
         new THREE.Vector3(0, -0.15, 0)
     ));
 
     dimsGroup.add(createDimensionAnnotation(
-        new THREE.Vector3(-2.9, 0, 0),
-        new THREE.Vector3(-2.9, 3.4, 0),
-        "REACTOR HEIGHT = 3400 mm",
+        new THREE.Vector3(-DESIGN.frameW/2, 0, 0),
+        new THREE.Vector3(-DESIGN.frameW/2, DESIGN.frameH, 0),
+        "REACTOR HEIGHT = " + Math.round(DESIGN.frameH*1000) + " mm",
         new THREE.Vector3(-0.2, 0, 0)
     ));
 
     dimsGroup.add(createDimensionAnnotation(
-        new THREE.Vector3(0, 0, -0.9),
-        new THREE.Vector3(0, 0, 0.9),
-        "REACTOR DEPTH = 1800 mm",
+        new THREE.Vector3(0, 0, -DESIGN.frameD/2),
+        new THREE.Vector3(0, 0, DESIGN.frameD/2),
+        "REACTOR DEPTH = " + Math.round(DESIGN.frameD*1000) + " mm",
         new THREE.Vector3(0, -0.15, 0)
     ));
 
@@ -1468,8 +1700,8 @@ function addProcessEquipmentLabels() {
     const items = [
         { text:'FEED BUFFER TANK • CULTURE IN', pos:new THREE.Vector3(-4.55,1.72,-1.15) },
         { text:'PUMP • 27.81 L/h • 3.401 m HEAD', pos:new THREE.Vector3(-3.65,0.58,-1.15) },
-        { text:'TOP MAIN INLET HEADER • 25 mm • 12 BRANCHES + GATE VALVES', pos:new THREE.Vector3(0,4.48,-0.75) },
-        { text:'BOTTOM COLLECTION HEADER • 25 mm', pos:new THREE.Vector3(0,-3.48,0.75) },
+        { text:`TOP MAIN INLET HEADER • ${Math.round(DESIGN.headerID*1000)} mm • 12 BRANCHES + GATE VALVES`, pos:new THREE.Vector3(0,4.48,-0.75) },
+        { text:`BOTTOM COLLECTION HEADER • ${Math.round(DESIGN.headerID*1000)} mm`, pos:new THREE.Vector3(0,-3.48,0.75) },
         { text:'COLLECTION BUFFER TANK • CULTURE OUT', pos:new THREE.Vector3(4.55,1.72,1.15) }
     ];
     // CAD valve tags are created after buildDimensionsAndLabels() clears labelsGroup.
@@ -1781,6 +2013,29 @@ function toggleFlow() {
     particlesGroup.visible = isFlowRunning;
     document.getElementById('btn-flow-toggle').innerText = isFlowRunning ? "HIDE FLOW" : "SHOW FLOW";
 }
+
+function readDesignInputs() {
+    const get=id=>parseFloat(document.getElementById(id).value);
+    return {tubeOD:get('p-tubeOD')/1000,tubeID:get('p-tubeID')/1000,tubeLength:get('p-tubeLength')/1000,uBendCLR:get('p-uBendCLR')/1000,frameW:get('p-frameW'),frameH:get('p-frameH'),frameD:get('p-frameD'),pitchX:get('p-pitchX'),pitchY:get('p-pitchY'),headerID:get('p-headerID')/1000,branchID:get('p-branchID')/1000};
+}
+function writeDesignInputs(d){const set=(id,v)=>document.getElementById(id).value=v;set('p-tubeOD',d.tubeOD*1000);set('p-tubeID',d.tubeID*1000);set('p-tubeLength',d.tubeLength*1000);set('p-uBendCLR',d.uBendCLR*1000);set('p-frameW',d.frameW);set('p-frameH',d.frameH);set('p-frameD',d.frameD);set('p-pitchX',d.pitchX);set('p-pitchY',d.pitchY);set('p-headerID',d.headerID*1000);set('p-branchID',d.branchID*1000);}
+function applyParametricDesign(){
+    const d=readDesignInputs(), status=document.getElementById('design-status');
+    if(Object.values(d).some(v=>!Number.isFinite(v)||v<=0)){status.className='studio-status warn';status.textContent='Enter positive numeric values in every field.';return;}
+    if(d.tubeID>=d.tubeOD){status.className='studio-status warn';status.textContent='Tube ID must be smaller than Tube OD.';return;}
+    if(d.uBendCLR*2<d.tubeOD){status.className='studio-status warn';status.textContent='U-Bend CLR is too small for the selected tube OD.';return;}
+    Object.assign(DESIGN,d);
+    Object.assign(CAD,{tubeOD:d.tubeOD,tubeID:d.tubeID,tubeR_out:d.tubeOD/2,tubeR_in:d.tubeID/2,tubeLength:d.tubeLength,uBendCLR:d.uBendCLR,uBendBore:d.tubeID,uBendOD:d.tubeOD+0.015,socketID:d.tubeID+0.007,headerID:d.headerID,headerR_in:d.headerID/2,headerOD:d.headerID+0.005,headerR_out:d.headerID/2+0.0025,branchID:d.branchID,branchR_in:d.branchID/2,branchOD:d.branchID+0.004,branchR_out:d.branchID/2+0.002});
+    buildAll3DCADAssembly(); setupFlowParticles(); updateDesignStatus(); setCameraPreset('ISO');
+}
+function updateDesignStatus(){const s=document.getElementById('design-status');const span=48*(2*DESIGN.uBendCLR);const fit=span<=DESIGN.frameW;s.className='studio-status '+(fit?'ok':'warn');s.innerHTML=`<b>${fit?'DESIGN READY':'GEOMETRY WARNING'}</b><br>48 × U-bend pitch = ${(span*1000).toFixed(0)} mm; frame width = ${(DESIGN.frameW*1000).toFixed(0)} mm.<br>${fit?'Current serpentine span fits the frame width basis.':'Serpentine span exceeds frame width; revise pitch/CLR or envelope.'}`;}
+function resetParametricDesign(){Object.assign(DESIGN,DEFAULT_DESIGN);writeDesignInputs(DESIGN);applyParametricDesign();}
+function setDesignPreset(name){const d={...DEFAULT_DESIGN};if(name==='COMPACT')Object.assign(d,{frameW:5.8,frameH:3.4,frameD:1.8,pitchX:1.75,pitchY:1.85,uBendCLR:0.145});if(name==='SERVICE')Object.assign(d,{frameW:7.2,frameH:4.2,frameD:2.2,pitchX:2.35,pitchY:2.45,uBendCLR:0.180});writeDesignInputs(d);applyParametricDesign();}
+function saveParametricDesign(){localStorage.setItem('PBR10K_DESIGN',JSON.stringify(DESIGN));const s=document.getElementById('design-status');s.className='studio-status ok';s.textContent='Design saved locally in this browser.';}
+function loadParametricDesign(){const raw=localStorage.getItem('PBR10K_DESIGN');if(!raw)return;try{const d=JSON.parse(raw);writeDesignInputs(d);applyParametricDesign();}catch(e){console.warn('Saved design could not be loaded',e);}}
+function exportParametricDesign(){const blob=new Blob([JSON.stringify(DESIGN,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='PBR10K_parametric_design.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+function toggleCadGrid(){cadGridVisible=!cadGridVisible;document.getElementById('cad-grid-overlay').classList.toggle('visible',cadGridVisible);}
+function toggleDimensionVisibility(){dimensionsVisible=!dimensionsVisible;dimsGroup.visible=dimensionsVisible;labelsGroup.visible=dimensionsVisible;}
 
 function setupEventListeners() {
     const canvas = document.getElementById('canvas3d');
