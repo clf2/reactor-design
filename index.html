@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>10,000L Continuous Tubular Photobioreactor (PBR) - Engineering Suite</title>
+    <title>10,011.70 L Closed-Recirculation Tubular Photobioreactor (PBR) - Engineering Suite</title>
     <!-- Three.js and OrbitControls -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -117,7 +117,7 @@
         .pfd-spec { font:10px var(--font-mono); color:#57606a; margin-top:7px; line-height:1.45; }
         .pfd-arrow { text-align:center; color:#0969da; font:bold 22px Arial; }
         .pfd-arrow-label { display:block; color:#656d76; font:8px var(--font-mono); margin-top:2px; }
-        .loop-bank { border:2px solid #1a7f37; border-radius:8px; padding:9px; background:#f8fff9; display:grid; grid-template-columns:repeat(4,1fr); gap:5px; width:100%; margin-top:10px; }
+        .loop-bank { border:2px solid #1a7f37; border-radius:8px; padding:9px; background:#f8fff9; display:grid; grid-template-columns:repeat(6,1fr); gap:5px; width:100%; margin-top:10px; }
         .loop-chip { border:1px solid #8bc99a; background:#fff; border-radius:4px; padding:6px 2px; text-align:center; font:700 9px var(--font-mono); color:#1a7f37; }
         .process-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:16px; }
         .process-table { width:100%; border-collapse:collapse; font:11px var(--font-mono); }
@@ -145,6 +145,12 @@
         .cad-grid-overlay.visible { opacity:1; }
 
         ::-webkit-scrollbar-track { background: var(--cad-bg); }
+
+        .audit-ok { color:#1a7f37; font-weight:700; }
+        .audit-warn { color:#bc4c00; font-weight:700; }
+        .audit-danger { color:#cf222e; font-weight:700; }
+        .mini-badge { display:inline-block; padding:2px 6px; border-radius:10px; font:700 9px var(--font-mono); border:1px solid var(--border-color); }
+
         ::-webkit-scrollbar-thumb { background: #d0d7de; border-radius: 3px; }
     </style>
 </head>
@@ -162,7 +168,7 @@
             <button class="tab-btn" onclick="switchMainSection('PROCESS')">3. PROCESS DESIGN</button>
         </div>
         <div>
-            <span style="color:#d0d7de; font-size:11px; font-family:var(--font-mono);">DWG: PBR-10K-GA-001 | REV: PP U-BEND</span>
+            <span style="color:#d0d7de; font-size:11px; font-family:var(--font-mono);">DWG: PBR-10K-GA-001 | REV: MB-04 / COMPACT GA / 2×6 MANIFOLD / DUAL-PUMP RECIRCULATION / MATERIAL BALANCE ALIGNED</span>
         </div>
     </header>
 
@@ -170,9 +176,17 @@
     <div id="calc-section" class="page-section active">
         <div class="doc-container">
             <div class="doc-header">
-                <div class="doc-title">10,000 L CONTINUOUS TUBULAR PHOTOBIOREACTOR (PFR)</div>
-                <div class="doc-subtitle">PRELIMINARY REACTOR DESIGN CALCULATION REPORT — HYDRAULIC + BIOLOGICAL + GAS-TRANSFER BASIS — REVISION: PLASTIC (PP) U-BEND</div>
+                <div class="doc-title">10,011.7 L TUBULAR PHOTOBIOREACTOR — 2 × 6 LOOP MANIFOLD</div>
+                <div class="doc-subtitle">PRELIMINARY REACTOR DESIGN CALCULATION REPORT — HYDRAULIC + BIOLOGICAL + GAS-TRANSFER BASIS — REVISION: CLOSED RECIRCULATION + PP U-BEND</div><div class="doc-subtitle" style="margin-top:6px;color:#1a7f37;"><b>MB-02 basis:</b> 10,011.70 L • 12 loops • 2×6 headers/collectors • 4.00 g/L DCW • 1.72 g/L lipid • CO₂ 70.67 kg/day • flue gas 278 L/min @ 10% CO₂</div>
             </div>
+
+                <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:0 0 14px 0;">
+                    <div class="calc-item"><div class="calc-label">Vᵣ</div><div class="calc-value">10,011.70 L</div></div>
+                    <div class="calc-item"><div class="calc-label">HRT</div><div class="calc-value">360 h</div></div>
+                    <div class="calc-item"><div class="calc-label">Q_HRT</div><div class="calc-value">27.8103 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">12-LOOP FLOW</div><div class="calc-value">2.3175 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">CO₂ BASIS</div><div class="calc-value">70.67 kg/day</div></div>
+                </div>
 
             <!-- Section 1: Design Basis -->
             <div class="calc-card">
@@ -187,7 +201,7 @@
                     <div class="calc-item"><div class="calc-label">PP U-Bend Bore / OD</div><div class="calc-value">104 mm Bore / ≈119 mm OD</div></div>
                     <div class="calc-item"><div class="calc-label">PP U-Bend Socket ID / Insertion</div><div class="calc-value">111 mm ID / 25 mm Insertion</div></div>
                     <div class="calc-item"><div class="calc-label">U-Bend Centreline Radius (CLR)</div><div class="calc-value">165 mm</div></div>
-                    <div class="calc-item"><div class="calc-label">Main Header ID / Branch ID</div><div class="calc-value">25 mm ID Header / 10 mm ID Branch</div></div>
+                    <div class="calc-item"><div class="calc-label">Header / Branch ID</div><div class="calc-value">2 × 40 mm Headers + 2 × 40 mm Collectors / 25 mm Branch</div></div>
                     <div class="calc-item"><div class="calc-label">Fluid Density (ρ) / Viscosity (μ)</div><div class="calc-value">1020 kg/m³ / 0.001 Pa·s</div></div>
                 </div>
             </div>
@@ -199,14 +213,14 @@
                     <button class="formula-btn" onclick="toggleFormula('f-flow')">Show Formula</button>
                 </div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Total Volumetric Flow Rate (Q_total)</div><div class="calc-value highlight">27.81 L/h</div></div>
-                    <div class="calc-item"><div class="calc-label">Volumetric Flow per Loop (Q_loop)</div><div class="calc-value highlight">2.318 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Total Volumetric Flow Rate (Q_total)</div><div class="calc-value highlight">27.8103 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Volumetric Flow per Loop (Q_loop)</div><div class="calc-value highlight">2.3175 L/h</div></div>
                 </div>
                 <div id="f-flow" class="formula-box">
                     <div class="formula-line"><b>Total Flow:</b> Q_total = V_work / HRT</div>
-                    <div class="formula-line"><b>Substitution:</b> Q_total = 10,011.7 L / (15 × 24 h) = 27.81 L/h = 7.7251 × 10⁻⁶ m³/s</div>
+                    <div class="formula-line"><b>Substitution:</b> Q_total = 10,011.7 L / (15 × 24 h) = 27.8103 L/h = 7.7250772e-06 m³/s</div>
                     <div class="formula-line"><b>Flow Per Loop:</b> Q_loop = Q_total / N_loops</div>
-                    <div class="formula-line"><b>Substitution:</b> Q_loop = 27.81 L/h / 12 = 2.318 L/h = 6.4376 × 10⁻⁷ m³/s</div>
+                    <div class="formula-line"><b>Substitution:</b> Q_loop = 27.8103 L/h / 12 = 2.3175 L/h = 6.4375643e-07 m³/s</div>
                 </div>
             </div>
 
@@ -234,14 +248,14 @@
                     <button class="formula-btn" onclick="toggleFormula('f-re')">Show Formula</button>
                 </div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Tube Fluid Velocity (v_tube)</div><div class="calc-value">7.5782 × 10⁻⁵ m/s</div></div>
+                    <div class="calc-item"><div class="calc-label">Tube Fluid Velocity (v_tube)</div><div class="calc-value">7.5781818e-05 m/s</div></div>
                     <div class="calc-item"><div class="calc-label">Tube Reynolds Number (Re)</div><div class="calc-value highlight">8.04 (Laminar)</div></div>
                     <div class="calc-item"><div class="calc-label">Darcy Friction Factor (f_tube)</div><div class="calc-value">7.9613</div></div>
                 </div>
                 <div id="f-re" class="formula-box">
-                    <div class="formula-line"><b>Velocity:</b> v_tube = Q_loop / A_tube = 6.4376 × 10⁻⁷ / 0.0084949 = 7.5782 × 10⁻⁵ m/s</div>
+                    <div class="formula-line"><b>Velocity:</b> v_tube = Q_loop / A_tube = 6.4375643e-07 / 0.0084949 = 7.5781818e-05 m/s</div>
                     <div class="formula-line"><b>Reynolds Number:</b> Re = (ρ × v × D) / μ</div>
-                    <div class="formula-line"><b>Substitution:</b> Re = (1020 kg/m³ × 7.5782 × 10⁻⁵ m/s × 0.104 m) / 0.001 Pa·s = 8.04</div>
+                    <div class="formula-line"><b>Substitution:</b> Re = (1020 kg/m³ × 7.5781818e-05 m/s × 0.104 m) / 0.001 Pa·s = 8.04</div>
                     <div class="formula-line"><b>Friction Factor (Laminar):</b> f = 64 / Re = 64 / 8.04 = 7.9613</div>
                 </div>
             </div>
@@ -253,17 +267,17 @@
                     <button class="formula-btn" onclick="toggleFormula('f-dp')">Show Formula</button>
                 </div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Inlet & Outlet Headers ΔP</div><div class="calc-value">4.674 Pa Total (2.337 Pa each)</div></div>
-                    <div class="calc-item"><div class="calc-label">Inlet & Outlet Branches ΔP</div><div class="calc-value">5.246 Pa Total (2.623 Pa each)</div></div>
+                    <div class="calc-item"><div class="calc-label">Two top headers + two bottom collectors ΔP</div><div class="calc-value">≈0.944 Pa total (≈0.472 Pa per manifold)</div></div>
+                    <div class="calc-item"><div class="calc-label">Path inlet + outlet branch ΔP</div><div class="calc-value">0.0672 Pa total (0.0336 Pa each)</div></div>
                     <div class="calc-item"><div class="calc-label">Straight Tube Path ΔP (73.5m)</div><div class="calc-value">0.01648 Pa</div></div>
                     <div class="calc-item"><div class="calc-label">48 U-Bends Path ΔP</div><div class="calc-value">0.00013 Pa</div></div>
-                    <div class="calc-item"><div class="calc-label">TOTAL SYSTEM PRESSURE DROP</div><div class="calc-value highlight">9.936 Pa (≈ 0.0001 bar)</div></div>
+                    <div class="calc-item"><div class="calc-label">TOTAL KNOWN PATH PRESSURE DROP</div><div class="calc-value highlight">≈1.642 Pa (≈ 0.0000164 bar)</div></div>
                 </div>
                 <div id="f-dp" class="formula-box">
                     <div class="formula-line"><b>Darcy-Weisbach Equation:</b> ΔP = f × (L / D) × (ρ × v² / 2)</div>
                     <div class="formula-line"><b>Minor Loss (U-Bends):</b> ΔP_ub = n × K × (ρ × v² / 2), K = 0.9</div>
-                    <div class="formula-line"><b>Total Summation:</b> ΔP_total = ΔP_header_in + ΔP_branch_in + ΔP_tubes + ΔP_ubends + ΔP_branch_out + ΔP_header_out</div>
-                    <div class="formula-line"><b>Substitution:</b> ΔP_total = 2.337 + 2.623 + 0.01648 + 0.00013 + 2.623 + 2.337 = 9.936 Pa</div>
+                    <div class="formula-line"><b>Total Summation:</b> ΔP_total = ΔP_top_header + ΔP_inlet_branch + ΔP_loop + ΔP_outlet_branch + ΔP_bottom_collector + ΔP_common_riser</div>
+                    <div class="formula-line"><b>Substitution:</b> ΔP_total ≈ 0.4719 + 0.0336 + 0.01648 + 0.0336 + 0.4719 + 0.6147 = 1.6422 Pa (known-loss basis)</div>
                 </div>
             </div>
 
@@ -274,33 +288,73 @@
                     <button class="formula-btn" onclick="toggleFormula('f-pipes')">Show Formula</button>
                 </div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Header ID / Velocity / Re</div><div class="calc-value">25 mm / 0.01574 m/s / Re = 401.3</div></div>
-                    <div class="calc-item"><div class="calc-label">Branch ID / Velocity / Re</div><div class="calc-value">10 mm / 0.008197 m/s / Re = 83.60</div></div>
+                    <div class="calc-item"><div class="calc-label">Header ID / Velocity / Re</div><div class="calc-value">40 mm / 0.003074 m/s / Re ≈ 125.4</div></div>
+                    <div class="calc-item"><div class="calc-label">Branch ID / Velocity / Re</div><div class="calc-value">25 mm / 0.001311 m/s / Re ≈ 33.4</div></div>
                     <div class="calc-item"><div class="calc-label">Manifold Flow Balancing Band</div><div class="calc-value">±5% (2.202 – 2.433 L/h per loop)</div></div>
                 </div>
                 <div id="f-pipes" class="formula-box">
-                    <div class="formula-line"><b>Header Velocity:</b> v_h = Q_total / [(π/4) × D_h²] = 7.7251 × 10⁻⁶ / 4.9087 × 10⁻⁴ = 0.01574 m/s</div>
-                    <div class="formula-line"><b>Branch Velocity:</b> v_b = Q_loop / [(π/4) × D_b²] = 6.4376 × 10⁻⁷ / 7.854 × 10⁻⁵ = 0.008197 m/s</div>
+                    <div class="formula-line"><b>Header Velocity:</b> v_h = Q_header / [(π/4) × D_h²] = 3.8626 × 10⁻⁶ / 1.2566 × 10⁻³ = 0.003074 m/s</div>
+                    <div class="formula-line"><b>Branch Velocity:</b> v_b = Q_loop / [(π/4) × D_b²] = 6.4375643e-07 / 4.9087 × 10⁻⁴ = 0.001311 m/s</div>
                 </div>
             </div>
 
-            <!-- Section 12, 13: Pump Head & Power -->
+            <!-- NEW MANIFOLD HYDRAULIC CALCULATION -->
             <div class="calc-card">
                 <div class="calc-card-title">
-                    12 & 13. PUMP HEAD & HYDRAULIC POWER
+                    11B. NEW 2×6 MANIFOLD / COMMON RISER HYDRAULIC CALCULATION
+                    <button class="formula-btn" onclick="toggleFormula('f-manifold2x6')">Show Formula</button>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item"><div class="calc-label">Total HRT Design Flow</div><div class="calc-value highlight">27.8103 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Flow to Each Top Header</div><div class="calc-value highlight">13.9051 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Flow per Loop</div><div class="calc-value highlight">2.3175 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">Loops per Header / Collector</div><div class="calc-value">6</div></div>
+                    <div class="calc-item"><div class="calc-label">40 mm Header Inlet Velocity</div><div class="calc-value">0.003074 m/s</div></div>
+                    <div class="calc-item"><div class="calc-label">40 mm Header Re</div><div class="calc-value">125.4 (Laminar)</div></div>
+                    <div class="calc-item"><div class="calc-label">25 mm Branch Velocity</div><div class="calc-value">0.001311 m/s</div></div>
+                    <div class="calc-item"><div class="calc-label">25 mm Branch Re</div><div class="calc-value">33.44 (Laminar)</div></div>
+                    <div class="calc-item"><div class="calc-label">Each 6-loop Header ΔP</div><div class="calc-value">≈0.4719 Pa</div></div>
+                    <div class="calc-item"><div class="calc-label">Each 6-loop Collector ΔP</div><div class="calc-value">≈0.4719 Pa</div></div>
+                    <div class="calc-item"><div class="calc-label">Common 40 mm Riser ΔP</div><div class="calc-value">≈0.6147 Pa*</div></div>
+                    <div class="calc-item"><div class="calc-label">Known Path ΔP</div><div class="calc-value highlight">≈1.6422 Pa*</div></div>
+                </div>
+                <div id="f-manifold2x6" class="formula-box">
+                    <div class="formula-line"><b>Header split:</b> Q_header = Q_total/2 = 27.8103/2 = 13.9051 L/h.</div>
+                    <div class="formula-line"><b>Loop split:</b> Q_loop = Q_total/12 = 27.8103/12 = 2.3175 L/h.</div>
+                    <div class="formula-line"><b>Header velocity:</b> v = Q/A = (13.9051 L/h converted to m³/s) / [π(0.040)²/4] = 0.003074 m/s.</div>
+                    <div class="formula-line"><b>Header Reynolds number:</b> Re = ρvD/μ = 1020×0.003074×0.040/0.001 = 125.4; therefore laminar.</div>
+                    <div class="formula-line"><b>Laminar Darcy factor:</b> f = 64/Re = 0.5103.</div>
+                    <div class="formula-line"><b>Distributed-flow header estimate:</b> the six equal branch sections carry approximately 6, 5, 4, 3, 2 and 1 branch-flows upstream. Using L_section ≈ 13.16/6 = 2.193 m and Darcy-Weisbach section-by-section gives ΣΔP_header ≈ 0.4719 Pa.</div>
+                    <div class="formula-line"><b>Common riser:</b> Q = 27.8103 L/h through 40 mm ID; Re ≈ 250.8, f ≈ 0.2552. For a 5 m equivalent hydraulic length, ΔP_riser ≈ 0.6147 Pa.</div>
+                    <div class="formula-line"><b>Known path:</b> ΔP ≈ 0.4719 + 0.0336 + 0.01648 + 0.0336 + 0.4719 + 0.6147 = 1.6422 Pa.</div>
+                    <div class="formula-line"><b>Important assumption:</b> 13.16 m header length and 5 m equivalent riser length are geometric/hydraulic design assumptions for this 3D concept. Final fabrication dimensions, fittings, valve Cv, and actual recirculation flow must replace these assumptions before procurement.</div>
+                </div>
+            </div>
+
+            <!-- Section 12, 13: Startup Pump + Recirculation Pump -->
+            <div class="calc-card">
+                <div class="calc-card-title">
+                    12 & 13. PUMP-101 FEED FILL + PUMP-102 RECIRCULATION
                     <button class="formula-btn" onclick="toggleFormula('f-pump')">Show Formula</button>
                 </div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Friction Head Loss (H_f)</div><div class="calc-value">9.9296 × 10⁻⁴ m</div></div>
-                    <div class="calc-item"><div class="calc-label">Assumed Static Lift (H_static)</div><div class="calc-value">3.40 m</div></div>
-                    <div class="calc-item"><div class="calc-label">Total Pump Head (H_pump)</div><div class="calc-value">3.401 m</div></div>
-                    <div class="calc-item"><div class="calc-label">Calculated Hydraulic Power</div><div class="calc-value highlight">0.4382 W (0.00044 kW)</div></div>
+                    <div class="calc-item"><div class="calc-label">P-101 Service</div><div class="calc-value">Initial PBR filling / make-up</div></div>
+                    <div class="calc-item"><div class="calc-label">P-101 Flow Basis</div><div class="calc-value">27.8103 L/h</div></div>
+                    <div class="calc-item"><div class="calc-label">P-101 Total Head</div><div class="calc-value">3.4001 m</div></div>
+                    <div class="calc-item"><div class="calc-label">P-101 Hydraulic Power</div><div class="calc-value highlight">0.4382 W (0.00044 kW)</div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Service</div><div class="calc-value">Closed-loop internal recirculation</div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Flow Basis</div><div class="calc-value">27.8103 L/h* </div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Net Static Head</div><div class="calc-value">≈ 0 m (closed loop)</div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Friction Head</div><div class="calc-value">0.0001641 m</div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Hydraulic Power</div><div class="calc-value highlight">0.00002114 W</div></div>
+                    <div class="calc-item"><div class="calc-label">P-102 Practical Motor Size</div><div class="calc-value">To be vendor-selected after Q_recirc is fixed</div></div>
                 </div>
                 <div id="f-pump" class="formula-box">
-                    <div class="formula-line"><b>Head Loss:</b> H_f = ΔP / (ρ × g) = 9.936 / (1020 × 9.81) = 0.000993 m</div>
-                    <div class="formula-line"><b>Total Head:</b> H_pump = H_static + H_f = 3.40 + 0.000993 = 3.401 m</div>
-                    <div class="formula-line"><b>Power Formula:</b> P = (ρ × g × Q × H) / η  (η = 0.60 efficiency)</div>
-                    <div class="formula-line"><b>Substitution:</b> P = (1020 × 9.81 × 7.7251 × 10⁻⁶ × 3.401) / 0.60 = 0.4382 W</div>
+                    <div class="formula-line"><b>P-101:</b> H₁ = H_static + H_f = 3.40 + 0.0000847 = 3.4001 m.</div>
+                    <div class="formula-line"><b>P-101:</b> P₁ = ρgQH/η = (1020×9.81×7.7251×10⁻⁶×3.4001)/0.60 = 0.4382 W.</div>
+                    <div class="formula-line"><b>P-102:</b> Closed loop has no net static head requirement; H₂ ≈ H_f = 1.6422/(1020×9.81) = 0.0001641 m.</div>
+                    <div class="formula-line"><b>P-102:</b> P₂ = ρgQH/η = (1020×9.81×7.7251×10⁻⁶×0.0000847)/0.60 ≈ 0.00002114 W.</div>
+                    <div class="formula-line"><b>Important:</b> 27.8103 L/h is the current HRT flow basis. It should not automatically be treated as the final internal recirculation flow. P-102 must be re-sized if a higher circulation rate is selected for mixing / mass transfer.</div>
                 </div>
             </div>
 
@@ -328,170 +382,181 @@
             <div class="calc-card">
                 <div class="calc-card-title">20. LOOP ARRANGEMENT & GEOMETRIC FEASIBILITY</div>
                 <div class="calc-grid">
-                    <div class="calc-item"><div class="calc-label">Loop Arrangement</div><div class="calc-value">3 Rows × 4 Columns = 12 Parallel Loops</div></div>
+                    <div class="calc-item"><div class="calc-label">Loop Arrangement</div><div class="calc-value">2 Rows × 6 Columns = 12 Parallel Loops</div></div>
                     <div class="calc-item"><div class="calc-label">Loop 01–11</div><div class="calc-value">49 Tubes + 48 U-Bends</div></div>
                     <div class="calc-item"><div class="calc-label">Loop 12</div><div class="calc-value">48 Tubes + 47 U-Bends</div></div>
-                    <div class="calc-item"><div class="calc-label">Minimum Serpentine Span</div><div class="calc-value highlight">48 × (2 × 0.165) = 15.84 m</div></div>
-                    <div class="calc-item"><div class="calc-label">Specified Reactor Envelope</div><div class="calc-value">5.8 m × 3.4 m × 1.8 m</div></div>
+                    <div class="calc-item"><div class="calc-label">Loop internal serpentine span</div><div class="calc-value highlight">49-tube loop: 6 × 0.330 = 1.98 m</div></div>
+                    <div class="calc-item"><div class="calc-label">Revised rack envelope</div><div class="calc-value">13.6 m × 6.0 m × 1.8 m</div></div>
                 </div>
                 <div class="formula-box open">
                     <div class="formula-line"><b>Engineering check:</b> Adjacent tube centerline pitch = 2 × U-bend CLR = 2 × 0.165 = 0.330 m.</div>
                     <div class="formula-line"><b>For 49 tubes:</b> 48 × 0.330 = 15.84 m minimum serpentine span.</div>
-                    <div class="formula-line"><b>Conclusion:</b> A true 49-tube / 48-U-bend loop cannot be force-fitted into a 3.4 m × 1.8 m envelope while retaining 1500 mm tube length and 165 mm CLR. A final fabrication design must revise routing, tube count, CLR, or envelope.</div>
+                    <div class="formula-line"><b>Conclusion:</b> The revised 2-row × 6-column rack uses 2.05 m module pitch in X and 2.10 m pitch in Y. The 49-tube loop itself occupies about 1.98 m in X and 1.98 m in Y, so the module pitch leaves a positive inter-module clearance. Final structural/maintenance clearances must still be confirmed against the plant GA.</div>
                 </div>
             </div>
 
 
-            <!-- Section 20B: BIOLOGICAL / GAS-TRANSFER DESIGN CALCULATIONS -->
+            <!-- Section 20B: MATERIAL BALANCE / BIOLOGICAL / GAS BASIS -->
             <div class="calc-card">
                 <div class="calc-card-title">
-                    20B. BIOLOGICAL & GAS-TRANSFER DESIGN CALCULATIONS
+                    20B. MATERIAL BALANCE + BIOLOGICAL + GAS BASIS
                     <button class="formula-btn" onclick="toggleFormula('f-bio')">Show Formulas</button>
                 </div>
 
                 <div class="calc-grid">
                     <div class="calc-item">
-                        <div class="calc-label">Operating Biomass Concentration (X)</div>
-                        <div class="calc-value">8 g/L Dry Cell Weight (DCW)</div>
+                        <div class="calc-label">Final Biomass Concentration (X)</div>
+                        <div class="calc-value highlight">4.00 g/L DCW</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Maximum Biomass Concentration (X_max)</div>
-                        <div class="calc-value">23 g/L Dry Cell Weight (DCW)</div>
+                        <div class="calc-label">Initial Biomass Concentration (X₀)</div>
+                        <div class="calc-value">0.20 g/L DCW</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Total Biomass Inventory (M_X)</div>
-                        <div class="calc-value highlight">80.09 kg Dry Cell Weight (DCW)</div>
+                        <div class="calc-label">Final Biomass Inventory (M_X)</div>
+                        <div class="calc-value highlight">40.0468 kg DCW</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Maximum Biomass Inventory (M_X,max)</div>
-                        <div class="calc-value highlight">230.27 kg Dry Cell Weight (DCW)</div>
+                        <div class="calc-label">Initial Biomass Inventory (M_X,0)</div>
+                        <div class="calc-value">2.0023 kg DCW</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Biomass Productivity (P_X)</div>
-                        <div class="calc-value">0.25 g/L/h</div>
+                        <div class="calc-label">Net Biomass Increase (ΔM_X)</div>
+                        <div class="calc-value highlight">38.0445 kg DCW</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Biomass Production Rate (Ṁ_X)</div>
-                        <div class="calc-value highlight">2.503 kg/h</div>
+                        <div class="calc-label">Average Experimental Productivity</div>
+                        <div class="calc-value">0.01979 g/L/h (192-h basis)</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Daily Biomass Production</div>
-                        <div class="calc-value highlight">60.07 kg/day</div>
+                        <div class="calc-label">Final Lipid Concentration</div>
+                        <div class="calc-value">1.72 g/L</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Specific Growth Rate (μ)</div>
-                        <div class="calc-value">0.045 h⁻¹</div>
+                        <div class="calc-label">Final Lipid Inventory (M_L)</div>
+                        <div class="calc-value highlight">17.2201 kg</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Growth-Based HRT</div>
-                        <div class="calc-value">0.926 day (22.22 h)</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Biomass Doubling Time (t_d)</div>
-                        <div class="calc-value">15.40 h</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">CO₂ Uptake Rate (r_CO₂)</div>
-                        <div class="calc-value">0.25 g/L/h</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">CO₂ Utilized</div>
-                        <div class="calc-value highlight">60.07 kg/day</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">CO₂ Capture Efficiency (η_CO₂)</div>
-                        <div class="calc-value">85%</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">CO₂ Feed Rate</div>
+                        <div class="calc-label">CO₂ Demand Basis</div>
                         <div class="calc-value highlight">70.67 kg/day</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Unutilized CO₂</div>
-                        <div class="calc-value">10.60 kg/day</div>
+                        <div class="calc-label">CO₂ Demand Rate</div>
+                        <div class="calc-value">2.9446 kg/h</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Biomass Yield on CO₂ (Y_X/CO₂)</div>
-                        <div class="calc-value">0.35 g/g</div>
+                        <div class="calc-label">Flue-Gas Supply</div>
+                        <div class="calc-value highlight">278 L/min</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">CO₂ Demand — Yield Check</div>
-                        <div class="calc-value">171.63 kg/day</div>
+                        <div class="calc-label">Flue-Gas CO₂ Fraction</div>
+                        <div class="calc-value">10% v/v</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">CO₂ Feed — Yield Check @ 85%</div>
-                        <div class="calc-value">201.92 kg/day</div>
+                        <div class="calc-label">CO₂ Volumetric Component</div>
+                        <div class="calc-value">27.8 L/min CO₂</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Oxygen Uptake Rate (OUR)</div>
-                        <div class="calc-value highlight">0.961 kg O₂/h</div>
+                        <div class="calc-label">Flue-Gas Daily Supply</div>
+                        <div class="calc-value">400.32 m³/day</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Daily Oxygen Uptake</div>
-                        <div class="calc-value highlight">23.07 kg O₂/day</div>
+                        <div class="calc-label">CO₂ Requirement over 15 Days</div>
+                        <div class="calc-value highlight">1,060.05 kg</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">CO₂ Evolution Rate (CER)</div>
-                        <div class="calc-value">10.57–52.86 kg CO₂/day</div>
+                        <div class="calc-label">Flue Gas over 15 Days</div>
+                        <div class="calc-value">6,004.8 m³</div>
                     </div>
                     <div class="calc-item">
-                        <div class="calc-label">Volumetric Mass Transfer Coefficient (kLa)</div>
-                        <div class="calc-value">40 h⁻¹</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Minimum O₂ Saturation Concentration (C*)</div>
-                        <div class="calc-value">≥ 0.1071 mmol/L</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Gas Holdup Fraction (ε_g)</div>
-                        <div class="calc-value">5–15%</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Gas Holdup Volume (V_g)</div>
-                        <div class="calc-value">500.6–1501.8 L</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">PoC Gas Flow Rate (Q_g)</div>
-                        <div class="calc-value">1–4 L/min</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Superficial Gas Velocity (v_g)</div>
-                        <div class="calc-value">0.005–0.03 m/s</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">PoC Sparger/Gas Area (A_g)</div>
-                        <div class="calc-value">5.56×10⁻⁴–1.333×10⁻² m²</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Inoculum Volume (10% v/v)</div>
-                        <div class="calc-value highlight">1001.17 L</div>
-                    </div>
-                    <div class="calc-item">
-                        <div class="calc-label">Total Vessel Volume @ 85% Working</div>
-                        <div class="calc-value">11,778.5 L (11.78 m³)</div>
+                        <div class="calc-label">CO₂ Capture / Utilization Efficiency</div>
+                        <div class="calc-value">To be frozen from project gas data</div>
                     </div>
                 </div>
 
                 <div id="f-bio" class="formula-box">
-                    <div class="formula-line"><b>Definitions:</b> V = Working Volume; X = Biomass Concentration; DCW = Dry Cell Weight; M_X = Total Biomass Inventory; X_max = Maximum Biomass Concentration; P_X = Biomass Productivity; μ = Specific Growth Rate; HRT = Hydraulic Residence Time; t_d = Biomass Doubling Time; r_CO₂ = CO₂ Uptake Rate; η_CO₂ = CO₂ Capture Efficiency; Y_X/CO₂ = Biomass Yield on CO₂; OUR = Oxygen Uptake Rate; CER = CO₂ Evolution Rate; kLa = Volumetric Mass Transfer Coefficient; OTR = Oxygen Transfer Rate; C* = Oxygen Saturation Concentration; ε_g = Gas Holdup Fraction; V_g = Gas Holdup Volume; Q_g = Gas Flow Rate; v_g = Superficial Gas Velocity; A_g = Gas/Sparger Area.</div>
-                    <div class="formula-line"><b>Biomass inventory:</b> M_X = V × X = 10,011.7 × 8 = 80,093.6 g = 80.09 kg Dry Cell Weight (DCW).</div>
-                    <div class="formula-line"><b>Maximum biomass inventory:</b> M_X,max = V × X_max = 10,011.7 × 23 = 230,269.1 g = 230.27 kg Dry Cell Weight (DCW).</div>
-                    <div class="formula-line"><b>Biomass production:</b> Ṁ_X = P_X × V = 0.25 × 10,011.7 = 2,502.925 g/h = 2.503 kg/h = 60.07 kg/day.</div>
-                    <div class="formula-line"><b>Growth-based HRT:</b> HRT = 1/μ = 1/0.045 = 22.22 h = 0.926 day.</div>
-                    <div class="formula-line"><b>Doubling time:</b> t_d = ln(2)/μ = 0.693/0.045 = 15.40 h.</div>
-                    <div class="formula-line"><b>CO₂ utilization:</b> ṁ_CO₂ = r_CO₂ × V = 0.25 × 10,011.7 = 2.503 kg/h = 60.07 kg/day.</div>
-                    <div class="formula-line"><b>CO₂ feed:</b> ṁ_CO₂,in = ṁ_CO₂,utilized / η_CO₂ = 60.07/0.85 = 70.67 kg/day.</div>
-                    <div class="formula-line"><b>Unutilized CO₂:</b> 70.67 − 60.07 = 10.60 kg/day.</div>
-                    <div class="formula-line"><b>Carbon-balance check:</b> ṁ_CO₂ = ṁ_X / Y_X/CO₂ = 60.07/0.35 = 171.63 kg/day; at 85% capture = 201.92 kg/day. This is a source-parameter consistency check, not the primary CO₂ design basis.</div>
-                    <div class="formula-line"><b>OUR conversion:</b> 3 mmol/L/h × 32 mg/mmol × 10,011.7 L = 0.961 kg O₂/h = 23.07 kg O₂/day.</div>
-                    <div class="formula-line"><b>CER:</b> 1–5 mmol/L/h × 44 mg/mmol × 10,011.7 L × 24 h/day = 10.57–52.86 kg CO₂/day.</div>
-                    <div class="formula-line"><b>OTR:</b> OTR = kLa(C* − C_L); at 30% dissolved oxygen saturation, C_L = 0.30C*, so OTR = 40(0.70C*) = 28C*. For OTR ≥ OUR, C* ≥ 3/28 = 0.1071 mmol/L. Actual OTR is not numerically finalized without an external/verified C* value.</div>
-                    <div class="formula-line"><b>Gas holdup:</b> V_g = ε_gV = 0.05×10,011.7 to 0.15×10,011.7 = 500.6–1501.8 L.</div>
-                    <div class="formula-line"><b>PoC sparger area:</b> A_g = Q_g/v_g. Using 1 L/min at 0.03 m/s gives 5.56×10⁻⁴ m²; using 4 L/min at 0.005 m/s gives 1.333×10⁻² m².</div>
-                    <div class="formula-line"><b>Inoculum:</b> V_inoculum = 0.10V = 1001.17 L.</div>
-                    <div class="formula-line"><b>Vessel volume check:</b> V_vessel = V_working/0.85 = 10,011.7/0.85 = 11,778.5 L = 11.78 m³.</div>
-                    <div class="formula-line"><b>Design note:</b> Existing hydraulic HRT remains 15 days; the 0.926-day value is the growth-based HRT from μ and should not replace the existing hydraulic basis without a separate design decision.</div>
-                    <div class="formula-line"><b>Design note:</b> The 1–4 L/min gas flow is a PoC basis; it should not be treated as the final 10,000-L sparger flow without further gas-transfer design.</div>
+                    <div class="formula-line"><b>Biomass inventory:</b> M_X = Vᵣ × X / 1000 = 10,011.70 × 4.00 / 1000 = 40.0468 kg DCW.</div>
+                    <div class="formula-line"><b>Initial biomass inventory:</b> M_X,0 = Vᵣ × X₀ / 1000 = 10,011.70 × 0.20 / 1000 = 2.0023 kg DCW.</div>
+                    <div class="formula-line"><b>Net biomass increase:</b> ΔM_X = M_X − M_X,0 = 40.0468 − 2.0023 = 38.0445 kg DCW.</div>
+                    <div class="formula-line"><b>Average experimental productivity:</b> P_X = (X − X₀)/Δt = (4.00 − 0.20)/192 = 0.01979 g/L/h. This is a measured 192-h basis and is not linearly extrapolated to 15 days.</div>
+                    <div class="formula-line"><b>Lipid inventory:</b> M_L = Vᵣ × L / 1000 = 10,011.70 × 1.72 / 1000 = 17.2201 kg.</div>
+                    <div class="formula-line"><b>CO₂ demand:</b> 70.67 kg/day = 2.9446 kg/h. This value is retained from the previous CarbonONE design basis.</div>
+                    <div class="formula-line"><b>Flue gas conversion:</b> 278 L/min × 60 × 24 / 1000 = 400.32 m³/day.</div>
+                    <div class="formula-line"><b>CO₂ volumetric component:</b> Q_CO₂,in = y_CO₂ × Q_flue = 0.10 × 278 = 27.8 L/min CO₂.</div>
+                    <div class="formula-line"><b>15-day gas quantities:</b> CO₂ demand = 70.67 × 15 = 1,060.05 kg; flue gas = 400.32 × 15 = 6,004.8 m³.</div>
+                    <div class="formula-line"><b>Important:</b> 70.67 kg/day CO₂ and 278 L/min flue gas are retained as separate design-basis inputs. The model does not silently assume an 85% capture efficiency; final capture/utilization must be frozen from project gas data.</div>
+                    <div class="formula-line"><b>Liquid-side basis:</b> Q = Vᵣ/HRT = 10,011.70/(15×24) = 27.8103 L/h; Q_loop = 27.8103/12 = 2.3175 L/h; each 6-loop header/collector carries 13.9051 L/h.</div>
+                </div>
+            </div>
+
+
+            <div class="calc-card" style="border-left:4px solid #bc4c00;">
+                <div class="calc-card-title">
+                    20C. ENGINEERING VALIDATION / DESIGN AUDIT
+                    <span style="font-size:10px;color:#bc4c00;">MB-03 — FORMULA-CONSISTENT CHECK</span>
+                </div>
+                <div class="calc-grid">
+                    <div class="calc-item">
+                        <div class="calc-label">Formula-Consistent HRT Flow</div>
+                        <div class="calc-value highlight">27.8103 L/h</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            10,011.70 L ÷ 360 h. The supplied report also contains 27.8064 L/h; the exact arithmetic is 27.8103 L/h.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Flow / Loop / Header</div>
+                        <div class="calc-value">2.3175 / 13.9051 L/h</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            12 equal loops; 2 headers × 6 loops.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Internal Volume Closure</div>
+                        <div class="calc-value highlight">10011.70 L</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            587 tubes + 575 U-bends = 10,011.70 L; closure error ≈ 0.00002%.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Tube Hydraulic Regime</div>
+                        <div class="calc-value">Re = 8.04 — LAMINAR</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            v = 7.578e-05 m/s; f = 7.9613.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Known Path ΔP</div>
+                        <div class="calc-value">1.6422 Pa</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            Includes 2 headers + 2 branches + loop + common riser on the existing concept assumptions.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">P-102 HRT-Basis Head</div>
+                        <div class="calc-value">0.0001641 m</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            Hydraulic power ≈ 2.114e-05 W at 60% assumed efficiency. Practical recirculation duty remains TBD.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">P-101 Start-Up Check</div>
+                        <div class="calc-value">≈ 15.0 days</div>
+                        <div style="font:9px var(--font-mono);color:#bc4c00;margin-top:4px;">
+                            If P-101 is limited to the HRT flow basis. Therefore this is a turnover reference, not a recommended fill rate.
+                        </div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Geometry Status</div>
+                        <div class="calc-value" style="color:#cf222e;">CONCEPTUAL / VERIFY</div>
+                        <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
+                            49-tube loop requires 48 × 330 mm = 15.84 m serpentine pitch span. Current 13.6 m frame envelope needs final routing/GA verification.
+                        </div>
+                    </div>
+                </div>
+                <div class="process-note" style="margin-top:10px;border-left-color:#bc4c00;">
+                    <strong>DESIGN FREEZE NOTE:</strong> The 70.67 kg/day Carbon Dioxide demand and 278 L/min flue-gas supply remain separate project inputs.
+                    Carbon Dioxide capture/utilization efficiency is intentionally not hard-coded because outlet gas data and operating gas conditions are not fixed.
+                    The 3D model is an engineering presentation / concept model and is not fabrication-certified.
                 </div>
             </div>
 
@@ -514,25 +579,25 @@
                         <tr><td>Glass Tube Length</td><td>1500</td><td>mm</td></tr>
                         <tr><td>U-Bend Hydraulic Bore / OD</td><td>104 / 119</td><td>mm</td></tr>
                         <tr><td>U-Bend Socket ID / Insertion</td><td>111 / 25</td><td>mm</td></tr>
-                        <tr><td>Main Header ID / Branch ID</td><td>25 / 10</td><td>mm</td></tr>
+                        <tr><td>Main Header ID / Branch ID</td><td>40 / 25</td><td>mm</td></tr>
                         <tr><td>Total Volumetric Flow Rate</td><td>27.81</td><td>L/h</td></tr>
-                        <tr><td>Volumetric Flow Per Loop</td><td>2.318</td><td>L/h</td></tr>
+                        <tr><td>Volumetric Flow Per Loop</td><td>2.3175</td><td>L/h</td></tr>
                         <tr><td>Tube Flow Reynolds Number</td><td>8.04 (Laminar)</td><td>—</td></tr>
-                        <tr><td>Total System Pressure Drop</td><td>9.936</td><td>Pa</td></tr>
+                        <tr><td>Total Known Straight-Path Pressure Drop</td><td>1.6422</td><td>Pa</td></tr>
                         <tr><td>Calculated Pump Head</td><td>3.401</td><td>m</td></tr>
                         <tr><td>Calculated Hydraulic Power</td><td>0.00044 (0.4382 W)</td><td>kW</td></tr>
                         <tr><td>Hydraulic Residence Time (HRT)</td><td>360 (15.0 Days)</td><td>h</td></tr>
                         <tr><td>Total Wetted Process Mass</td><td>12,904.62</td><td>kg</td></tr>
                         <tr><td>Total Wetted System Weight</td><td>126.59</td><td>kN</td></tr>
-                        <tr><td>Operating Biomass Concentration</td><td>8</td><td>g/L Dry Cell Weight (DCW)</td></tr>
-                        <tr><td>Total Biomass Inventory</td><td>80.09</td><td>kg Dry Cell Weight (DCW)</td></tr>
-                        <tr><td>Maximum Biomass Inventory</td><td>230.27</td><td>kg Dry Cell Weight (DCW)</td></tr>
-                        <tr><td>Biomass Production Rate</td><td>2.503</td><td>kg/h</td></tr>
-                        <tr><td>Daily Biomass Production</td><td>60.07</td><td>kg/day</td></tr>
-                        <tr><td>Growth-Based HRT</td><td>0.926</td><td>day</td></tr>
-                        <tr><td>Biomass Doubling Time</td><td>15.40</td><td>h</td></tr>
-                        <tr><td>CO₂ Utilization</td><td>60.07</td><td>kg/day</td></tr>
-                        <tr><td>CO₂ Feed @ 85% Capture</td><td>70.67</td><td>kg/day</td></tr>
+                        <tr><td>Final Biomass Concentration</td><td>4.00</td><td>g/L DCW</td></tr>
+                        <tr><td>Final Biomass Inventory (M_X)</td><td>40.0468</td><td>kg DCW</td></tr>
+                        <tr><td>Initial Biomass Inventory (M_X,0)</td><td>2.0023</td><td>kg DCW</td></tr>
+                        <tr><td>Net Biomass Increase (ΔM_X)</td><td>38.0445</td><td>kg DCW</td></tr>
+                        <tr><td>Average Experimental Productivity</td><td>0.01979</td><td>g/L/h</td></tr>
+                        <tr><td>Final Lipid Inventory</td><td>17.2201</td><td>kg</td></tr>
+                        <tr><td>CO₂ Demand</td><td>70.67</td><td>kg/day</td></tr>
+                        <tr><td>Flue-Gas Supply</td><td>278</td><td>L/min</td></tr>
+                        <tr><td>Flue-Gas CO₂ Fraction</td><td>10</td><td>% v/v</td></tr><tr><td>CO₂ Requirement (15 days)</td><td>1,060.05</td><td>kg</td></tr><tr><td>Flue Gas Supply (15 days)</td><td>6,004.8</td><td>m³</td></tr>
                         <tr><td>Oxygen Uptake Rate (OUR)</td><td>0.961</td><td>kg O₂/h</td></tr>
                         <tr><td>Daily Oxygen Uptake</td><td>23.07</td><td>kg O₂/day</td></tr>
                         <tr><td>CO₂ Evolution Rate (CER)</td><td>10.57–52.86</td><td>kg CO₂/day</td></tr>
@@ -552,36 +617,58 @@
     <div id="process-section" class="page-section">
         <div class="process-shell">
             <div class="process-header">
-                <div class="process-title">10,000 L TUBULAR PBR — PROCESS DESIGN</div>
-                <div class="process-subtitle">PRELIMINARY PROCESS FLOW DIAGRAM • FEED / PUMP / TOP DISTRIBUTION / 12 PARALLEL LOOPS / COLLECTION</div>
+                <div class="process-title">10,011.70 L TUBULAR PBR — COMPACT DUAL-PUMP RECIRCULATION PROCESS DESIGN</div><div class="pfd-card" style="border-left:4px solid #1a7f37;">
+                <div class="pfd-title">GAS / CO₂ DESIGN BASIS</div>
+                <div class="process-grid">
+                    <div>
+                        <div class="data-row"><span class="data-label">Flue-gas supply</span><span class="data-value">278 L/min</span></div>
+                        <div class="data-row"><span class="data-label">Flue-gas CO₂ concentration</span><span class="data-value">10% v/v</span></div>
+                        <div class="data-row"><span class="data-label">CO₂ design demand</span><span class="data-value">70.67 kg/day</span></div>
+                    </div>
+                    <div>
+                        <div class="data-row"><span class="data-label">CO₂ volumetric component</span><span class="data-value">27.8 L/min CO₂</span></div>
+                        <div class="data-row"><span class="data-label">Flue gas per day</span><span class="data-value">400.32 m³/day</span></div>
+                        <div class="process-note"><strong>Basis note:</strong> CO₂ demand and flue-gas supply are retained as separate project inputs. Capture/utilization efficiency is not hard-coded as 85%.</div>
+                    </div>
+                </div>
+            </div>
+
+            
+                <div class="process-subtitle">FEED FILL → ISOLATE FEED TANK → CLOSED INTERNAL RECIRCULATION FOR 15 DAYS</div>
             </div>
 
             <div class="pfd-card">
-                <div class="pfd-title">PROCESS FLOW — MATERIAL PATH</div>
-                <div class="pfd-flow">
-                    <div class="pfd-node tank"><div class="pfd-tag">TK-101</div><div class="pfd-name">FEED BUFFER TANK</div><div class="pfd-spec">500 L nominal<br>~425 L working<br>Culture feed</div></div>
-                    <div class="pfd-arrow">→<span class="pfd-arrow-label">27.81 L/h</span></div>
-                    <div class="pfd-node pump"><div class="pfd-tag">P-101</div><div class="pfd-name">PROGRESSIVE<br>CAVITY PUMP</div><div class="pfd-spec">27.81 L/h<br>3.401 m calculated head<br>0.4382 W hydraulic power</div></div>
-                    <div class="pfd-arrow">→<span class="pfd-arrow-label">PRESSURIZED FEED</span></div>
-                    <div class="pfd-node"><div class="pfd-tag">M-101</div><div class="pfd-name">TOP INLET HEADER</div><div class="pfd-spec">25 mm ID<br>12 × 10 mm branches<br>2.318 L/h per loop</div></div>
-                    <div class="pfd-arrow">→<span class="pfd-arrow-label">12-WAY SPLIT</span></div>
-                    <div class="pfd-node reactor" style="min-height:170px;"><div class="pfd-tag">PBR-101</div><div class="pfd-name">10,000 L TUBULAR PBR</div><div class="pfd-spec">12 parallel loops • 587 glass tubes • 575 PP U-bends • 15-day HRT</div>
-                        <div class="loop-bank">
-                            <div class="loop-chip">L01</div><div class="loop-chip">L02</div><div class="loop-chip">L03</div><div class="loop-chip">L04</div>
-                            <div class="loop-chip">L05</div><div class="loop-chip">L06</div><div class="loop-chip">L07</div><div class="loop-chip">L08</div>
-                            <div class="loop-chip">L09</div><div class="loop-chip">L10</div><div class="loop-chip">L11</div><div class="loop-chip">L12</div>
+                <div class="pfd-title">PROCESS FLOW — TWO OPERATING MODES</div>
+                <div class="pfd-flow" style="grid-template-columns:1fr .18fr .8fr .18fr 1fr .18fr 1.35fr .18fr 1fr .18fr 1fr;">
+                    <div class="pfd-node tank"><div class="pfd-tag">TK-101</div><div class="pfd-name">FEED / TRANSFER TANK</div><div class="pfd-spec">500 L nominal<br>Normal feed / make-up source</div></div>
+                    <div class="pfd-arrow">→<span class="pfd-arrow-label">FEED</span></div>
+                    <div class="pfd-node pump"><div class="pfd-tag">P-101</div><div class="pfd-name">FEED / TRANSFER<br>PUMP</div><div class="pfd-spec">27.8103 L/h HRT basis<br>3.4001 m head<br>0.4382 W hydraulic power</div></div>
+                    <div class="pfd-arrow">→</div>
+                    <div class="pfd-node"><div class="pfd-tag">M-101</div><div class="pfd-name">TOP DISTRIBUTION HEADERS (2 × 40 mm)</div><div class="pfd-spec">40 mm ID<br>2 × 6 × 25 mm branches<br>12 flow-control valves</div></div>
+                    <div class="pfd-arrow">→</div>
+                    <div class="pfd-node reactor" style="min-height:190px;"><div class="pfd-tag">PBR-101</div><div class="pfd-name">10,011.70 L TUBULAR PBR</div><div class="pfd-spec">12 parallel serpentine loops<br>587 glass tubes • 575 PP U-bends<br>15-day operating period</div>
+                        <div class="loop-bank" style="grid-template-columns:repeat(6,1fr);">
+                            <div class="loop-chip">L01</div><div class="loop-chip">L02</div><div class="loop-chip">L03</div><div class="loop-chip">L04</div><div class="loop-chip">L05</div><div class="loop-chip">L06</div>
+                            <div class="loop-chip">L07</div><div class="loop-chip">L08</div><div class="loop-chip">L09</div><div class="loop-chip">L10</div><div class="loop-chip">L11</div><div class="loop-chip">L12</div>
                         </div>
                     </div>
                     <div class="pfd-arrow">→<span class="pfd-arrow-label">COLLECT</span></div>
-                    <div class="pfd-node"><div class="pfd-tag">M-102</div><div class="pfd-name">BOTTOM COLLECTION HEADER</div><div class="pfd-spec">25 mm ID<br>12 outlet branches<br>27.81 L/h total</div></div>
-                    <div class="pfd-arrow">→<span class="pfd-arrow-label">CULTURE OUT</span></div>
-                    <div class="pfd-node tank"><div class="pfd-tag">TK-102</div><div class="pfd-name">COLLECTION BUFFER TANK</div><div class="pfd-spec">500 L nominal<br>~75 L working basis<br>Post-reactor buffer</div></div>
+                    <div class="pfd-node"><div class="pfd-tag">M-102</div><div class="pfd-name">BOTTOM COLLECTION COLLECTORS (2 × 40 mm)</div><div class="pfd-spec">40 mm ID each<br>2 × 6 outlet branches<br>Each collector = 13.9051 L/h; both combine to one common riser</div></div>
+                    <div class="pfd-arrow">→</div>
+                    <div class="pfd-node pump"><div class="pfd-tag">P-102</div><div class="pfd-name">RECIRCULATION<br>PUMP</div><div class="pfd-spec">27.8103 L/h HRT basis only<br>Closed-loop static head ≈ 0<br>Calculated hydraulic power ≈ 0.00002114 W*</div></div>
+                </div>
+
+                <div class="process-note" style="margin-top:14px;">
+                    <strong>15-DAY RECIRCULATION MODE:</strong>
+                    During normal operation, TK-101 feeds the upper headers through P-101 when feed / make-up is required. Independently, liquid leaves the loops through M-102, enters P-102,
+                    returns directly to M-101, and is redistributed through all 12 loops. <strong>TK-102 remains an isolated side outlet / harvest buffer and is not in the P-102 recirculation path.</strong>
+                    P-101 provides the controlled feed / make-up path to the upper distribution headers; P-102 provides the continuous internal recirculation path.
                 </div>
                 <div class="legend">
-                    <span><i style="background:#f6f8fa;border-color:#57606a;"></i> Tank</span>
-                    <span><i style="background:#fff8f2;border-color:#bc4c00;"></i> Pump</span>
+                    <span><i style="background:#f6f8fa;border-color:#57606a;"></i> Feed / start-up tank</span>
+                    <span><i style="background:#fff8f2;border-color:#bc4c00;"></i> Pumps</span>
                     <span><i style="background:#f3fbf5;border-color:#1a7f37;"></i> Reactor / loops</span>
-                    <span><i style="background:#f8fbff;border-color:#0969da;"></i> Header / manifold</span>
+                    <span><i style="background:#f8fbff;border-color:#0969da;"></i> Headers / manifolds</span>
                 </div>
             </div>
 
@@ -591,28 +678,53 @@
                     <table class="process-table">
                         <thead><tr><th>Tag</th><th>Equipment</th><th>Connection / Service</th><th>Key Basis</th></tr></thead>
                         <tbody>
-                            <tr><td>TK-101</td><td>Feed Buffer Tank</td><td>TK-101 → P-101</td><td>500 L nominal</td></tr>
-                            <tr><td>P-101</td><td>Progressive Cavity Pump</td><td>P-101 → M-101</td><td>27.81 L/h; 3.401 m head</td></tr>
-                            <tr><td>M-101</td><td>Top Inlet Header</td><td>1 header → 12 inlet branches</td><td>25 mm ID; ±5% balance target</td></tr>
-                            <tr><td>PBR-101</td><td>Tubular PBR</td><td>12 parallel serpentine loops</td><td>10,011.7 L; 15 d HRT</td></tr>
-                            <tr><td>M-102</td><td>Bottom Collection Header</td><td>12 outlet branches → header</td><td>25 mm ID</td></tr>
-                            <tr><td>TK-102</td><td>Collection Buffer Tank</td><td>M-102 → TK-102</td><td>500 L nominal</td></tr>
+                            <tr><td>TK-101</td><td>Feed / Transfer Tank</td><td>TK-101 → P-101 → M-101</td><td>Normal feed / make-up source</td></tr>
+                            <tr><td>P-101</td><td>Feed / Transfer Pump</td><td>TK-101 → upper headers</td><td>27.8103 L/h HRT basis; 3.4001 m preliminary head</td></tr>
+                            <tr><td>M-101</td><td>Top Distribution Header</td><td>2 top headers → 6 branches each</td><td>40 mm ID; 6 branches/header; 13.9051 L/h/header; ±5% balance target</td></tr>
+                            <tr><td>FCV-01…12</td><td>Manual Globe Valves</td><td>One valve on every inlet branch</td><td>Flow balancing / throttling</td></tr>
+                            <tr><td>PBR-101</td><td>Tubular PBR</td><td>12 parallel serpentine loops</td><td>10,011.7 L; 15-day operating period</td></tr>
+                            <tr><td>M-102</td><td>Bottom Collection Header</td><td>2 collectors × 6 outlet branches → common riser</td><td>40 mm ID</td></tr>
+                            <tr><td>P-102</td><td>Recirculation Pump</td><td>Common riser → P-102 → two top headers</td><td>Closed-loop recirculation; friction basis only</td></tr>
                         </tbody>
                     </table>
                 </div>
+
                 <div class="pfd-card">
-                    <div class="pfd-title">DESIGN CONTROL POINTS</div>
+                    <div class="pfd-title">DESIGN DECISION — WHY THIS ARRANGEMENT</div>
                     <div class="process-note">
-                        <strong>Flow distribution:</strong> Each loop is targeted at 2.318 L/h with a ±5% balancing band.<br><br>
-                        <strong>Reactor flow regime:</strong> Tube Reynolds number = 8.04, preliminary laminar basis.<br><br>
-                        <strong>Biological basis:</strong> 8 g/L Dry Cell Weight (DCW), 60.07 kg/day biomass production, 70.67 kg/day preliminary CO₂ feed, and 0.961 kg O₂/h Oxygen Uptake Rate (OUR).<br><br>
-                        <strong>Gas-transfer basis:</strong> Volumetric Mass Transfer Coefficient (kLa) = 40 h⁻¹, 30% dissolved oxygen saturation, gas holdup = 5–15%.<br><br>
-                        <strong>Hydraulic sequence:</strong> Feed buffer → pump → top header → 12 loops → bottom header → collection buffer.<br><br>
-                        <strong>3D traceability:</strong> CAD tab shows the top header, all 12 inlet branches and individual gate-valve/connection points.
+                        <strong>Recommended architecture:</strong> Use the first concept for the normal 15-day operating period:
+                        fill the reactor once, isolate the feed tank, and continuously recirculate inside the reactor loop.
+                        This avoids repeatedly sending the culture back through the feed tank.
+                        <br><br>
+                        <strong>Flow control:</strong> Use <strong>manual globe valves</strong> (FCV-01 to FCV-12) on each branch for throttling and balancing.
+                        Manual globe valves are used here for throttling and loop-to-loop balancing; final valve Cv/ΔP must be verified at the selected operating flow.
+                        <br><br>
+                        <strong>Important hydraulic note:</strong> P-102 is in a closed liquid circuit. The top-vs-bottom elevation is not a net static head requirement around a closed loop;
+                        the pump mainly supplies friction/minor losses. The current 27.8103 L/h value is the user's HRT flow basis, not a finalized internal circulation rate.
+                        <br><br>
+                        <strong>Engineering status:</strong> Preliminary process/design representation. Final P-102 selection requires an agreed internal recirculation flow, verified fitting losses, valve Cv, operating pressure and NPSH/vendor data.
                     </div>
-                    <div style="margin-top:12px;" class="process-note">
-                        <strong>Engineering status:</strong> Preliminary process/design representation only. Final valve sizing, fitting losses, sealing, pressure rating, structural checks and GA routing remain subject to verification before fabrication.
-                    </div>
+                </div>
+            </div>
+
+            <div class="pfd-card">
+                <div class="pfd-title">PUMP CALCULATION — P-102 RECIRCULATION</div>
+                <table class="process-table">
+                    <thead><tr><th>Parameter</th><th>Calculation / Basis</th><th>Result</th></tr></thead>
+                    <tbody>
+                        <tr><td>Recirculation flow basis</td><td>Q = 27.8103 L/h = 7.7250772e-06 m³/s</td><td>27.8103 L/h</td></tr>
+                        <tr><td>System pressure-drop basis</td><td>ΔP = 1.6422 Pa</td><td>1.6422 Pa</td></tr>
+                        <tr><td>Friction head</td><td>Hf = ΔP / (ρg) = 1.6422 / (1020×9.81)</td><td>0.0001641 m</td></tr>
+                        <tr><td>Net static head</td><td>Closed recirculation circuit</td><td>≈ 0 m</td></tr>
+                        <tr><td>P-102 calculated head</td><td>H₂ ≈ Hf (before design margin)</td><td>0.0001641 m</td></tr>
+                        <tr><td>Hydraulic power @ 60% efficiency</td><td>P = ρgQH/η</td><td><strong>0.00002114 W</strong></td></tr>
+                        <tr><td>Practical pump selection</td><td>Vendor/minimum stable operating range + design margin</td><td><strong>NOT FINALIZED</strong></td></tr>
+                    </tbody>
+                </table>
+                <div class="process-note" style="margin-top:10px;">
+                    <strong>*Very important:</strong> ≈0.000021 W is only the theoretical hydraulic result from the present 27.8103 L/h and 1.6422 Pa calculation basis. It is NOT a practical motor selection.
+                    It is <strong>not</strong> a practical motor rating. Because internal recirculation may need to be much higher than the 15-day HRT flow,
+                    P-102 should be re-sized after selecting the actual recirculation flow / target tube velocity.
                 </div>
             </div>
         </div>
@@ -629,13 +741,13 @@
                     <div class="param-field"><label>Tube ID (mm)</label><input id="p-tubeID" type="number" step="0.1" value="104"></div>
                     <div class="param-field"><label>Tube Length (mm)</label><input id="p-tubeLength" type="number" step="10" value="1500"></div>
                     <div class="param-field"><label>U-Bend CLR (mm)</label><input id="p-uBendCLR" type="number" step="1" value="165"></div>
-                    <div class="param-field"><label>Frame Width (m)</label><input id="p-frameW" type="number" step="0.1" value="5.8"></div>
-                    <div class="param-field"><label>Frame Height (m)</label><input id="p-frameH" type="number" step="0.1" value="3.4"></div>
+                    <div class="param-field"><label>Frame Width (m)</label><input id="p-frameW" type="number" step="0.1" value="13.6"></div>
+                    <div class="param-field"><label>Frame Height (m)</label><input id="p-frameH" type="number" step="0.1" value="6.0"></div>
                     <div class="param-field"><label>Frame Depth (m)</label><input id="p-frameD" type="number" step="0.1" value="1.8"></div>
                     <div class="param-field"><label>Module Pitch X (m)</label><input id="p-pitchX" type="number" step="0.05" value="2.05"></div>
-                    <div class="param-field"><label>Module Pitch Y (m)</label><input id="p-pitchY" type="number" step="0.05" value="2.15"></div>
-                    <div class="param-field"><label>Header ID (mm)</label><input id="p-headerID" type="number" step="1" value="25"></div>
-                    <div class="param-field"><label>Branch ID (mm)</label><input id="p-branchID" type="number" step="1" value="10"></div>
+                    <div class="param-field"><label>Module Pitch Y (m)</label><input id="p-pitchY" type="number" step="0.05" value="2.10"></div>
+                    <div class="param-field"><label>Header ID (mm)</label><input id="p-headerID" type="number" step="1" value="40"></div>
+                    <div class="param-field"><label>Branch ID (mm)</label><input id="p-branchID" type="number" step="1" value="25"></div>
                 </div>
                 <div class="studio-actions">
                     <button class="btn primary" onclick="applyParametricDesign()">APPLY DESIGN</button>
@@ -694,7 +806,7 @@
         <!-- Center Viewport -->
         <div id="viewport-container">
             <div id="cad-grid-overlay" class="cad-grid-overlay"></div>
-            <div style="position:absolute;top:12px;right:12px;z-index:20;background:#fff;border:1px solid #d0d7de;border-radius:4px;padding:6px 10px;font:700 10px SFMono-Regular,Consolas,monospace;color:#57606a;">MRPL-STYLE RACK ARRANGEMENT • PRELIMINARY / NOT FOR FABRICATION</div>
+            <div style="position:absolute;top:12px;right:12px;z-index:20;background:#fff;border:1px solid #d0d7de;border-radius:4px;padding:6px 10px;font:700 10px SFMono-Regular,Consolas,monospace;color:#57606a;">2×6 LOOP MATRIX • 2 TOP HEADERS • 2 BOTTOM COLLECTORS • 1 COMMON RISER • ENGINEERING CONCEPT / NOT FOR FABRICATION</div>
         <div class="viewport-overlay">
                 <button class="btn" onclick="fitModelZoomExtents()">ZOOM EXTENTS</button>
                 <button class="btn" onclick="highlightInletManifold()">SHOW 12 INLET CONNECTIONS</button>
@@ -716,13 +828,28 @@
             <div class="panel-group">
                 <div class="panel-title">Component Inspector</div>
                 <div id="inspector-content">
-                    <div style="color: var(--text-dim); font-style: italic;">Click any component in 3D CAD viewport to inspect verified parameters.</div>
+                    <div style="color: var(--text-dim); font-style: italic;">Click any component in the 3D CAD viewport to inspect current concept parameters.</div>
                 </div>
+            </div>
+
+
+            <div class="panel-group" style="border-color:#0969da;">
+                <div class="panel-title">LIVE ENGINEERING DASHBOARD — MB-03</div>
+                <div class="data-row"><span class="data-label">Working Volume</span><span class="data-value">10,011.70 L</span></div>
+                <div class="data-row"><span class="data-label">HRT</span><span class="data-value">15 d / 360 h</span></div>
+                <div class="data-row"><span class="data-label">Total HRT Flow</span><span class="data-value">27.8103 L/h</span></div>
+                <div class="data-row"><span class="data-label">Loop Flow</span><span class="data-value">2.3175 L/h</span></div>
+                <div class="data-row"><span class="data-label">Header Flow</span><span class="data-value">13.9051 L/h</span></div>
+                <div class="data-row"><span class="data-label">Final DCW Inventory</span><span class="data-value">40.0468 kg</span></div>
+                <div class="data-row"><span class="data-label">Lipid Inventory</span><span class="data-value">17.2201 kg</span></div>
+                <div class="data-row"><span class="data-label">CO₂ Demand</span><span class="data-value">70.67 kg/day</span></div>
+                <div class="data-row"><span class="data-label">Flue Gas</span><span class="data-value">278 L/min</span></div>
+                <div class="data-row"><span class="data-label">Known Path ΔP</span><span class="data-value">1.6422 Pa</span></div>
             </div>
 
             <div class="panel-group">
                 <div class="panel-title">LOOP ARRANGEMENT</div>
-                <div class="data-row"><span class="data-label">Layout:</span><span class="data-value">3 ROW × 4 COLUMN</span></div>
+                <div class="data-row"><span class="data-label">Layout:</span><span class="data-value">2 ROW × 6 COLUMN</span></div>
                 <div class="data-row"><span class="data-label">Loop 01–11:</span><span class="data-value">49 TUBES / 48 U-BENDS</span></div>
                 <div class="data-row"><span class="data-label">Loop 12:</span><span class="data-value">48 TUBES / 47 U-BENDS</span></div>
                 <div class="data-row"><span class="data-label">Total:</span><span class="data-value">587 TUBES / 575 U-BENDS</span></div>
@@ -731,9 +858,7 @@
             <div class="panel-group" style="border-color:#cf222e;">
                 <div class="panel-title" style="color:#cf222e;">GEOMETRY CHECK</div>
                 <div style="font-size:10px;line-height:1.4;color:#cf222e;">
-                    TRUE U-BEND GEOMETRY IS PRESERVED. 48 BENDS × 330 mm PITCH = 15.84 m
-                    MINIMUM SERPENTINE SPAN PER 49-TUBE LOOP. THIS DOES NOT FIT INSIDE
-                    A 3.4 m × 1.8 m ENVELOPE WITHOUT A ROUTING/DIMENSION CHANGE.
+                    TRUE U-BEND GEOMETRY IS PRESERVED IN THE CONCEPT MODEL. 48 BENDS × 330 mm PITCH = 15.84 m MINIMUM SERPENTINE SPAN PER 49-TUBE LOOP. THE CURRENT 13.6 m × 6.0 m × 1.8 m RACK ENVELOPE THEREFORE REQUIRES FINAL ROUTING / GENERAL-ARRANGEMENT VERIFICATION BEFORE FABRICATION.
                 </div>
             </div>
 
@@ -743,21 +868,21 @@
                 <div class="data-row"><span class="data-label">Socket ID / Depth:</span><span class="data-value">111 / 25 mm</span></div>
                 <div class="data-row"><span class="data-label">Radial Clearance:</span><span class="data-value">0.5 mm</span></div>
                 <div class="data-row"><span class="data-label">U-Bend CLR / Bore:</span><span class="data-value">165 / 104 mm</span></div>
-                <div class="data-row"><span class="data-label">Main Header ID:</span><span class="data-value">25 mm</span></div>
-                <div class="data-row"><span class="data-label">Branch ID:</span><span class="data-value">10 mm</span></div>
+                <div class="data-row"><span class="data-label">Main Header ID:</span><span class="data-value">40 mm</span></div>
+                <div class="data-row"><span class="data-label">Branch ID:</span><span class="data-value">25 mm</span></div>
             </div>
         </div>
     </div>
 
     <footer>
-        <div>10,000L PBR | ENGINEERING + 3D CAD + PROCESS DESIGN | PRELIMINARY</div>
-        <div>12 LOOPS | 587 TUBES | 575 U-BENDS | PROCESS FLOW IN TAB 3</div>
+        <div>10,011.70 L PBR | ENGINEERING + 3D CAD + PROCESS DESIGN | PRELIMINARY</div>
+        <div>12 LOOPS | 587 TUBES | 575 U-BENDS | Q=27.8103 L/h | CO₂=70.67 kg/day | MB-03</div>
     </footer>
 </div>
 
 <script>
 /**
- * 10,000L CONTINUOUS TUBULAR PBR - INTEGRATED APPLICATION CODE
+ * 10,011.70 L CLOSED-RECIRCULATION TUBULAR PBR - INTEGRATED APPLICATION CODE
  */
 
 // Core Verified Dimensions (m)
@@ -776,12 +901,12 @@ const CAD = {
     insertionDepth: 0.025, // 25 mm
     radialClearance: 0.0005, // 0.5 mm
 
-    headerID: 0.025,       // 25 mm
+    headerID: 0.040,       // 40 mm
     headerR_in: 0.0125,
     headerOD: 0.030,
     headerR_out: 0.015,
 
-    branchID: 0.010,       // 10 mm
+    branchID: 0.025,       // 25 mm
     branchR_in: 0.005,
     branchOD: 0.014,
     branchR_out: 0.007
@@ -790,10 +915,29 @@ const CAD = {
 // Parametric design settings — editable from the CAD UI without touching code.
 const DEFAULT_DESIGN = {
     tubeOD: 0.110, tubeID: 0.104, tubeLength: 1.500, uBendCLR: 0.165,
-    frameW: 5.8, frameH: 3.4, frameD: 1.8, pitchX: 2.05, pitchY: 2.15,
-    headerID: 0.025, branchID: 0.010
+    frameW: 13.6, frameH: 4.9, frameD: 1.8, pitchX: 2.05, pitchY: 2.10,
+    headerID: 0.040, branchID: 0.025
 };
 const DESIGN = {...DEFAULT_DESIGN};
+
+const MB03 = {
+    workingVolumeL: 10011.7,
+    hrtHours: 360.0,
+    loops: 12,
+    qTotalLh: 27.8102777778,
+    qLoopLh: 2.3175231481,
+    qHeaderLh: 13.9051388889,
+    initialBiomassKg: 2.0023400000,
+    finalBiomassKg: 40.0468000000,
+    netBiomassKg: 38.0444600000,
+    lipidKg: 17.2201240000,
+    co2KgDay: 70.67,
+    flueGasLmin: 278,
+    co2Fraction: 0.10,
+    knownPathDP_Pa: 1.6421800000,
+    volumeClosureL: 10011.6980366019
+};
+
 let dimensionsVisible = true;
 let cadGridVisible = false;
 
@@ -823,6 +967,7 @@ const TOTAL_PARTICLES = 12 * PARTICLES_PER_LOOP;
 let particleProgress = [];
 let particleLoopIndices = [];
 let networkPaths = [];
+let feedX=-7.05, feedY=0.78, feedZ=-2.35, pump1X=-5.95, pump1Y=0.82, pump1Z=-2.35, productX=7.05, productY=0.78, productZ=2.35, feedRiserX=0, commonTopY=0;
 
 // Semicircular Arc for U-Bends
 class SemicircleUBendCurve extends THREE.Curve {
@@ -916,7 +1061,7 @@ function initThreeJS() {
     perspectiveCamera.position.set(6.0, 4.0, 7.5);
 
     // Properly scaled Orthographic frustum for 6m skid
-    const frustumSize = 7.5;
+    const frustumSize = 16.5;
     orthoCamera = new THREE.OrthographicCamera(
         -frustumSize * aspect / 2, frustumSize * aspect / 2,
         frustumSize / 2, -frustumSize / 2,
@@ -949,6 +1094,7 @@ function createMaterials() {
     materials.ppPlasticCad = new THREE.MeshStandardMaterial({ color: 0xe65100, metalness: 0.1, roughness: 0.5 });
     materials.ss304Cad = new THREE.MeshStandardMaterial({ color: 0x616161, metalness: 0.8, roughness: 0.3 });
     materials.frameCad = new THREE.MeshStandardMaterial({ color: 0x212121, roughness: 0.7 });
+    materials.frameGreen = new THREE.MeshStandardMaterial({ color: 0x1a7f37, roughness: 0.62, metalness: 0.05 });
     materials.tankCad = new THREE.MeshStandardMaterial({ color: 0xb0bec5, metalness: 0.5, roughness: 0.4 });
     materials.edgeLine = new THREE.LineBasicMaterial({ color: 0x111111, linewidth: 1.2 });
     materials.dimLine = new THREE.LineBasicMaterial({ color: 0x0969da, linewidth: 1.5 });
@@ -975,10 +1121,12 @@ function buildAll3DCADAssembly() {
     sectionGroup = new THREE.Group(); sectionGroup.visible = false;
     connDetailGroup = new THREE.Group(); connDetailGroup.visible = false;
     inletAssembliesGroup = new THREE.Group();
+    flowArrowsGroup = new THREE.Group();
 
     mainGroup.add(loopsGroup);
     mainGroup.add(headersGroup);
     mainGroup.add(inletAssembliesGroup);
+    mainGroup.add(flowArrowsGroup);
     mainGroup.add(frameGroup);
     mainGroup.add(tanksGroup);
     mainGroup.add(dimsGroup);
@@ -990,12 +1138,13 @@ function buildAll3DCADAssembly() {
     buildHeadersAndBranches();
     buildFrameGeometry();
     buildTanksAndPumpGeometry();
+    buildFlowDirectionArrows();
     buildDimensionsAndLabels();
     addProcessEquipmentLabels();
     buildSectionCutawayGeometry();
     constructFullNetworkPaths();
     const status = document.getElementById('viewport-status');
-    if (status) status.textContent = '3D MODEL READY • 12 LOOPS • 587 TUBES • 575 U-BENDS';
+    if (status) status.textContent = '3D MODEL READY • 12 LOOPS • 2 ROW × 6 COLUMN • 587 TUBES • 575 U-BENDS';
     setTimeout(() => fitModelZoomExtents(), 0);
 }
 
@@ -1077,29 +1226,26 @@ function build12LoopsGeometry() {
     loopsData = [];
 
     /*
-     * COMPACT LOOP MATRIX
-     * Front view of complete reactor:
-     *   L01  L02  L03  L04
-     *   L05  L06  L07  L08
-     *   L09  L10  L11  L12
+     * FINAL PHYSICAL ARRANGEMENT — 2 COLUMNS (FRONT / BACK) × 6 LOOPS
      *
-     * Inside each loop the tubes are also arranged as rows + columns:
-     *   49-tube loops = 7 rows x 7 columns
-     *   48-tube loop  = 6 rows x 8 columns
+     * FRONT BANK (Z = -1.05 m): L01 L02 L03 L04 L05 L06
+     * BACK  BANK (Z = +1.05 m): L07 L08 L09 L10 L11 L12
      *
-     * Tubes are 1500 mm long and run in Z (reactor depth). Adjacent tubes
-     * are joined by 180° U-bends, creating a compact serpentine rather than
-     * one long vertical chain. U-bend centreline radius remains 165 mm.
+     * Therefore:
+     *   TOP HEADER-FRONT -> L01-L06
+     *   TOP HEADER-BACK  -> L07-L12
+     *   BOTTOM COLLECTOR-FRONT <- L01-L06
+     *   BOTTOM COLLECTOR-BACK  <- L07-L12
+     *
+     * The two banks are physically separated in the Z direction.
+     * Each loop keeps the same 49/48-tube serpentine construction.
      */
-
-    const COLS = 4, ROWS = 3;
+    const COLS = 6;
+    const BANKS = 2;
     const modulePitchX = DESIGN.pitchX;
-    const modulePitchY = DESIGN.pitchY;
     const startModuleX = -((COLS - 1) * modulePitchX) / 2;
-    const startModuleY = 2.55;
-
-    // Tube-to-tube pitch is 2*CLR for tangent U-bend connection.
-    const tubePitch = 2 * CAD.uBendCLR; // 0.330 m
+    const bankZ = [-1.05, 1.05];
+    const tubePitch = 2 * CAD.uBendCLR;
 
     for (let loopIdx = 1; loopIdx <= 12; loopIdx++) {
         const loopGroup = new THREE.Group();
@@ -1107,15 +1253,16 @@ function build12LoopsGeometry() {
 
         const numTubes = (loopIdx === 12) ? 48 : 49;
         const numUBends = numTubes - 1;
-        const moduleRow = Math.floor((loopIdx - 1) / COLS);
+        const bank = Math.floor((loopIdx - 1) / COLS);     // 0 = front, 1 = back
         const moduleCol = (loopIdx - 1) % COLS;
         const moduleX = startModuleX + moduleCol * modulePitchX;
-        const moduleY = startModuleY - moduleRow * modulePitchY;
+        const moduleZ = bankZ[bank];
 
         const nRows = (numTubes === 48) ? 6 : 7;
         const nCols = (numTubes === 48) ? 8 : 7;
         const xStart = moduleX - ((nCols - 1) * tubePitch) / 2;
-        const yStart = moduleY + ((nRows - 1) * tubePitch) / 2;
+        const yCenter = 3.10 - bank * 0.00; // compact vertical placement; practical lower clearance retained
+        const yStart = yCenter + ((nRows - 1) * tubePitch) / 2;
 
         const tubeElements = [];
         const bendElements = [];
@@ -1123,21 +1270,19 @@ function build12LoopsGeometry() {
 
         let sequence = 0;
         for (let r = 0; r < nRows; r++) {
-            // Snake across columns: odd rows go left-to-right, even rows right-to-left.
             const leftToRight = (r % 2 === 0);
             const cOrder = leftToRight
                 ? [...Array(nCols).keys()]
                 : [...Array(nCols).keys()].reverse();
-            const dirSign = leftToRight ? 1 : -1;
 
             for (let k = 0; k < cOrder.length; k++) {
                 const c = cOrder[k];
                 const x = xStart + c * tubePitch;
                 const y = yStart - r * tubePitch;
 
-                // Alternate tube tangent after every U-bend so the flow snakes.
-                const tubeStartZ = (sequence % 2 === 0) ? -CAD.tubeLength/2 : CAD.tubeLength/2;
-                const tubeEndZ   = (sequence % 2 === 0) ?  CAD.tubeLength/2 : -CAD.tubeLength/2;
+                // IMPORTANT: tube length is centered on the physical FRONT/BACK bank.
+                const tubeStartZ = moduleZ + ((sequence % 2 === 0) ? -CAD.tubeLength/2 : CAD.tubeLength/2);
+                const tubeEndZ   = moduleZ + ((sequence % 2 === 0) ?  CAD.tubeLength/2 : -CAD.tubeLength/2);
                 const tubeStart = new THREE.Vector3(x, y, tubeStartZ);
                 const tubeEnd   = new THREE.Vector3(x, y, tubeEndZ);
                 const tubeDir = new THREE.Vector3(0,0, sequence % 2 === 0 ? 1 : -1);
@@ -1149,12 +1294,16 @@ function build12LoopsGeometry() {
                     component:'GLASS TUBE',
                     loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
                     tubeNo:sequence + 1,
-                    od:`${Math.round(DESIGN.tubeOD*1000)} mm`, id:`${Math.round(DESIGN.tubeID*1000)} mm`, length:`${Math.round(DESIGN.tubeLength*1000)} mm`,
-                    material:'Borosilicate Glass 3.3', flow:'2.318 L/h',
+                    od:`${Math.round(DESIGN.tubeOD*1000)} mm`,
+                    id:`${Math.round(DESIGN.tubeID*1000)} mm`,
+                    length:`${Math.round(DESIGN.tubeLength*1000)} mm`,
+                    material:'Borosilicate Glass 3.3',
+                    flow:'2.3175 L/h',
                     pressureDrop:'0.01648 Pa (Path Total)',
                     matrix:`${nRows} ROWS × ${nCols} COLUMNS`,
                     matrixRow:r+1, matrixColumn:c+1,
-                    moduleRow:moduleRow+1, moduleColumn:moduleCol+1
+                    physicalBank:bank === 0 ? 'FRONT' : 'BACK',
+                    moduleColumn:moduleCol+1
                 };
                 loopGroup.add(tubeGroup);
                 tubeElements.push({
@@ -1165,8 +1314,6 @@ function build12LoopsGeometry() {
                 centerlinePath.add(new THREE.LineCurve3(tubeStart, tubeEnd));
                 sequence++;
 
-                // Connect to the next tube in the same row OR to the first tube
-                // of the next row. The connection is always exactly 330 mm.
                 const hasNext = !(r === nRows-1 && k === cOrder.length-1);
                 if (hasNext) {
                     let nextX, nextY, radial;
@@ -1176,24 +1323,25 @@ function build12LoopsGeometry() {
                         nextY = y;
                         radial = new THREE.Vector3(nextX - x, 0, 0).normalize();
                     } else {
-                        // End of row: drop one row at the same column.
                         nextX = x;
                         nextY = y - tubePitch;
                         radial = new THREE.Vector3(0, -1, 0);
                     }
+
                     const bendStart = tubeEnd.clone();
                     const bendEnd = new THREE.Vector3(nextX, nextY, tubeEnd.z);
                     const bend = createHollowPPUBendCad(bendStart, bendEnd, tubeDir, radial);
                     bend.userData = {
-                        component:'PP U-BEND', loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
-                        bendNo:bendElements.length+1, clr:'165 mm', bore:'104 mm', od:'119 mm',
+                        component:'PP U-BEND',
+                        loop:`LOOP-${String(loopIdx).padStart(2,'0')}`,
+                        bendNo:bendElements.length+1,
+                        clr:'165 mm', bore:'104 mm', od:'119 mm',
                         socketID:'111 mm', insertion:'25 mm', radialClearance:'0.5 mm',
                         connection:'TUBE-TO-TUBE SERPENTINE'
                     };
                     loopGroup.add(bend);
                     bendElements.push({mesh:bend, center:bendStart.clone().add(bendEnd).multiplyScalar(0.5)});
 
-                    const arc = new THREE.CurvePath();
                     const R = CAD.uBendCLR;
                     class MatrixUBendCurve extends THREE.Curve {
                         getPoint(t, target=new THREE.Vector3()) {
@@ -1211,36 +1359,46 @@ function build12LoopsGeometry() {
         loopsData.push({
             group:loopGroup, loopIndex:loopIdx, numTubes, numUBends,
             tubeRows:nRows, tubeColumns:nCols,
-            moduleRow:moduleRow+1, moduleColumn:moduleCol+1,
+            moduleRow:1, moduleColumn:moduleCol+1,
+            physicalBank:bank === 0 ? 'FRONT' : 'BACK',
+            bankIndex:bank+1,
+            bankZ:moduleZ,
             tubeElements, bendElements, centerlinePath,
             inletPos:tubeElements[0].start.clone(),
             outletPos:tubeElements[tubeElements.length-1].end.clone(),
-            row:moduleRow+1, column:moduleCol+1
+            row:1, column:moduleCol+1
         });
         loopsGroup.add(loopGroup);
     }
 }
 
-function createGateValveAssembly(index, center) {
+function createGlobeValveAssembly(index, center) {
     const n = String(index + 1).padStart(2,'0');
     const g = new THREE.Group();
-    g.name = `GV-${n}_ASSEMBLY`;
+    g.name = `FCV-${n}_GLOBE_VALVE_ASSEMBLY`;
 
-    // Vertical flow axis: header nozzle → valve → branch → loop inlet.
+    // Globe valve: compact spherical/bonnet body on the vertical branch.
     const body = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.075, 0.075, 0.22, 16),
+        new THREE.SphereGeometry(0.085, 16, 12),
         materials.ss304Cad
     );
     body.position.copy(center);
     addEdgesToMesh(body);
     g.add(body);
 
-    // Compact flange faces make the valve mechanically readable at the pipe ends.
+    const neck = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.052, 0.052, 0.12, 14),
+        materials.ss304Cad
+    );
+    neck.position.set(center.x, center.y + 0.10, center.z);
+    addEdgesToMesh(neck);
+    g.add(neck);
+
     const flangeTop = new THREE.Mesh(
         new THREE.CylinderGeometry(0.052, 0.052, 0.035, 16),
         materials.ss304Cad
     );
-    flangeTop.position.set(center.x, center.y + 0.115, center.z);
+    flangeTop.position.set(center.x, center.y + 0.13, center.z);
     addEdgesToMesh(flangeTop);
     g.add(flangeTop);
 
@@ -1248,16 +1406,15 @@ function createGateValveAssembly(index, center) {
         new THREE.CylinderGeometry(0.052, 0.052, 0.035, 16),
         materials.ss304Cad
     );
-    flangeBottom.position.set(center.x, center.y - 0.115, center.z);
+    flangeBottom.position.set(center.x, center.y - 0.13, center.z);
     addEdgesToMesh(flangeBottom);
     g.add(flangeBottom);
 
-    // Bonnet + stem.
     const bonnet = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.045, 0.055, 0.10, 14),
+        new THREE.CylinderGeometry(0.045, 0.060, 0.09, 14),
         materials.ss304Cad
     );
-    bonnet.position.set(center.x, center.y + 0.155, center.z);
+    bonnet.position.set(center.x, center.y + 0.18, center.z);
     addEdgesToMesh(bonnet);
     g.add(bonnet);
 
@@ -1265,17 +1422,16 @@ function createGateValveAssembly(index, center) {
         new THREE.CylinderGeometry(0.012, 0.012, 0.16, 10),
         materials.valveStem
     );
-    stem.position.set(center.x, center.y + 0.245, center.z);
+    stem.position.set(center.x, center.y + 0.28, center.z);
     addEdgesToMesh(stem);
     g.add(stem);
 
-    // Handwheel: torus in the horizontal X-Z plane with four engineering spokes.
     const wheel = new THREE.Mesh(
         new THREE.TorusGeometry(0.085, 0.012, 8, 20),
         materials.valveHandwheel
     );
     wheel.rotation.x = Math.PI / 2;
-    wheel.position.set(center.x, center.y + 0.335, center.z);
+    wheel.position.set(center.x, center.y + 0.37, center.z);
     addEdgesToMesh(wheel);
     g.add(wheel);
 
@@ -1287,7 +1443,7 @@ function createGateValveAssembly(index, center) {
         );
         spoke.position.set(
             center.x + Math.cos(ang) * 0.047,
-            center.y + 0.335,
+            center.y + 0.37,
             center.z + Math.sin(ang) * 0.047
         );
         spoke.rotation.y = -ang;
@@ -1298,19 +1454,19 @@ function createGateValveAssembly(index, center) {
         new THREE.CylinderGeometry(0.022, 0.022, 0.028, 12),
         materials.valveHandwheel
     );
-    hub.position.set(center.x, center.y + 0.335, center.z);
+    hub.position.set(center.x, center.y + 0.37, center.z);
     addEdgesToMesh(hub);
     g.add(hub);
 
     g.userData = {
-        component: `GATE VALVE GV-${n}`,
-        tag: `GV-${n}`,
-        service: `LOOP-${n} FLOW ISOLATION / BALANCING`,
-        size: '10 mm branch',
-        flow: '2.318 L/h target',
-        connection: `TOP HEADER NOZZLE ${n} → GV-${n} → 10 mm BRANCH ${n} → LOOP-${n}`,
+        component: `GLOBE FLOW-CONTROL VALVE FCV-${n}`,
+        tag: `FCV-${n}`,
+        service: `LOOP-${n} FLOW CONTROL / BALANCING`,
+        size: '25 mm branch',
+        flow: '2.3175 L/h target',
+        connection: `TOP HEADER NOZZLE ${n} → FCV-${n} → 25 mm BRANCH ${n} → LOOP-${n}`,
         orientation: 'VERTICAL / DOWNWARD FLOW',
-        type: 'MANUAL GATE VALVE — HANDWHEEL OPERATED'
+        type: 'MANUAL GLOBE VALVE — THROTTLING / FLOW BALANCING'
     };
     return g;
 }
@@ -1330,178 +1486,220 @@ function createValveTag(text, position) {
 }
 
 function buildHeadersAndBranches() {
-    // ENGINEERING MANIFOLD ARRANGEMENT
-    // One common INLET HEADER is mounted ABOVE the reactor rack.
-    // Each of its 12 nozzles has a physically connected gate valve followed
-    // immediately by the 10 mm branch leading to the matching loop inlet.
-    const TOP_HEADER_Y = DESIGN.frameH + 0.75;
-    const BOTTOM_HEADER_Y = -0.25 - DESIGN.frameH;
-    const HEADER_Z_IN = -0.75;
-    const HEADER_Z_OUT = 0.75;
-
-    const xs = loopsData.map(l => l.inletPos.x);
-    const minX = Math.min(...xs) - 0.45;
-    const maxX = Math.max(...xs) + 0.45;
-    const headerLen = maxX - minX;
-    const headerCenterX = (minX + maxX) / 2;
-
-    const inletGeo = new THREE.CylinderGeometry(DESIGN.headerID/2 + 0.0025, DESIGN.headerID/2 + 0.0025, headerLen, 16, 1, true);
-    inletGeo.rotateZ(Math.PI / 2);
-    const inletHeader = new THREE.Mesh(inletGeo, materials.ss304Cad);
-    inletHeader.position.set(headerCenterX, TOP_HEADER_Y, HEADER_Z_IN);
-    addEdgesToMesh(inletHeader);
-    inletHeader.userData = {
-        component:'MAIN INLET HEADER — TOP DISTRIBUTION MANIFOLD', id:'25 mm', totalFlow:'27.81 L/h',
-        branches:12, flowPerBranch:'2.318 L/h', velocity:'0.01574 m/s', reynolds:'401.3',
-        frictionFactor:'0.1594', pressureDrop:'2.337 Pa', location:'TOP OF REACTOR RACK',
-        flowPath:'Feed Buffer Tank → Pump → TOP INLET HEADER → 12 NOZZLES → 12 GATE VALVES → 12 LOOPS'
-    };
-    headersGroup.add(inletHeader);
-
-    const outletGeo = new THREE.CylinderGeometry(DESIGN.headerID/2 + 0.0025, DESIGN.headerID/2 + 0.0025, headerLen, 16, 1, true);
-    outletGeo.rotateZ(Math.PI / 2);
-    const outletHeader = new THREE.Mesh(outletGeo, materials.ss304Cad);
-    outletHeader.position.set(headerCenterX, BOTTOM_HEADER_Y, HEADER_Z_OUT);
-    addEdgesToMesh(outletHeader);
-    outletHeader.userData = {
-        component:'COLLECTION HEADER — BOTTOM MANIFOLD', id:'25 mm', totalFlow:'27.81 L/h',
-        branches:12, flowPerBranch:'2.318 L/h', velocity:'0.01574 m/s', reynolds:'401.3',
-        frictionFactor:'0.1594', pressureDrop:'2.337 Pa', location:'BOTTOM OF REACTOR RACK',
-        flowPath:'12 LOOPS → 12 OUTLET BRANCHES → COLLECTION HEADER → Collection Buffer Tank'
-    };
-    headersGroup.add(outletHeader);
-
+    /*
+     * TWO PHYSICAL COLUMNS = FRONT / BACK BANKS
+     *
+     * FRONT: TOP HEADER-FRONT -> L01-L06 -> BOTTOM COLLECTOR-FRONT
+     * BACK : TOP HEADER-BACK  -> L07-L12 -> BOTTOM COLLECTOR-BACK
+     *
+     * Both bottom collectors join one COMMON RISER.
+     * P-102 sends the total flow back upward through one discharge riser,
+     * which then splits only at the top to the two top headers.
+     */
+    const bankDefs = [
+        {bank:0, name:'FRONT', first:0, last:5, z:-1.05},
+        {bank:1, name:'BACK',  first:6, last:11, z: 1.05}
+    ];
     inletAssembliesGroup.clear();
 
-    for (let i = 0; i < 12; i++) {
-        const loop = loopsData[i];
-        const n = String(i+1).padStart(2,'0');
-        const assembly = new THREE.Group();
-        assembly.name = `INLET_CONNECTION_${n}`;
-        assembly.userData = {
-            component:`INLET CONNECTION ASSEMBLY ${n}`,
-            tag:`GV-${n}`,
-            loop:`LOOP-${n}`,
-            flow:'2.318 L/h',
-            sequence:`TOP HEADER NOZZLE ${n} → GV-${n} → 10 mm BRANCH ${n} → LOOP-${n}`
+    const topYs = [];
+    const bottomYs = [];
+
+    bankDefs.forEach((g, gi) => {
+        const bankLoops = loopsData.slice(g.first, g.last+1);
+        const topY = Math.max(...bankLoops.map(l => l.inletPos.y)) + 0.42;
+        const bottomY = Math.min(...bankLoops.map(l => l.outletPos.y)) - 0.72;
+        const xs = bankLoops.map(l => l.inletPos.x);
+        const minX = Math.min(...xs) - 0.45;
+        const maxX = Math.max(...xs) + 0.45;
+        const headerLen = maxX - minX;
+        const headerCenterX = (minX + maxX)/2;
+        topYs.push(topY); bottomYs.push(bottomY);
+
+        const topGeo = new THREE.CylinderGeometry(DESIGN.headerID/2+0.0025, DESIGN.headerID/2+0.0025, headerLen, 16, 1, true);
+        topGeo.rotateZ(Math.PI/2);
+        const topHeader = new THREE.Mesh(topGeo, materials.ss304Cad);
+        topHeader.position.set(headerCenterX, topY, g.z);
+        addEdgesToMesh(topHeader);
+        topHeader.userData = {
+            component:`TOP DISTRIBUTION HEADER — ${g.name}`,
+            id:'40 mm ID', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
+            physicalLocation:g.name, branches:6,
+            totalFlow:'13.9051 L/h', flowPerBranch:'2.3175 L/h',
+            velocity:'0.003074 m/s', reynolds:'125.4',
+            pressureDrop:'0.472 Pa (distributed-flow estimate)',
+            flowPath:`P-102 → COMMON RISER → TOP HEADER-${g.name} → 6 NOZZLES → 6 GLOBE VALVES → 6 LOOPS`
         };
+        headersGroup.add(topHeader);
 
-        // Header nozzle is directly attached to the 25 mm header wall.
-        const nozzleCenter = new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y - 0.10, HEADER_Z_IN);
-        const nozzle = new THREE.Mesh(
-            new THREE.CylinderGeometry(DESIGN.branchID/2, DESIGN.branchID/2, 0.20, 14), materials.ss304Cad
-        );
-        nozzle.position.copy(nozzleCenter);
-        addEdgesToMesh(nozzle);
-        nozzle.userData = {component:`HEADER NOZZLE ${n}`, id:'25 mm header / 10 mm branch connection', loop:`LOOP-${n}`};
-        assembly.add(nozzle);
-
-        // Gate valve immediately downstream of the nozzle.
-        const valveCenterY = TOP_HEADER_Y - 0.30;
-        const valve = createGateValveAssembly(i, new THREE.Vector3(loop.inletPos.x, valveCenterY, HEADER_Z_IN));
-        assembly.add(valve);
-
-        // Short 10 mm branch segment from valve outlet to the actual loop inlet.
-        const valveBottomY = valveCenterY - 0.1325;
-        const branchCurve = new THREE.CatmullRomCurve3([
-            new THREE.Vector3(loop.inletPos.x, valveBottomY, HEADER_Z_IN),
-            new THREE.Vector3(loop.inletPos.x, (valveBottomY + loop.inletPos.y) / 2, HEADER_Z_IN),
-            loop.inletPos.clone()
-        ]);
-        const branch = new THREE.Mesh(
-            new THREE.TubeGeometry(branchCurve, 18, CAD.branchR_out, 8, false), materials.ss304Cad
-        );
-        branch.userData = {
-            component:`INLET BRANCH ${n}`, id:'10 mm', flow:'2.318 L/h', velocity:'0.008197 m/s',
-            reynolds:'83.60', pressureDrop:'2.623 Pa',
-            connection:`GV-${n} → LOOP-${n}`, direction:'DOWNWARD TO LOOP'
+        const botGeo = new THREE.CylinderGeometry(DESIGN.headerID/2+0.0025, DESIGN.headerID/2+0.0025, headerLen, 16, 1, true);
+        botGeo.rotateZ(Math.PI/2);
+        const botHeader = new THREE.Mesh(botGeo, materials.ss304Cad);
+        botHeader.position.set(headerCenterX, bottomY, g.z);
+        addEdgesToMesh(botHeader);
+        botHeader.userData = {
+            component:`BOTTOM COLLECTION HEADER — ${g.name}`,
+            id:'40 mm ID', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
+            physicalLocation:g.name, branches:6,
+            totalFlow:'13.9051 L/h', flowPerBranch:'2.3175 L/h',
+            velocity:'0.003074 m/s', reynolds:'125.4',
+            pressureDrop:'0.472 Pa (distributed-flow estimate)',
+            flowPath:`6 LOOPS → 6 OUTLET BRANCHES → BOTTOM COLLECTOR-${g.name} → COMMON RISER`
         };
-        addEdgesToMesh(branch);
-        assembly.add(branch);
+        headersGroup.add(botHeader);
 
-        // A small union/coupling at the actual loop nozzle makes the termination visible.
-        const loopNozzle = new THREE.Mesh(
-            new THREE.CylinderGeometry(DESIGN.branchID/2, DESIGN.branchID/2, 0.055, 12), materials.ss304Cad
-        );
-        loopNozzle.position.copy(loop.inletPos).add(new THREE.Vector3(0,0.028,0));
-        addEdgesToMesh(loopNozzle);
-        loopNozzle.userData = {component:`LOOP-${n} INLET NOZZLE`, connection:`10 mm branch → LOOP-${n}`};
-        assembly.add(loopNozzle);
+        bankLoops.forEach((loop, localIndex) => {
+            const i = g.first + localIndex;
+            const n = String(i+1).padStart(2,'0');
+            const assembly = new THREE.Group();
+            assembly.name = `INLET_CONNECTION_${n}`;
+            assembly.userData = {
+                component:`INLET CONNECTION ASSEMBLY ${n}`,
+                tag:`FCV-${n}`, loop:`LOOP-${n}`,
+                header:`TOP HEADER-${g.name}`, physicalBank:g.name,
+                flow:'2.3175 L/h',
+                sequence:`TOP HEADER-${g.name} → NOZZLE → FCV-${n} → 25 mm BRANCH → LOOP-${n}`
+            };
 
-        inletAssembliesGroup.add(assembly);
+            const nozzle = new THREE.Mesh(new THREE.CylinderGeometry(DESIGN.branchID/2, DESIGN.branchID/2, 0.20, 14), materials.ss304Cad);
+            nozzle.position.set(loop.inletPos.x, topY-0.10, g.z);
+            addEdgesToMesh(nozzle);
+            assembly.add(nozzle);
 
-        // Bottom collection branch remains unchanged in engineering basis.
-        const bottomHeaderPoint = new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, HEADER_Z_OUT);
-        const outletCurve = new THREE.LineCurve3(loop.outletPos, bottomHeaderPoint);
-        const outletBranch = new THREE.Mesh(
-            new THREE.TubeGeometry(outletCurve, 10, CAD.branchR_out, 8, false), materials.ss304Cad
-        );
-        addEdgesToMesh(outletBranch);
-        outletBranch.userData = {
-            component:`OUTLET BRANCH ${n}`, id:'10 mm', flow:'2.318 L/h', velocity:'0.008197 m/s',
-            reynolds:'83.60', pressureDrop:'2.623 Pa',
-            connection:`LOOP-${n} → BOTTOM COLLECTION HEADER`, direction:'DOWNWARD FROM LOOP'
+            const valveCenterY = topY - 0.30;
+            const valve = createGlobeValveAssembly(i, new THREE.Vector3(loop.inletPos.x, valveCenterY, g.z));
+            assembly.add(valve);
+
+            const valveBottomY = valveCenterY - 0.1325;
+            const branchCurve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(loop.inletPos.x, valveBottomY, g.z),
+                new THREE.Vector3(loop.inletPos.x, (valveBottomY+loop.inletPos.y)/2, g.z),
+                loop.inletPos.clone()
+            ]);
+            const branch = new THREE.Mesh(new THREE.TubeGeometry(branchCurve, 18, CAD.branchR_out, 8, false), materials.ss304Cad);
+            branch.userData = {
+                component:`INLET BRANCH ${n}`, id:'25 mm', physicalBank:g.name,
+                flow:'2.3175 L/h', velocity:'0.001311 m/s', reynolds:'33.4',
+                pressureDrop:'0.0336 Pa', connection:`FCV-${n} → LOOP-${n}`,
+                direction:'DOWNWARD TO LOOP'
+            };
+            addEdgesToMesh(branch); assembly.add(branch);
+            inletAssembliesGroup.add(assembly);
+
+            const bottomPoint = new THREE.Vector3(loop.outletPos.x, bottomY, g.z);
+            const outletBranch = new THREE.Mesh(new THREE.TubeGeometry(new THREE.LineCurve3(loop.outletPos, bottomPoint), 10, CAD.branchR_out, 8, false), materials.ss304Cad);
+            outletBranch.userData = {
+                component:`OUTLET BRANCH ${n}`, id:'25 mm', physicalBank:g.name,
+                flow:'2.3175 L/h', velocity:'0.001311 m/s', reynolds:'33.4',
+                pressureDrop:'0.0336 Pa', connection:`LOOP-${n} → BOTTOM COLLECTOR-${g.name}`,
+                direction:'DOWNWARD FROM LOOP'
+            };
+            addEdgesToMesh(outletBranch); headersGroup.add(outletBranch);
+        });
+    });
+
+    const riserX = Math.max(...loopsData.map(l => l.inletPos.x)) + 1.30;
+    const commonBottomY = Math.min(...bottomYs);
+    commonTopY = Math.max(...topYs);
+
+    // Each bottom collector goes inward to ONE common vertical riser.
+    bankDefs.forEach((g, gi) => {
+        const joinX = Math.max(...loopsData.slice(g.first,g.last+1).map(l=>l.outletPos.x)) + 0.45;
+        const join = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+            new THREE.Vector3(joinX, bottomYs[gi], g.z),
+            new THREE.Vector3(riserX, bottomYs[gi], g.z),
+            new THREE.Vector3(riserX, bottomYs[gi], 0)
+        ]), 30, CAD.branchR_out, 8, false), materials.ss304Cad);
+        join.userData = {
+            component:`BOTTOM COLLECTOR ${g.name} → COMMON RISER`,
+            flow:'13.9051 L/h', connection:`BOTTOM COLLECTOR-${g.name} → ONE COMMON RISER`
         };
-        headersGroup.add(outletBranch);
-    }
+        addEdgesToMesh(join); headersGroup.add(join);
+    });
+
+    const commonRiser = new THREE.Mesh(new THREE.TubeGeometry(new THREE.LineCurve3(
+        new THREE.Vector3(riserX, commonBottomY, 0),
+        new THREE.Vector3(riserX, commonTopY+0.30, 0)
+    ), 50, CAD.headerR_out, 10, false), materials.ss304Cad);
+    commonRiser.userData = {
+        component:'ONE COMMON RECIRCULATION RISER', id:'40 mm ID hydraulic basis',
+        flow:'27.8103 L/h', direction:'BOTTOM COLLECTORS → P-102 → TOP HEADER SPLIT'
+    };
+    headersGroup.add(commonRiser);
+
+    // Top split: one riser to the front and back headers.
+    bankDefs.forEach((g, gi) => {
+        const split = new THREE.Mesh(new THREE.TubeGeometry(new THREE.LineCurve3(
+            new THREE.Vector3(riserX, topYs[gi], 0),
+            new THREE.Vector3(riserX, topYs[gi], g.z)
+        ), 25, CAD.branchR_out, 8, false), materials.ss304Cad);
+        split.userData = {
+            component:`COMMON RISER → TOP HEADER ${g.name}`,
+            flow:'13.9051 L/h', connection:`ONE RISER → TOP HEADER-${g.name}`
+        };
+        addEdgesToMesh(split); headersGroup.add(split);
+    });
 
     headersGroup.userData = {
-        component:'MANIFOLD SYSTEM', arrangement:'TOP INLET HEADER + BOTTOM COLLECTION HEADER', loops:12,
-        totalFlow:'27.81 L/h', flowPerLoop:'2.318 L/h', inletHeaderPressureDrop:'2.337 Pa',
-        outletHeaderPressureDrop:'2.337 Pa', branchPressureDrop:'2.623 Pa per branch',
-        hydraulicSequence:'Feed Buffer Tank → Pump → Top Header → 12 Nozzles → 12 Gate Valves → 12 Loops → Bottom Header → Collection Buffer Tank'
+        component:'2-COLUMN FRONT/BACK MANIFOLD SYSTEM',
+        arrangement:'2 PHYSICAL COLUMNS (FRONT/BACK) × 6 LOOPS EACH',
+        topHeaders:'2 × 40 mm — FRONT: L01-L06; BACK: L07-L12',
+        bottomCollectors:'2 × 40 mm — FRONT: L01-L06; BACK: L07-L12',
+        totalFlow:'27.8103 L/h', flowPerLoop:'2.3175 L/h',
+        headerFlow:'13.9051 L/h per header/collector',
+        hydraulicSequence:'12 LOOPS → 2 BOTTOM COLLECTORS → ONE COMMON RISER → P-102 → ONE DISCHARGE RISER → 2 TOP HEADERS → 12 LOOPS'
     };
 }
 
 function buildFrameGeometry() {
-    // Stated reactor envelope: 5.8 m W × 3.4 m H × 1.8 m D.
+    // CLEAN CAD DISPLAY FRAME — only the upper rack surrounding the loop banks.
+    // The lower rectangular frame/black section is intentionally removed so
+    // the two bottom collectors, pumps and tanks remain visually clear.
     const W = DESIGN.frameW, H = DESIGN.frameH, D = DESIGN.frameD;
     const beam = 0.06;
+    const loopBottomY = 1.90; // compact support elevation; keeps practical maintenance/piping clearance
+    const frameTopY = H - beam/2;
+    const postH = frameTopY - loopBottomY;
+    const postCenterY = (frameTopY + loopBottomY) / 2;
 
-    const verticalGeo = new THREE.BoxGeometry(beam, H, beam);
+    const verticalGeo = new THREE.BoxGeometry(beam, postH, beam);
     const horizontalGeo = new THREE.BoxGeometry(W, beam, beam);
     const depthGeo = new THREE.BoxGeometry(beam, beam, D);
 
-    // Four front/rear corner posts.
+    // Four short corner posts: only around the loop rack, not down to the floor.
     [-W/2 + beam/2, W/2 - beam/2].forEach(x => {
         [-D/2 + beam/2, D/2 - beam/2].forEach(z => {
             const col = new THREE.Mesh(verticalGeo, materials.frameCad);
-            col.position.set(x, H/2 - 0.05, z);
+            col.position.set(x, postCenterY, z);
             addEdgesToMesh(col);
             frameGroup.add(col);
         });
     });
 
-    // Top and bottom rails.
+    // TOP rails only. No lower horizontal rail is created.
     [-D/2 + beam/2, D/2 - beam/2].forEach(z => {
         const top = new THREE.Mesh(horizontalGeo, materials.frameCad);
-        top.position.set(0, H - beam/2, z);
+        top.position.set(0, frameTopY, z);
         addEdgesToMesh(top);
         frameGroup.add(top);
-
-        const bottom = new THREE.Mesh(horizontalGeo, materials.frameCad);
-        bottom.position.set(0, beam/2, z);
-        addEdgesToMesh(bottom);
-        frameGroup.add(bottom);
     });
 
-    // Depth rails at top/bottom.
+    // TOP depth rails only. No lower rectangular base is created.
     [-W/2 + beam/2, W/2 - beam/2].forEach(x => {
-        [beam/2, H - beam/2].forEach(y => {
-            const rail = new THREE.Mesh(depthGeo, materials.frameCad);
-            rail.position.set(x, y, 0);
-            addEdgesToMesh(rail);
-            frameGroup.add(rail);
-        });
+        const rail = new THREE.Mesh(depthGeo, materials.frameCad);
+        rail.position.set(x, frameTopY, 0);
+        addEdgesToMesh(rail);
+        frameGroup.add(rail);
     });
 
     frameGroup.userData = {
-        component: "REACTOR SUPPORT FRAME",
-        width: "5.8 m",
-        height: "3.4 m",
-        depth: "1.8 m",
-        arrangement: "12 loops = 3 rows × 4 columns; each loop internally matrixed (MRPL-style rack layout)",
-        engineeringNote: "Internal 7-row loops require 1.98 m vertical tube-matrix span at 330 mm tangent pitch; 3 stacked loop modules therefore exceed the 3.4 m envelope unless the loop planes are staggered/rotated in depth or the routing pitch/CLR is revised."
+        component: "UPPER REACTOR SUPPORT FRAME",
+        width: `${DESIGN.frameW.toFixed(2)} m`,
+        height: `${DESIGN.frameH.toFixed(2)} m`,
+        depth: `${DESIGN.frameD.toFixed(2)} m`,
+        arrangement: "12 loops = 2 banks × 6 loops; two top headers + two bottom collectors + one common riser",
+        lowerFrame: "REMOVED — clear space retained below loop banks for collectors, pumps and tanks",
+        engineeringNote: "The lower rectangular floor frame has intentionally been removed from the 3D visualization to keep process piping and equipment visually clear. This is a presentation/GA representation; final structural support members must be designed separately before fabrication."
     };
 }
 
@@ -1552,60 +1750,297 @@ function createBufferTankGeometry(tag, center, workingVolume, service) {
     return g;
 }
 
-function buildTanksAndPumpGeometry() {
-    // PROCESS EQUIPMENT ARRANGEMENT:
-    // FEED BUFFER TANK → PUMP → TOP INLET HEADER → REACTOR →
-    // BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK
-    const feedX = -4.55, feedY = 0.35, feedZ = -1.15;
-    const pumpX = -3.65, pumpY = 0.38, pumpZ = -1.15;
-    const collectionX = 4.55, collectionY = 0.35, collectionZ = 1.15;
-    const TOP_HEADER_Y = 4.15;
-    const BOTTOM_HEADER_Y = -3.15;
-    const HEADER_X = -3.525;
-    const HEADER_OUT_X = 3.525;
-    const HEADER_Z_IN = -0.75;
-    const HEADER_Z_OUT = 0.75;
 
-    const feedTank = createBufferTankGeometry('TK-101', new THREE.Vector3(feedX,feedY,feedZ), '425 L', 'PRE-REACTOR CULTURE BUFFER');
+function createIndustrialPump(tag, center, service) {
+    const g = new THREE.Group();
+    const base = new THREE.Mesh(
+        new THREE.BoxGeometry(0.78, 0.10, 0.58),
+        materials.frameCad
+    );
+    base.position.set(center.x, center.y - 0.22, center.z);
+    addEdgesToMesh(base);
+    g.add(base);
+
+    const pumpBody = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.19, 0.19, 0.34, 24),
+        materials.ss304Cad
+    );
+    pumpBody.rotation.z = Math.PI / 2;
+    pumpBody.position.set(center.x - 0.10, center.y, center.z);
+    addEdgesToMesh(pumpBody);
+    g.add(pumpBody);
+
+    const motor = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.15, 0.15, 0.42, 20),
+        materials.ss304Cad
+    );
+    motor.rotation.z = Math.PI / 2;
+    motor.position.set(center.x + 0.25, center.y, center.z);
+    addEdgesToMesh(motor);
+    g.add(motor);
+
+    const coupling = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.07, 0.07, 0.10, 16),
+        materials.frameCad
+    );
+    coupling.rotation.z = Math.PI / 2;
+    coupling.position.set(center.x + 0.08, center.y, center.z);
+    addEdgesToMesh(coupling);
+    g.add(coupling);
+
+    g.userData = { component: service, tag, service };
+    return g;
+}
+
+
+function addFlowArrow(start, end, label) {
+    const dir = end.clone().sub(start);
+    const len = dir.length();
+    if (len <= 0.05) return;
+    dir.normalize();
+    const arrow = new THREE.ArrowHelper(dir, start, Math.min(len, 0.75), 0x1a7f37, 0.18, 0.10);
+    arrow.userData = { component:'FLOW DIRECTION', label, direction:'FORWARD' };
+    flowArrowsGroup.add(arrow);
+}
+
+function buildFlowDirectionArrows() {
+    if (!flowArrowsGroup) return;
+    flowArrowsGroup.clear();
+
+    const topYs = [
+        Math.max(...loopsData.slice(0,6).map(l=>l.inletPos.y))+0.42,
+        Math.max(...loopsData.slice(6,12).map(l=>l.inletPos.y))+0.42
+    ];
+    const bottomYs = [
+        Math.min(...loopsData.slice(0,6).map(l=>l.outletPos.y))-0.38,
+        Math.min(...loopsData.slice(6,12).map(l=>l.outletPos.y))-0.38
+    ];
+    const riserX = Math.max(...loopsData.map(l=>l.inletPos.x)) + 1.30;
+    const pumpY = (Math.min(...bottomYs)+Math.max(...topYs))/2;
+
+    // Feed path: TK-101 -> P-101 -> upper header.
+    addFlowArrow(
+        new THREE.Vector3(feedX + 0.48, feedY + 0.10, feedZ),
+        new THREE.Vector3(pump1X - 0.25, pump1Y + 0.10, pump1Z),
+        'TK-101 → P-101'
+    );
+    addFlowArrow(
+        new THREE.Vector3(feedRiserX, pump1Y + 0.18, pump1Z),
+        new THREE.Vector3(feedRiserX, commonTopY + 0.12, pump1Z),
+        'P-101 → UPPER HEADER'
+    );
+
+    // Loop inlet/outlet arrows make the downward feed and collection direction obvious.
+    for (let i = 0; i < 12; i++) {
+        const bank = i < 6 ? 0 : 1;
+        const l = loopsData[i];
+        addFlowArrow(
+            new THREE.Vector3(l.inletPos.x, topYs[bank] - 0.04, l.inletPos.z),
+            l.inletPos.clone().add(new THREE.Vector3(0,-0.32,0)),
+            `UPPER HEADER → LOOP ${String(i+1).padStart(2,'0')}`
+        );
+        addFlowArrow(
+            l.outletPos.clone().add(new THREE.Vector3(0,-0.04,0)),
+            new THREE.Vector3(l.outletPos.x, bottomYs[bank] + 0.04, l.outletPos.z),
+            `LOOP ${String(i+1).padStart(2,'0')} → LOWER HEADER`
+        );
+    }
+
+    // Recirculation path: lower collector -> P-102 -> rising pipe -> upper header.
+    addFlowArrow(
+        new THREE.Vector3(riserX, Math.min(...bottomYs) + 0.05, 0),
+        new THREE.Vector3(riserX, pumpY - 0.18, 0),
+        'LOWER HEADER → P-102'
+    );
+    addFlowArrow(
+        new THREE.Vector3(riserX + 0.28, pumpY + 0.18, 0),
+        new THREE.Vector3(riserX + 0.28, Math.max(...topYs) - 0.05, 0),
+        'P-102 → UPPER HEADER'
+    );
+
+    flowArrowsGroup.visible = false;
+}
+function buildTanksAndPumpGeometry() {
+    // INDUSTRIAL COMPACT GA ARRANGEMENT:
+    // TK-101 + P-101 form the normal feed/transfer train on the LEFT.
+    // TK-102 is a separate buffer/harvest tank on the RIGHT, connected only
+    // through an isolated side outlet from the collection manifold.
+    // P-102 is INLINE on the common recirculation riser: bottom -> pump -> top.
+    feedX = -7.05; feedY = 0.78; feedZ = -2.35;
+    pump1X = -5.95; pump1Y = 0.82; pump1Z = -2.35;
+    productX = 7.05; productY = 0.78; productZ = 2.35;
+
+    const topYs = [
+        Math.max(...loopsData.slice(0,6).map(l=>l.inletPos.y))+0.42,
+        Math.max(...loopsData.slice(6,12).map(l=>l.inletPos.y))+0.42
+    ];
+    // Collectors are deliberately below the lowest tube row with a clear vertical gap.
+    const bottomYs = [
+        Math.min(...loopsData.slice(0,6).map(l=>l.outletPos.y))-0.38,
+        Math.min(...loopsData.slice(6,12).map(l=>l.outletPos.y))-0.38
+    ];
+
+    const rackRightX = Math.max(...loopsData.map(l=>l.inletPos.x));
+    const rackLeftX = Math.min(...loopsData.map(l=>l.inletPos.x));
+    const riserX = rackRightX + 1.05;
+    feedRiserX = rackLeftX - 1.05;
+    const commonBottomY = Math.min(...bottomYs);
+    commonTopY = Math.max(...topYs);
+    const pump2Y = (commonBottomY + commonTopY) / 2;
+
+    // ---------------- FEED TANK / FEED ----------------
+    const feedTank = createBufferTankGeometry(
+        'TK-101',
+        new THREE.Vector3(feedX,feedY,feedZ),
+        '425 L',
+        'FEED / TRANSFER CULTURE — NORMAL FEED + MAKE-UP'
+    );
     tanksGroup.add(feedTank);
 
-    const pump = new THREE.Mesh(new THREE.BoxGeometry(0.42,0.30,0.34), materials.ss304Cad);
-    pump.position.set(pumpX,pumpY,pumpZ);
-    addEdgesToMesh(pump);
-    pump.userData = {component:'PROGRESSIVE CAVITY PUMP', tag:'P-101', duty:'27.81 L/h', totalPressureDrop:'9.936 Pa', frictionHead:'0.000993 m', staticHead:'3.400 m', calcHead:'3.401 m', hydraulicPower:'0.4382 W', assumedEfficiency:'60%', flowPath:'Feed Buffer Tank → Pump → Top Inlet Header'};
-    tanksGroup.add(pump);
+    const pump1 = createIndustrialPump(
+        'P-101',
+        new THREE.Vector3(pump1X,pump1Y,pump1Z),
+        'FEED / TRANSFER PUMP — TK-101 TO UPPER HEADERS'
+    );
+    pump1.userData.duty='27.8103 L/h';
+    pump1.userData.head='3.401 m preliminary';
+    pump1.userData.hydraulicPower='0.4382 W';
+    pump1.userData.flowPath='TK-101 → P-101 → LEFT FEED RISER → UPPER HEADERS → TUBULAR LOOPS';
+    tanksGroup.add(pump1);
 
-    const collectionTank = createBufferTankGeometry('TK-102', new THREE.Vector3(collectionX,collectionY,collectionZ), '75 L', 'POST-REACTOR CULTURE BUFFER');
-    tanksGroup.add(collectionTank);
+    // Short, clean tank-to-pump line — no diagonal crossing of the rack.
+    const feedLine = new THREE.Mesh(new THREE.TubeGeometry(
+        new THREE.LineCurve3(
+            new THREE.Vector3(feedX+0.50,feedY+0.10,feedZ),
+            new THREE.Vector3(pump1X-0.26,pump1Y+0.10,pump1Z)
+        ), 16, 0.024, 10, false
+    ), materials.ss304Cad);
+    addEdgesToMesh(feedLine);
+    tanksGroup.add(feedLine);
 
-    // Feed tank side nozzle → pump inlet, with no floating pipe.
-    const feedLine = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-        new THREE.Vector3(feedX + 0.52, feedY + 0.34, feedZ),
-        new THREE.Vector3(pumpX - 0.22, feedY + 0.34, feedZ),
-        new THREE.Vector3(pumpX, pumpY, pumpZ)
-    ]),18,0.018,10,false), materials.ss304Cad);
-    feedLine.userData={component:'FEED PROCESS LINE',flow:'27.81 L/h',connection:'TK-101 SIDE NOZZLE → P-101 INLET'};
-    addEdgesToMesh(feedLine); tanksGroup.add(feedLine);
+    // LEFT feed riser is outside the rack. It rises vertically, then splits only at the top.
+    const feedRiser = new THREE.Mesh(new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3([
+            new THREE.Vector3(pump1X,pump1Y,pump1Z),
+            new THREE.Vector3(feedRiserX,pump1Y,pump1Z),
+            new THREE.Vector3(feedRiserX,commonTopY+0.18,pump1Z),
+            new THREE.Vector3(feedRiserX,commonTopY+0.18,0)
+        ]), 40, 0.026, 10, false
+    ), materials.ss304Cad);
+    feedRiser.userData={
+        component:'P-101 LEFT FEED RISER', flow:'27.8103 L/h',
+        connection:'TK-101 → P-101 → LEFT RISER → UPPER HEADER SPLIT'
+    };
+    addEdgesToMesh(feedRiser);
+    tanksGroup.add(feedRiser);
 
-    // Pump discharge rises to the actual TOP HEADER centerline.
-    const pumpToHeader = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-        new THREE.Vector3(pumpX,pumpY,pumpZ),
-        new THREE.Vector3(HEADER_X,pumpY,HEADER_Z_IN),
-        new THREE.Vector3(HEADER_X,TOP_HEADER_Y,HEADER_Z_IN)
-    ]),28,0.018,10,false), materials.ss304Cad);
-    pumpToHeader.userData={component:'PUMP DISCHARGE RISER',flow:'27.81 L/h',connection:'P-101 → TOP INLET HEADER',direction:'UPWARD TO DISTRIBUTION HEADER'};
-    addEdgesToMesh(pumpToHeader); tanksGroup.add(pumpToHeader);
+    // ---------------- PRODUCT / HARVEST TANK ----------------
+    const productTank = createBufferTankGeometry(
+        'TK-102',
+        new THREE.Vector3(productX,productY,productZ),
+        '425 L',
+        'BUFFER / HARVEST TANK — ISOLATED SIDE OUTLET'
+    );
+    tanksGroup.add(productTank);
 
-    // Collection header → collection tank side nozzle.
-    const collectionLine = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
-        new THREE.Vector3(HEADER_OUT_X,BOTTOM_HEADER_Y,HEADER_Z_OUT),
-        new THREE.Vector3(collectionX,BOTTOM_HEADER_Y,HEADER_Z_OUT),
-        new THREE.Vector3(collectionX,collectionY+0.34,collectionZ)
-    ]),28,0.018,10,false), materials.ss304Cad);
-    collectionLine.userData={component:'COLLECTION PROCESS LINE',flow:'27.81 L/h',connection:'BOTTOM COLLECTION HEADER → TK-102 SIDE NOZZLE',direction:'REACTOR OUTLET → POST-REACTOR BUFFER'};
-    addEdgesToMesh(collectionLine); tanksGroup.add(collectionLine);
+    const harvestValve = createGlobeValveAssembly(100,new THREE.Vector3(riserX,commonBottomY-0.18,0));
+    harvestValve.userData={
+        component:'HARVEST / PRODUCT ISOLATION VALVE', tag:'HV-201',
+        type:'MANUAL ON-OFF VALVE', service:'END-OF-RUN HARVEST',
+        connection:'ISOLATED SIDE OUTLET FROM COMMON COLLECTION → HV-201 → TK-102',
+        normalPosition:'CLOSED DURING 15-DAY RECIRCULATION'
+    };
+    tanksGroup.add(harvestValve);
 
-    tanksGroup.userData={component:'PROCESS EQUIPMENT ARRANGEMENT',upstream:'FEED BUFFER TANK',pump:'PROGRESSIVE CAVITY PUMP',distribution:'TOP INLET HEADER',reactor:'12 PARALLEL LOOPS',collection:'BOTTOM COLLECTION HEADER',downstream:'COLLECTION BUFFER TANK',completeFlowPath:'FEED BUFFER TANK → PUMP → TOP HEADER → 12 NOZZLES → 12 GATE VALVES → 12 PARALLEL LOOPS → BOTTOM COLLECTION HEADER → COLLECTION BUFFER TANK'};
+    const harvestLine = new THREE.Mesh(new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3([
+            new THREE.Vector3(riserX,commonBottomY,0),
+            new THREE.Vector3(riserX+0.75,commonBottomY,0),
+            new THREE.Vector3(productX-0.75,productY,productZ),
+            new THREE.Vector3(productX-0.50,productY+0.10,productZ)
+        ]), 35, 0.024, 10, false
+    ), materials.ss304Cad);
+    harvestLine.userData={
+        component:'PRODUCT / HARVEST LINE', flow:'Batch harvest after 15-day run',
+        connection:'ISOLATED COMMON COLLECTION SIDE OUTLET → HV-201 → TK-102', mode:'HARVEST / DRAIN ONLY'
+    };
+    addEdgesToMesh(harvestLine);
+    tanksGroup.add(harvestLine);
+
+    // ---------------- P-102 COMMON RISER PUMP ----------------
+    const pump2 = createIndustrialPump(
+        'P-102',
+        new THREE.Vector3(riserX+0.28,pump2Y,0),
+        'RECIRCULATION PUMP — LOWER COLLECTION TO UPPER HEADER'
+    );
+    pump2.userData.duty='27.8103 L/h HRT basis';
+    pump2.userData.netStaticHead='≈ 0 m closed circuit';
+    pump2.userData.knownFrictionHead='~0.000161 m before margin';
+    pump2.userData.hydraulicPower='~0.00002115 W at 60% efficiency (known-loss basis)';
+    pump2.userData.mounting='INLINE ON COMMON RISER';
+    pump2.userData.flowPath='LOWER HEADER → P-102 → RISING PIPE → UPPER HEADERS';
+    tanksGroup.add(pump2);
+
+    // Suction from the common bottom junction to P-102.
+    const suction = new THREE.Mesh(new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3([
+            new THREE.Vector3(riserX,commonBottomY,0),
+            new THREE.Vector3(riserX,pump2Y,0),
+            new THREE.Vector3(riserX+0.28,pump2Y,0)
+        ]), 30, 0.026, 10, false
+    ), materials.ss304Cad);
+    suction.userData={
+        component:'P-102 SUCTION / ONE COMMON RISER', flow:'27.8103 L/h',
+        connection:'2 BOTTOM COLLECTORS → ONE COMMON RISER → P-102'
+    };
+    addEdgesToMesh(suction);
+    tanksGroup.add(suction);
+
+    // Discharge rises from P-102 and splits at the top to the two top headers.
+    const discharge = new THREE.Mesh(new THREE.TubeGeometry(
+        new THREE.LineCurve3(
+            new THREE.Vector3(riserX+0.28,pump2Y,0),
+            new THREE.Vector3(riserX+0.28,commonTopY+0.18,0)
+        ), 45, 0.026, 10, false
+    ), materials.ss304Cad);
+    discharge.userData={
+        component:'P-102 DISCHARGE / ONE RISER', flow:'27.8103 L/h',
+        connection:'P-102 → ONE RISER → SPLIT TO 2 TOP HEADERS', direction:'BOTTOM → TOP'
+    };
+    addEdgesToMesh(discharge);
+    tanksGroup.add(discharge);
+
+    const topBankZ = [-1.05,1.05];
+    topBankZ.forEach((z,idx)=>{
+        const split = new THREE.Mesh(new THREE.TubeGeometry(
+            new THREE.LineCurve3(
+                new THREE.Vector3(riserX+0.28,topYs[idx],0),
+                new THREE.Vector3(riserX+0.28,topYs[idx],z)
+            ), 25, CAD.branchR_out, 8, false
+        ), materials.ss304Cad);
+        split.userData={
+            component:`P-102 TOP HEADER SPLIT ${idx===0?'FRONT':'BACK'}`,
+            flow:'13.9051 L/h', connection:`ONE RISER → TOP HEADER-${idx===0?'FRONT':'BACK'}`
+        };
+        addEdgesToMesh(split);
+        tanksGroup.add(split);
+    });
+
+    tanksGroup.userData={
+        component:'CLEAR 2-COLUMN / 2-HEADER / 2-COLLECTOR / 1-RISER ARRANGEMENT',
+        arrangement:'FRONT/BACK COLUMNS — 6 LOOPS EACH',
+        topHeaders:'2 × 40 mm — FRONT: L01-L06; BACK: L07-L12',
+        bottomCollectors:'2 × 40 mm — directly below respective loop banks',
+        totalFlow:'27.8103 L/h', flowPerLoop:'2.3175 L/h',
+        headerFlow:'13.9051 L/h per header/collector',
+        hydraulicSequence:'12 LOOPS → 2 BOTTOM COLLECTORS → ONE COMMON RISER → P-102 → ONE DISCHARGE RISER → 2 TOP HEADERS → 12 LOOPS',
+        startupPath:'TK-101 → P-101 → LEFT FEED RISER → 2 TOP HEADERS',
+        harvestPath:'COMMON BOTTOM RETURN → HV-201 → TK-102',
+        feedTankRole:'FEED / MAKE-UP ONLY — CLEARLY OUTSIDE RACK',
+        productTankRole:'END-OF-RUN HARVEST — CLEARLY OUTSIDE RACK',
+        valveType:'12 MANUAL GLOBE FLOW-CONTROL VALVES + HV-201 HARVEST VALVE',
+        operatingPeriod:'15 DAYS CLOSED INTERNAL RECIRCULATION'
+    };
 }
 
 function createDimensionAnnotation(p1, p2, text, offsetVector) {
@@ -1697,28 +2132,32 @@ function buildDimensionsAndLabels() {
 
 // Add process-flow labels for the two buffer tanks and the distribution header.
 function addProcessEquipmentLabels() {
+    const top1 = Math.max(...loopsData.slice(0,6).map(l=>l.inletPos.y)) + 0.55;
+    const top2 = Math.max(...loopsData.slice(6,12).map(l=>l.inletPos.y)) + 0.55;
+    const bot1 = Math.min(...loopsData.slice(0,6).map(l=>l.outletPos.y)) - 0.65;
+    const bot2 = Math.min(...loopsData.slice(6,12).map(l=>l.outletPos.y)) - 0.65;
+    const riserX = Math.max(...loopsData.map(l=>l.inletPos.x)) + 1.30;
     const items = [
-        { text:'FEED BUFFER TANK • CULTURE IN', pos:new THREE.Vector3(-4.55,1.72,-1.15) },
-        { text:'PUMP • 27.81 L/h • 3.401 m HEAD', pos:new THREE.Vector3(-3.65,0.58,-1.15) },
-        { text:`TOP MAIN INLET HEADER • ${Math.round(DESIGN.headerID*1000)} mm • 12 BRANCHES + GATE VALVES`, pos:new THREE.Vector3(0,4.48,-0.75) },
-        { text:`BOTTOM COLLECTION HEADER • ${Math.round(DESIGN.headerID*1000)} mm`, pos:new THREE.Vector3(0,-3.48,0.75) },
-        { text:'COLLECTION BUFFER TANK • CULTURE OUT', pos:new THREE.Vector3(4.55,1.72,1.15) }
+        {text:'FRONT COLUMN • TOP HEADER • L01-L06 • 13.9051 L/h',pos:new THREE.Vector3(0,top1,-1.05)},
+        {text:'BACK COLUMN • TOP HEADER • L07-L12 • 13.9051 L/h',pos:new THREE.Vector3(0,top2,1.05)},
+        {text:'FRONT COLUMN • BOTTOM COLLECTOR • L01-L06 • 13.9051 L/h',pos:new THREE.Vector3(0,bot1,-1.05)},
+        {text:'BACK COLUMN • BOTTOM COLLECTOR • L07-L12 • 13.9051 L/h',pos:new THREE.Vector3(0,bot2,1.05)},
+        {text:'P-102 • ONE COMMON RISER • 27.8103 L/h • BOTTOM → TOP',pos:new THREE.Vector3(riserX,(bot2+top1)/2,0)},
+        {text:'NORMAL FLOW: 2 BOTTOM COLLECTORS → 1 RISER → P-102 → 1 RISER → 2 TOP HEADERS',pos:new THREE.Vector3(0,bot2-1.0,0)}
     ];
-    // CAD valve tags are created after buildDimensionsAndLabels() clears labelsGroup.
-    for (let i = 0; i < 12; i++) {
-        const loop = loopsData[i];
-        const valveY = 4.15 - 0.30;
-        createValveTag(`GV-${String(i+1).padStart(2,'0')}`, new THREE.Vector3(loop.inletPos.x + 0.16, valveY + 0.10, -0.75));
+    for(let i=0;i<12;i++){
+        const loop=loopsData[i];
+        const topY = (i<6?top1:top2)-0.30;
+        createValveTag(`FCV-${String(i+1).padStart(2,'0')}`,new THREE.Vector3(loop.inletPos.x+0.16,topY+0.10,loop.inletPos.z));
     }
-
-    items.forEach(item => {
-        const canvas=document.createElement('canvas'); canvas.width=520; canvas.height=48;
+    items.forEach(item=>{
+        const canvas=document.createElement('canvas'); canvas.width=700; canvas.height=48;
         const ctx=canvas.getContext('2d');
-        ctx.fillStyle='#24292f'; ctx.fillRect(0,0,520,48);
-        ctx.fillStyle='#ffffff'; ctx.font='bold 16px monospace';
-        ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(item.text,260,24);
+        ctx.fillStyle='#24292f';ctx.fillRect(0,0,700,48);
+        ctx.fillStyle='#ffffff';ctx.font='bold 15px monospace';ctx.textAlign='center';ctx.textBaseline='middle';
+        ctx.fillText(item.text,350,24);
         const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(canvas),transparent:true}));
-        sprite.scale.set(1.25,0.115,1); sprite.position.copy(item.pos); labelsGroup.add(sprite);
+        sprite.scale.set(1.55,0.115,1);sprite.position.copy(item.pos);labelsGroup.add(sprite);
     });
 }
 
@@ -1768,7 +2207,7 @@ function buildSectionCutawayGeometry() {
     ctx.fillStyle = '#1f2328'; ctx.font = 'bold 30px monospace';
     ctx.fillText('SECTION A-A — TUBE / U-BEND SOCKET', 24, 48);
     ctx.font = '24px monospace';
-    ctx.fillText('Glass OD 110 mm | ID 104 mm | Wall 3 mm', 24, 88);
+    ctx.fillText('Glass OD 125 mm | ID 104 mm | Wall 3 mm', 24, 88);
     ctx.fillText('Socket ID 111 mm | Insertion 25 mm | Clearance 0.5 mm', 24, 124);
     ctx.fillText('PP U-Bend Bore 104 mm | OD 119 mm', 24, 160);
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(label), transparent: true }));
@@ -1781,63 +2220,34 @@ function buildSectionCutawayGeometry() {
 
 function constructFullNetworkPaths() {
     networkPaths = [];
+    const topYs = [Math.max(...loopsData.slice(0,6).map(l=>l.inletPos.y))+0.42,
+                   Math.max(...loopsData.slice(6,12).map(l=>l.inletPos.y))+0.42];
+    const bottomYs = [Math.min(...loopsData.slice(0,6).map(l=>l.outletPos.y))-0.42,
+                      Math.min(...loopsData.slice(6,12).map(l=>l.outletPos.y))-0.42];
+    const riserX = Math.max(...loopsData.map(l=>l.inletPos.x)) + 1.30;
+    const pumpY = (Math.min(...bottomYs)+Math.max(...topYs))/2;
 
-    const TOP_HEADER_Y = 4.15;
-    const BOTTOM_HEADER_Y = -3.15;
-    const HEADER_X = -3.525;
-    const HEADER_OUT_X = 3.525;
-
-    for (let i = 0; i < 12; i++) {
+    for(let i=0;i<12;i++){
+        const bank = i<6 ? 0 : 1;
+        const bankZ = bank===0 ? -1.05 : 1.05;
+        const topY = topYs[bank], bottomY = bottomYs[bank];
         const path = new THREE.CurvePath();
         const loop = loopsData[i];
 
-        // FEED BUFFER TANK → PUMP → TOP HEADER
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(-4.03, 0.82, -1.15),
-            new THREE.Vector3(-3.65, 0.28, -1.15)
-        ));
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(-3.65, 0.28, -1.15),
-            new THREE.Vector3(HEADER_X, 0.30, -0.75)
-        ));
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(HEADER_X, 0.30, -0.75),
-            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75)
-        ));
+        // Loop outlet -> its own bottom collector -> one common riser -> P-102 -> top split.
+        path.add(new THREE.LineCurve3(loop.outletPos,new THREE.Vector3(loop.outletPos.x,bottomY,bankZ)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(loop.outletPos.x,bottomY,bankZ),new THREE.Vector3(riserX,bottomY,bankZ)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(riserX,bottomY,bankZ),new THREE.Vector3(riserX,bottomY,0)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(riserX,bottomY,0),new THREE.Vector3(riserX,pumpY,0)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(riserX,pumpY,0),new THREE.Vector3(riserX,topY,0)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(riserX,topY,0),new THREE.Vector3(riserX,topY,bankZ)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(riserX,topY,bankZ),new THREE.Vector3(loop.inletPos.x,topY,bankZ)));
 
-        // TOP DISTRIBUTION HEADER → LOOP-SPECIFIC INLET BRANCH
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(HEADER_X, TOP_HEADER_Y, -0.75),
-            new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75)
-        ));
-        const valveY = TOP_HEADER_Y - 0.30;
-        const valveBottomY = valveY - 0.1325;
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(loop.inletPos.x, TOP_HEADER_Y, -0.75),
-            new THREE.Vector3(loop.inletPos.x, valveBottomY, -0.75)
-        ));
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(loop.inletPos.x, valveBottomY, -0.75),
-            loop.inletPos
-        ));
-
-        // Complete serpentine loop path.
-        loop.centerlinePath.curves.forEach(c => path.add(c));
-
-        // LOOP OUTLET → BOTTOM COLLECTION HEADER
-        path.add(new THREE.LineCurve3(
-            loop.outletPos,
-            new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, 0.75)
-        ));
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(loop.outletPos.x, BOTTOM_HEADER_Y, 0.75),
-            new THREE.Vector3(HEADER_OUT_X, BOTTOM_HEADER_Y, 0.75)
-        ));
-        path.add(new THREE.LineCurve3(
-            new THREE.Vector3(HEADER_OUT_X, BOTTOM_HEADER_Y, 0.75),
-            new THREE.Vector3(4.55, 0.82, 1.15)
-        ));
-
+        const valveY=topY-0.30;
+        const valveBottomY=valveY-0.1325;
+        path.add(new THREE.LineCurve3(new THREE.Vector3(loop.inletPos.x,topY,bankZ),new THREE.Vector3(loop.inletPos.x,valveBottomY,bankZ)));
+        path.add(new THREE.LineCurve3(new THREE.Vector3(loop.inletPos.x,valveBottomY,bankZ),loop.inletPos));
+        loop.centerlinePath.curves.forEach(c=>path.add(c));
         networkPaths.push(path);
     }
 }
@@ -1898,16 +2308,16 @@ function highlightInletManifold() {
     });
     setTimeout(() => old.forEach(x => x.obj.material.color.setHex(x.color)), 1800);
     const rows = [];
-    for (let i=1;i<=12;i++) rows.push(`GV-${String(i).padStart(2,'0')} → LOOP-${String(i).padStart(2,'0')} → 2.318 L/h`);
+    for (let i=1;i<=12;i++) rows.push(`FCV-${String(i).padStart(2,'0')} → LOOP-${String(i).padStart(2,'0')} → 2.3175 L/h`);
     displayInspectorData({
         component:'TOP INLET MANIFOLD — 12 LOOP CONNECTIONS',
-        header:'25 mm ID',
+        header:'40 mm ID',
         nozzles:'12 × dedicated header nozzles',
-        branches:'12 × 10 mm ID',
-        flowPerLoop:'2.318 L/h',
-        valves:'GV-01 to GV-12',
+        branches:'12 × 25 mm ID',
+        flowPerLoop:'2.3175 L/h',
+        valves:'FCV-01 to FCV-12',
         connections:rows.join(' | '),
-        sequence:'Feed Buffer → Pump → Top Header → Nozzle → Gate Valve → Branch → Loop'
+        sequence:'Feed Buffer → Pump → Top Header → Nozzle → Globe Valve → Branch → Loop'
     });
 }
 
@@ -1917,9 +2327,9 @@ function fitModelZoomExtents() {
 
 function setCameraPreset(preset) {
     switch(preset) {
-        // Front view is deliberately the 3-row × 4-column loop layout.
+        // Front view is deliberately the 2-row × 6-column loop layout.
         case 'FRONT':
-            activeCamera.position.set(0, 2.6, 16.5);
+            activeCamera.position.set(0, 3.0, 23.5);
             break;
         case 'TOP':
             activeCamera.position.set(0, 12, 0.001);
@@ -1929,12 +2339,12 @@ function setCameraPreset(preset) {
             break;
         case 'ISO':
         default:
-            activeCamera.position.set(8.5, 6.0, 10.5);
+            activeCamera.position.set(13.0, 7.0, 15.5);
             break;
     }
-    activeCamera.lookAt(0, 2.6, 0);
+    activeCamera.lookAt(0, 3.0, 0);
     controls.object = activeCamera;
-    controls.target.set(0, 2.6, 0);
+    controls.target.set(0, 3.0, 0);
     controls.update();
 }
 
@@ -1961,7 +2371,7 @@ function zoomDetailA() {
     zoomIsolateUBend();
     displayInspectorData({
         component: "DETAIL A — SOCKET CONNECTION",
-        glassTubeOD: "110 mm",
+        glassTubeOD: "125 mm",
         glassTubeID: "104 mm",
         wallThickness: "3 mm",
         uBendBore: "104 mm",
@@ -2011,6 +2421,7 @@ function onLoopSelect(val) {
 function toggleFlow() {
     isFlowRunning = !isFlowRunning;
     particlesGroup.visible = isFlowRunning;
+    if (flowArrowsGroup) flowArrowsGroup.visible = isFlowRunning;
     document.getElementById('btn-flow-toggle').innerText = isFlowRunning ? "HIDE FLOW" : "SHOW FLOW";
 }
 
@@ -2082,7 +2493,7 @@ function onWindowResize() {
     perspectiveCamera.aspect = aspect;
     perspectiveCamera.updateProjectionMatrix();
 
-    const frustumSize = 7.5;
+    const frustumSize = 16.5;
     orthoCamera.left = -frustumSize * aspect / 2;
     orthoCamera.right = frustumSize * aspect / 2;
     orthoCamera.top = frustumSize / 2;
