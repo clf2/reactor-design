@@ -911,7 +911,11 @@
                 <button class="btn" onclick="toggleDimensionVisibility()">DIMENSIONS</button>
             </div>
 
-            <div class="flow-overlay">
+            <div style="position:absolute;right:12px;top:12px;z-index:10;background:rgba(255,255,255,.96);border:1px solid #0969da;border-radius:6px;padding:7px 9px;font:10px var(--font-mono);color:#24292f;box-shadow:0 2px 8px rgba(0,0,0,.08);">
+        <b>INLET CONNECTION</b><br>
+        40 mm branch → FCV → 40→110 mm reducer → 110/104 mm glass tube
+    </div>
+    <div class="flow-overlay">
                 <button class="btn primary" id="btn-flow-toggle" onclick="toggleFlow()">SHOW FLOW</button>
                 <span style="font-size:11px; color:var(--text-dim); margin-left:6px;">Speed:</span>
                 <input type="range" id="flow-speed" min="0.1" max="4" step="0.1" value="1" style="width: 80px;">
@@ -2015,24 +2019,65 @@ function buildHeadersAndBranches() {
 
             // Dedicated 40 mm downstream branch from the globe valve to the loop inlet.
             const valveBottomY = valveCenterY - 0.1325;
+            // 40 mm branch terminates at a dedicated transition point just before
+            // the 110 mm reactor tube. The final connection is represented as a
+            // reducer/nozzle + socket rather than an unrealistic direct intersection.
+            const transitionStart = loop.inletPos.clone().add(new THREE.Vector3(0,0,-0.12));
             const branchCurve = new THREE.CatmullRomCurve3([
                 new THREE.Vector3(loop.inletPos.x, valveBottomY, g.z),
                 new THREE.Vector3(loop.inletPos.x, (valveBottomY+loop.inletPos.y)/2, g.z),
-                loop.inletPos.clone()
+                transitionStart.clone()
             ]);
             const branch = new THREE.Mesh(new THREE.TubeGeometry(branchCurve, 18, CAD.branchR_out, 10, false), materials.ss304Cad);
             branch.userData = {
                 component:`40 MM LOOP INLET BRANCH ${n}`, id:'40 mm ID', physicalBank:g.name,
                 flow:'2.3175 L/h', velocity:'0.000512 m/s', reynolds:'20.9',
                 pressureDrop:'≈0.01025 Pa per m straight-pipe basis + valve loss TBD',
-                connection:`FCV-${n} → 40 mm BRANCH-${n} → LOOP-${n}`,
-                direction:'DOWNWARD TO LOOP'
+                connection:`FCV-${n} → 40 mm BRANCH-${n} → RED-${n} → 110 mm TUBE SOCKET → LOOP-${n}`,
+                direction:'DOWNWARD TO 40→110 MM TRANSITION → LOOP'
             };
             addEdgesToMesh(branch); assembly.add(branch);
 
-            // Explicit branch/valve labels make the connection unambiguous in the CAD view.
+            // 40 mm → 110 mm transition / inlet nozzle.
+            // Axis is aligned with the first glass tube (Z direction).
+            const reducerLen = 0.18;
+            const reducerGeo = new THREE.CylinderGeometry(
+                CAD.tubeR_out, CAD.branchR_out, reducerLen, 24
+            );
+            reducerGeo.rotateX(Math.PI/2);
+            const reducer = new THREE.Mesh(reducerGeo, materials.ss304Cad);
+            reducer.position.copy(loop.inletPos).add(new THREE.Vector3(0,0,-0.03));
+            addEdgesToMesh(reducer);
+            reducer.userData = {
+                component:`40 MM TO 110 MM REDUCER / INLET NOZZLE ${n}`,
+                tag:`RED-${n}`,
+                upstream:'40 mm ID branch',
+                downstream:'110 mm OD / 104 mm ID glass tube',
+                service:`LOOP-${n} LIQUID INLET TRANSITION`,
+                connection:`FCV-${n} → 40 mm branch → RED-${n} → tube socket → LOOP-${n}`
+            };
+            assembly.add(reducer);
+
+            // Short PP/glass interface socket collar around the tube entrance.
+            const socketGeo = new THREE.CylinderGeometry(CAD.uBendOD/2, CAD.uBendOD/2, 0.06, 24);
+            socketGeo.rotateX(Math.PI/2);
+            const inletSocket = new THREE.Mesh(socketGeo, materials.ppPlasticCad);
+            inletSocket.position.copy(loop.inletPos).add(new THREE.Vector3(0,0,0.045));
+            addEdgesToMesh(inletSocket);
+            inletSocket.userData = {
+                component:`INLET TUBE SOCKET ${n}`,
+                tag:`SOCK-${n}`,
+                socketID:'111 mm',
+                insertion:'25 mm',
+                clearance:'0.5 mm',
+                interface:'110 mm OD glass tube'
+            };
+            assembly.add(inletSocket);
+
+            // Explicit branch/valve/reducer labels make the connection unambiguous in the CAD view.
             createValveTag(`40MM BR-${n}`, new THREE.Vector3(loop.inletPos.x+0.18, topY-0.12, g.z));
             createValveTag(`FCV-${n}`, new THREE.Vector3(loop.inletPos.x+0.18, valveCenterY+0.02, g.z));
+            createValveTag(`40→110 RED-${n}`, new THREE.Vector3(loop.inletPos.x+0.26, loop.inletPos.y-0.02, g.z));
             inletAssembliesGroup.add(assembly);
 
             const bottomPoint = new THREE.Vector3(loop.outletPos.x, bottomY, g.z);
@@ -2571,7 +2616,7 @@ function buildGasInjectionSystem() {
     mixer.rotation.z=Math.PI/2;
     mixer.position.set(mixerX,injectionY,0);
     mixer.userData={
-        component:'GAS MIXING MANIFOLD / COMMON INJECTION POINT',
+        component:'GM-101 COMMON GAS MIXING MANIFOLD',
         tag:'GM-101',
         service:'Flue gas + CO₂ make-up mixing before PBR gas injection',
         flueGas:'278 L/min @ 10% v/v CO₂',
@@ -2611,7 +2656,7 @@ function buildGasInjectionSystem() {
         new THREE.Vector3(dischargeX+0.34,injectionY,0),
         new THREE.Vector3(dischargeX,injectionY,0)
     ], 0.038, materials.gasMixed, {
-        component:'MIXED GAS INJECTION NOZZLE', tag:'GN-101',
+        component:'GN-101 COMMON GAS INJECTION NOZZLE', tag:'GN-101',
         service:'Mixed flue gas + CO₂ introduced at common liquid-side injection point',
         location:'P-102 discharge riser, immediately upstream of 2-way top-header split',
         flueGasBasis:'278 L/min @ 10% v/v CO₂', co2MakeUp:'TBD',
@@ -2807,7 +2852,7 @@ function buildSectionCutawayGeometry() {
     ctx.fillStyle = '#1f2328'; ctx.font = 'bold 30px monospace';
     ctx.fillText('SECTION A-A — TUBE / U-BEND SOCKET', 24, 48);
     ctx.font = '24px monospace';
-    ctx.fillText('Glass OD 125 mm | ID 104 mm | Wall 3 mm', 24, 88);
+    ctx.fillText('Glass OD 110 mm | ID 104 mm | Wall 3 mm', 24, 88);
     ctx.fillText('Socket ID 111 mm | Insertion 25 mm | Clearance 0.5 mm', 24, 124);
     ctx.fillText('PP U-Bend Bore 104 mm | OD 119 mm', 24, 160);
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(label), transparent: true }));
@@ -2970,17 +3015,25 @@ function zoomIsolateUBend() {
 }
 
 function zoomDetailA() {
-    zoomIsolateUBend();
+    const loop1 = loopsData[0];
+    const p = loop1.inletPos.clone();
+    activeCamera.position.set(p.x + 0.75, p.y + 0.55, p.z + 0.95);
+    controls.target.copy(p);
+    controls.update();
     displayInspectorData({
-        component: "DETAIL A — SOCKET CONNECTION",
-        glassTubeOD: "125 mm",
+        component: "DETAIL A — 40 mm BRANCH / 40→110 mm INLET CONNECTION",
+        loop: "L01",
+        branchID: "40 mm",
+        valve: "FCV-01 — manual globe flow-balancing valve",
+        reducer: "40 mm → 110 mm transition / inlet nozzle",
+        glassTubeOD: "110 mm",
         glassTubeID: "104 mm",
         wallThickness: "3 mm",
-        uBendBore: "104 mm",
-        uBendOD: "119 mm",
         socketID: "111 mm",
         insertionDepth: "25 mm",
-        radialClearance: "0.5 mm"
+        radialClearance: "0.5 mm",
+        flow: "2.3175 L/h target",
+        connection: "40 mm branch → FCV-01 → 40→110 reducer → tube socket → L01"
     });
 }
 
