@@ -554,6 +554,363 @@
             </div>
 
 
+            <!-- =========================================================
+                 NEW SECTION: STARTUP LIQUID + FLUE GAS / CO2 DISTRIBUTION
+                 ========================================================= -->
+            <div class="calc-card" style="border-left:4px solid #0969da;">
+                <div class="calc-card-title">
+                    20C. START-UP 2 h FILL + FLUE-GAS / CO₂ HYDRAULIC DISTRIBUTION
+                    <span style="font-size:10px;color:#0969da;">LIQUID + GAS / 2×6 / 12 LOOPS</span>
+                </div>
+
+                <div class="process-note" style="border-left-color:#0969da;background:#f8fbff;margin-bottom:12px;">
+                    <strong>Startup design basis:</strong>
+                    This section is the separate <strong>initial filling case</strong>, not the 15-day HRT flow.
+                    The 10,011.70 L reactor is filled in approximately 2 h, giving
+                    <strong>Q<sub>L,total</sub> = 5.006 m³/h</strong>.
+                    Flue gas is retained at <strong>278 L/min</strong> with
+                    <strong>10% v/v CO₂</strong>. The existing model injects the gas at a common point
+                    immediately upstream of the 2×6 liquid-header split; therefore the header/branch/loop
+                    gas values below are an <strong>equal-split calculation basis</strong>, not a claim that
+                    twelve separate gas pipes are already physically modelled.
+                </div>
+
+                <div class="calc-grid">
+                    <div class="calc-item">
+                        <div class="calc-label">Startup Working Volume, V<sub>r</sub></div>
+                        <div class="calc-value highlight">10,011.70 L = 10.0117 m³</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Startup Filling Time, t<sub>fill</sub></div>
+                        <div class="calc-value highlight">2.00 h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Total Liquid Flow, Q<sub>L,total</sub></div>
+                        <div class="calc-value highlight">5.006 m³/h = 83.43 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Liquid Flow / Header</div>
+                        <div class="calc-value highlight">2.503 m³/h = 41.72 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Liquid Flow / Loop</div>
+                        <div class="calc-value highlight">0.4172 m³/h = 417.2 L/h = 6.953 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Flue Gas, Q<sub>FG,total</sub></div>
+                        <div class="calc-value highlight">278 L/min = 16.68 m³/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Flue Gas / Header</div>
+                        <div class="calc-value highlight">139 L/min = 8.34 m³/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">Flue Gas / Loop</div>
+                        <div class="calc-value highlight">23.17 L/min = 1.390 m³/h</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ in Flue Gas</div>
+                        <div class="calc-value highlight">27.8 L/min total</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ / Header</div>
+                        <div class="calc-value highlight">13.9 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ / Loop</div>
+                        <div class="calc-value highlight">2.317 L/min</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">CO₂ Design Demand</div>
+                        <div class="calc-value">70.67 kg/day = 2.9446 kg/h</div>
+                    </div>
+                </div>
+
+                <div class="calc-card-title" style="margin-top:12px;">A. LIQUID-SIDE — COMMON PIPE → HEADER → BRANCH → 110 mm GLASS LOOP</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Liquid location</th>
+                            <th>ID</th>
+                            <th>Flow rate</th>
+                            <th>Velocity</th>
+                            <th>Reynolds No.</th>
+                            <th>Flow regime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>P-101 common liquid line</td>
+                            <td>40 mm</td>
+                            <td>5.006 m³/h</td>
+                            <td>1.107 m/s</td>
+                            <td>≈ 45,148</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Each top liquid header</td>
+                            <td>40 mm</td>
+                            <td>2.503 m³/h</td>
+                            <td>0.5533 m/s</td>
+                            <td>≈ 22,574</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Each inlet branch / valve outlet</td>
+                            <td>40 mm</td>
+                            <td>0.4172 m³/h</td>
+                            <td>0.09222 m/s</td>
+                            <td>≈ 3,763</td>
+                            <td class="audit-warn">Transition</td>
+                        </tr>
+                        <tr>
+                            <td>Each 110 mm glass reactor tube</td>
+                            <td>110 mm ID*</td>
+                            <td>0.4172 m³/h</td>
+                            <td>0.01219 m/s</td>
+                            <td>≈ 1,368</td>
+                            <td class="audit-ok">Laminar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="formula-box open">
+                    <div class="formula-line"><b>Liquid total flow:</b> Q<sub>L,total</sub> = V<sub>r</sub> / t<sub>fill</sub> = 10.0117 / 2 = <b>5.006 m³/h</b>.</div>
+                    <div class="formula-line"><b>Liquid header split:</b> Q<sub>L,header</sub> = Q<sub>L,total</sub> / 2 = 5.006 / 2 = <b>2.503 m³/h</b>.</div>
+                    <div class="formula-line"><b>Liquid loop split:</b> Q<sub>L,loop</sub> = Q<sub>L,total</sub> / 12 = 5.006 / 12 = <b>0.4172 m³/h = 417.2 L/h</b>.</div>
+                    <div class="formula-line"><b>Pipe area:</b> A = πD²/4.</div>
+                    <div class="formula-line"><b>Velocity:</b> v = Q/A.</div>
+                    <div class="formula-line"><b>Reynolds number:</b> Re = ρvD/μ.</div>
+                    <div class="formula-line"><b>Liquid properties used:</b> ρ<sub>L</sub> = 1020 kg/m³; μ<sub>L</sub> = 0.001 Pa·s, consistent with the existing HTML design basis.</div>
+                    <div class="formula-line"><b>40 mm common:</b> A = 0.0012566 m²; v = 1.107 m/s; Re ≈ 45,148 → turbulent.</div>
+                    <div class="formula-line"><b>40 mm header:</b> v = 0.5533 m/s; Re ≈ 22,574 → turbulent.</div>
+                    <div class="formula-line"><b>40 mm branch:</b> v = 0.09222 m/s; Re ≈ 3,763 → transition.</div>
+                    <div class="formula-line"><b>110 mm glass:</b> A = 0.0095033 m²; v = 0.01219 m/s; Re ≈ 1,368 → laminar.</div>
+                    <div class="formula-line"><b>Note:</b> The current HTML's physical CAD basis lists 104 mm glass-tube ID / 110 mm OD. The values in this new startup card use <b>110 mm ID</b> because that is the hydraulic basis used in the current 40→110 discussion. Keep the selected ID consistent before final procurement.</div>
+                </div>
+
+                <div class="calc-card-title" style="margin-top:14px;">B. FLUE-GAS / CO₂ — COMMON INLET → 2 HEADERS → 12 LOOP EQUIVALENT SPLIT</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Gas location</th>
+                            <th>Calculation ID</th>
+                            <th>Flue-gas flow</th>
+                            <th>Velocity</th>
+                            <th>Gas Re*</th>
+                            <th>Preliminary regime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total flue-gas inlet</td>
+                            <td>40 mm equivalent basis</td>
+                            <td>278 L/min</td>
+                            <td>3.687 m/s</td>
+                            <td>≈ 9,407</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Each gas header</td>
+                            <td>40 mm equivalent basis</td>
+                            <td>139 L/min</td>
+                            <td>1.844 m/s</td>
+                            <td>≈ 4,704</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Each gas branch</td>
+                            <td>40 mm equivalent basis</td>
+                            <td>23.17 L/min</td>
+                            <td>0.3073 m/s</td>
+                            <td>≈ 784</td>
+                            <td class="audit-ok">Laminar gas-phase Re</td>
+                        </tr>
+                        <tr>
+                            <td>Gas in 110 mm glass loop</td>
+                            <td>110 mm full-area superficial basis</td>
+                            <td>23.17 L/min</td>
+                            <td>0.04063 m/s</td>
+                            <td>≈ 285</td>
+                            <td class="audit-warn">Multiphase; do not label from Re alone</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="formula-box open">
+                    <div class="formula-line"><b>Flue-gas total:</b> Q<sub>FG,total</sub> = 278 L/min = <b>16.68 m³/h</b>.</div>
+                    <div class="formula-line"><b>Gas header split:</b> Q<sub>FG,header</sub> = 278 / 2 = <b>139 L/min</b>.</div>
+                    <div class="formula-line"><b>Gas loop split:</b> Q<sub>FG,loop</sub> = 278 / 12 = <b>23.17 L/min</b>.</div>
+                    <div class="formula-line"><b>CO₂ component:</b> Q<sub>CO₂</sub> = y<sub>CO₂</sub> × Q<sub>FG</sub> = 0.10 × 278 = <b>27.8 L/min total</b>.</div>
+                    <div class="formula-line"><b>CO₂ per header:</b> 27.8 / 2 = <b>13.9 L/min</b>.</div>
+                    <div class="formula-line"><b>CO₂ per loop:</b> 27.8 / 12 = <b>2.317 L/min</b>.</div>
+                    <div class="formula-line"><b>Gas velocity:</b> v<sub>g</sub> = Q<sub>g</sub>/A.</div>
+                    <div class="formula-line"><b>Gas Reynolds:</b> Re<sub>g</sub> = ρ<sub>g</sub>v<sub>g</sub>D/μ<sub>g</sub>.</div>
+                    <div class="formula-line"><b>*Gas-property assumption for this preliminary calculation:</b> ρ<sub>g</sub> = 1.18 kg/m³ and μ<sub>g</sub> = 1.85×10⁻⁵ Pa·s (air-like flue gas at near-ambient conditions). Actual MRPL flue-gas temperature, pressure and composition must replace these values.</div>
+                    <div class="formula-line"><b>Important:</b> 40 mm is an <b>equivalent calculation basis</b> for the gas common/header/branch only. The current 3D model shows a common flue-gas injection point before the two liquid headers, so final gas-line diameter and gas-side ΔP are still to be frozen.</div>
+                    <div class="formula-line"><b>110 mm loop gas velocity:</b> 23.17 L/min through 110 mm full cross-sectional area gives superficial gas velocity ≈ <b>0.04063 m/s</b>.</div>
+                    <div class="formula-line"><b>Combined superficial velocity in the 110 mm loop:</b> j = v<sub>L</sub> + v<sub>g</sub> = 0.01219 + 0.04063 = <b>0.05282 m/s</b>.</div>
+                    <div class="formula-line"><b>Do not add Reynolds numbers:</b> Re<sub>L</sub> + Re<sub>g</sub> is not a valid multiphase Reynolds number. Report liquid Re, gas Re and superficial velocities separately.</div>
+                </div>
+
+                <div class="calc-card-title" style="margin-top:14px;">C. HEADER-BY-HEADER / LOOP-BY-LOOP BALANCE</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Liquid</th>
+                            <th>Flue gas</th>
+                            <th>CO₂ component</th>
+                            <th>Liquid Re</th>
+                            <th>Liquid regime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Header-1 → L01–L06</td>
+                            <td>2.503 m³/h</td>
+                            <td>139 L/min</td>
+                            <td>13.9 L/min</td>
+                            <td>≈ 22,574 (40 mm)</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Header-2 → L07–L12</td>
+                            <td>2.503 m³/h</td>
+                            <td>139 L/min</td>
+                            <td>13.9 L/min</td>
+                            <td>≈ 22,574 (40 mm)</td>
+                            <td class="audit-danger">Turbulent</td>
+                        </tr>
+                        <tr>
+                            <td>Each of L01–L12</td>
+                            <td>417.2 L/h = 6.953 L/min</td>
+                            <td>23.17 L/min</td>
+                            <td>2.317 L/min</td>
+                            <td>≈ 3,763 in 40 mm branch; ≈ 1,368 in 110 mm liquid tube</td>
+                            <td class="audit-warn">Transition → Laminar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="calc-grid" style="margin-top:12px;">
+                    <div class="calc-item">
+                        <div class="calc-label">L01–L12 liquid basis</div>
+                        <div class="calc-value">417.2 L/h each</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">L01–L12 flue-gas basis</div>
+                        <div class="calc-value">23.17 L/min each</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">L01–L12 CO₂ component</div>
+                        <div class="calc-value">2.317 L/min each</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">110 mm liquid velocity</div>
+                        <div class="calc-value highlight">0.01219 m/s</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">110 mm gas superficial velocity</div>
+                        <div class="calc-value highlight">0.04063 m/s</div>
+                    </div>
+                    <div class="calc-item">
+                        <div class="calc-label">110 mm combined superficial velocity</div>
+                        <div class="calc-value highlight">0.05282 m/s</div>
+                    </div>
+                </div>
+
+                <div class="calc-card-title" style="margin-top:14px;">D. PRELIMINARY PRESSURE-DROP BASIS FOR STARTUP LIQUID FLOW</div>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Basis</th>
+                            <th>Preliminary ΔP</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>40 mm common liquid line</td>
+                            <td>5 m equivalent length, 5.006 m³/h</td>
+                            <td>≈ 1.45 kPa (≈ 0.0145 bar)</td>
+                            <td>Calculated</td>
+                        </tr>
+                        <tr>
+                            <td>One 6-loop 40 mm header</td>
+                            <td>13.16 m total header, distributed flow</td>
+                            <td>≈ 0.596 kPa</td>
+                            <td>Preliminary</td>
+                        </tr>
+                        <tr>
+                            <td>One 110 mm glass loop</td>
+                            <td>73.5 m straight length, 0.4172 m³/h</td>
+                            <td>≈ 2.37 Pa</td>
+                            <td>Calculated on 110 mm ID basis</td>
+                        </tr>
+                        <tr>
+                            <td>Globe valve</td>
+                            <td>417.2 L/h per loop</td>
+                            <td>ΔP = SG(Q/Kv)²</td>
+                            <td class="audit-warn">Cv/Kv required</td>
+                        </tr>
+                        <tr>
+                            <td>Gas injection / nozzle</td>
+                            <td>23.17 L/min per loop equivalent</td>
+                            <td>Not frozen</td>
+                            <td class="audit-warn">Geometry required</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="formula-box open">
+                    <div class="formula-line"><b>Darcy-Weisbach:</b> ΔP = f(L/D)(ρv²/2).</div>
+                    <div class="formula-line"><b>Laminar friction factor:</b> f = 64/Re.</div>
+                    <div class="formula-line"><b>Globe valve liquid loss:</b> ΔP<sub>valve</sub> = SG(Q/Kv)² (Q in m³/h, ΔP in bar).</div>
+                    <div class="formula-line"><b>Startup common-line estimate:</b> using 40 mm ID, 5 m equivalent length and turbulent-pipe friction gives approximately <b>1.45 kPa</b>.</div>
+                    <div class="formula-line"><b>Header estimate:</b> the six header sections carry approximately 6, 5, 4, 3, 2 and 1 branch flows; section-by-section Darcy calculation gives approximately <b>0.596 kPa per 6-loop header</b> on the startup basis.</div>
+                    <div class="formula-line"><b>Glass-loop estimate:</b> for 73.5 m straight 110 mm ID at 0.4172 m³/h, laminar Darcy-Weisbach gives approximately <b>2.37 Pa</b>.</div>
+                    <div class="formula-line"><b>Final P-101 duty:</b> H = H<sub>static</sub> + ΣΔP/(ρg). Valve Cv/Kv, transition K-values, elbows, actual lengths, gas-injection pressure and NPSH must be frozen before procurement.</div>
+                </div>
+
+                <div class="calc-card-title" style="margin-top:14px;">E. ABBREVIATIONS / SYMBOLS USED</div>
+                <table class="summary-table">
+                    <thead><tr><th>Symbol / Abbreviation</th><th>Meaning</th><th>Unit</th></tr></thead>
+                    <tbody>
+                        <tr><td>PBR</td><td>Photobioreactor</td><td>—</td></tr>
+                        <tr><td>HRT</td><td>Hydraulic Residence Time</td><td>h or day</td></tr>
+                        <tr><td>Q</td><td>Volumetric flow rate</td><td>m³/h, L/min</td></tr>
+                        <tr><td>Q<sub>L</sub></td><td>Liquid/culture flow rate</td><td>m³/h</td></tr>
+                        <tr><td>Q<sub>FG</sub></td><td>Flue-gas flow rate</td><td>L/min</td></tr>
+                        <tr><td>Q<sub>CO₂</sub></td><td>CO₂ volumetric component</td><td>L/min</td></tr>
+                        <tr><td>D</td><td>Pipe/tube internal diameter</td><td>m or mm</td></tr>
+                        <tr><td>A</td><td>Cross-sectional flow area</td><td>m²</td></tr>
+                        <tr><td>v</td><td>Phase velocity</td><td>m/s</td></tr>
+                        <tr><td>j</td><td>Combined superficial velocity, v<sub>L</sub> + v<sub>g</sub></td><td>m/s</td></tr>
+                        <tr><td>Re</td><td>Reynolds number</td><td>dimensionless</td></tr>
+                        <tr><td>ρ</td><td>Density</td><td>kg/m³</td></tr>
+                        <tr><td>μ</td><td>Dynamic viscosity</td><td>Pa·s</td></tr>
+                        <tr><td>f</td><td>Darcy friction factor</td><td>dimensionless</td></tr>
+                        <tr><td>ΔP</td><td>Pressure drop</td><td>Pa, kPa, bar</td></tr>
+                        <tr><td>Kv / Cv</td><td>Valve flow coefficient / valve capacity coefficient</td><td>metric / US coefficient</td></tr>
+                        <tr><td>SG</td><td>Specific gravity of liquid</td><td>dimensionless</td></tr>
+                        <tr><td>FCV</td><td>Flow-control valve</td><td>—</td></tr>
+                        <tr><td>GM / GN</td><td>Gas mixing manifold / gas injection nozzle</td><td>—</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="process-note" style="margin-top:12px;">
+                    <strong>Engineering caution:</strong>
+                    The existing HTML separately defines the normal HRT flow as 27.8103 L/h and the flue-gas inlet as
+                    278 L/min at 10% v/v CO₂. The new section does <strong>not overwrite those normal-operation values</strong>;
+                    it adds the user's requested <strong>2-hour startup-fill case</strong> at 5.006 m³/h.
+                    The 70.67 kg/day CO₂ demand remains a separate design-basis input; it is not assumed to equal the
+                    278 L/min flue-gas CO₂ mass without actual gas temperature, pressure, composition and capture data.
+                </div>
+            </div>
+
+
             <div class="calc-card" style="border-left:4px solid #bc4c00;">
                 <div class="calc-card-title">
                     20C. ENGINEERING VALIDATION / DESIGN AUDIT
