@@ -727,15 +727,15 @@
 
                 <div class="formula-box open">
                     <div class="formula-line"><b>Flue-gas total:</b> Q<sub>FG,total</sub> = 212.50 NL/min = <b>16.68 m³/h</b>.</div>
-                    <div class="formula-line"><b>Gas header split:</b> Q<sub>FG,header</sub> = 278 / 2 = <b>139 L/min</b>.</div>
-                    <div class="formula-line"><b>Gas loop split:</b> Q<sub>FG,loop</sub> = 278 / 12 = <b>23.17 L/min</b>.</div>
+                    <div class="formula-line"><b>Gas header split:</b> Q<sub>FG,section</sub> = 12.7501 / 2 = <b>6.3751 Nm³/h</b> per 6-loop section.</div>
+                    <div class="formula-line"><b>Gas loop split:</b> Q<sub>FG,loop</sub> = 12.7501 / 12 = <b>1.06251 Nm³/h</b> per loop.</div>
                     <div class="formula-line"><b>CO₂ component:</b> Q<sub>CO₂</sub> = y<sub>CO₂</sub> × Q<sub>FG</sub> = 0.10 × 278 = <b>21.25 NL/min total</b>.</div>
                     <div class="formula-line"><b>CO₂ per header:</b> 27.8 / 2 = <b>10.625 NL/min</b>.</div>
                     <div class="formula-line"><b>CO₂ per loop:</b> 27.8 / 12 = <b>1.771 NL/min</b>.</div>
                     <div class="formula-line"><b>Gas velocity:</b> v<sub>g</sub> = Q<sub>g</sub>/A.</div>
                     <div class="formula-line"><b>Gas Reynolds:</b> Re<sub>g</sub> = ρ<sub>g</sub>v<sub>g</sub>D/μ<sub>g</sub>.</div>
                     <div class="formula-line"><b>*Gas-property assumption for this preliminary calculation:</b> ρ<sub>g</sub> = 1.18 kg/m³ and μ<sub>g</sub> = 1.85×10⁻⁵ Pa·s (air-like flue gas at near-ambient conditions). Actual MRPL flue-gas temperature, pressure and composition must replace these values.</div>
-                    <div class="formula-line"><b>Important:</b> 40 mm is an <b>equivalent calculation basis</b> for the gas common/header/branch only. The current 3D model shows a common flue-gas injection point before the two liquid headers, so final gas-line diameter and gas-side ΔP are still to be frozen.</div>
+                    <div class="formula-line"><b>Important:</b> 25 mm nominal is the frozen gas-line basis. The 3D model shows bottom gas distribution / sparger feeding the 12 loop bottom inlets. Final sparger geometry and gas-side ΔP remain to be frozen.</div>
                     <div class="formula-line"><b>110 mm loop gas velocity:</b> 23.17 L/min through 110 mm full cross-sectional area gives superficial gas velocity ≈ <b>0.04063 m/s</b>.</div>
                     <div class="formula-line"><b>Combined superficial velocity in the 110 mm loop:</b> j = v<sub>L</sub> + v<sub>g</sub> = 0.01219 + 0.04063 = <b>0.05282 m/s</b>.</div>
                     <div class="formula-line"><b>Do not add Reynolds numbers:</b> Re<sub>L</sub> + Re<sub>g</sub> is not a valid multiphase Reynolds number. Report liquid Re, gas Re and superficial velocities separately.</div>
@@ -1043,7 +1043,7 @@
             </div>
 
             
-                <div class="process-subtitle">FEED FILL → ISOLATE FEED TANK → FLUE GAS + CO₂ MIX → COMMON INJECTION → CLOSED INTERNAL RECIRCULATION FOR 15 DAYS</div>
+                <div class="process-subtitle">FEED FILL → ISOLATE FEED TANK → FLUE GAS + CO₂ MIX → BOTTOM GAS INJECTION → CLOSED INTERNAL RECIRCULATION FOR 15 DAYS</div>
             </div>
 
             <div class="pfd-card">
@@ -1096,7 +1096,7 @@
                             <tr><td>P-102</td><td>Recirculation Pump</td><td>Common riser → P-102 → gas injection → two top headers</td><td>Closed-loop recirculation; friction basis only</td></tr>
                             <tr><td>FG-101</td><td>Flue-Gas Inlet</td><td>Flue gas → FCV-G101 → GM-101</td><td>212.50 NL/min; 10% v/v CO₂</td></tr>
                             <tr><td>CO2-101</td><td>CO₂ Make-Up Inlet</td><td>CO₂ → FCV-G102 → GM-101</td><td>Flow TBD; not specified in material balance</td></tr>
-                            <tr><td>GM-101 / GN-101</td><td>Gas Mixer / Injection Nozzle</td><td>GM-101 → GN-101 → common P-102 discharge riser</td><td>Injection immediately before split to 2 top headers</td></tr>
+                            <tr><td>GM-101 / GN-101</td><td>Gas Mixer / Injection Nozzle</td><td>GM-101 → GN-101 → 25 mm gas trunk → bottom manifold / sparger</td><td>Bottom injection through 12 loop bottom inlets</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1120,7 +1120,7 @@
             </div>
 
             <div class="pfd-card" style="border-left:4px solid #1a7f37;">
-                <div class="pfd-title">GAS / CO₂ INJECTION ARCHITECTURE — COMMON POINT BEFORE TOP-HEADER SPLIT</div>
+                <div class="pfd-title">GAS / CO₂ INJECTION ARCHITECTURE — BOTTOM MANIFOLD / SPARGER</div>
                 <div class="process-grid">
                     <div class="pfd-node" style="min-height:150px;border-color:#bc4c00;background:#fff8f2;">
                         <div class="pfd-tag">FG-101</div><div class="pfd-name">FLUE GAS</div>
@@ -1132,7 +1132,7 @@
                     </div>
                     <div class="pfd-node reactor" style="min-height:150px;">
                         <div class="pfd-tag">GM-101 / GN-101</div><div class="pfd-name">MIX + COMMON INJECTION</div>
-                        <div class="pfd-spec">Flue gas + CO₂ → common mixer<br>Inject into P-102 discharge riser<br>Immediately before 2-way split</div>
+                        <div class="pfd-spec">Flue gas + CO₂ → common mixer<br>Inject into bottom distribution manifold / sparger<br>Immediately before 2-way split</div>
                     </div>
                 </div>
                 <div class="process-note" style="margin-top:12px;">
@@ -1310,14 +1310,14 @@
             </div>
 
             <div class="panel-group" style="border-color:#1a7f37;">
-                <div class="panel-title" style="color:#1a7f37;">GAS / CO₂ INJECTION — 3D DESIGN</div>
+                <div class="panel-title" style="color:#1a7f37;">GAS / CO₂ BOTTOM INJECTION — 3D DESIGN</div>
                 <div class="data-row"><span class="data-label">Flue Gas Inlet</span><span class="data-value">212.50 NL/min</span></div>
                 <div class="data-row"><span class="data-label">Flue Gas CO₂</span><span class="data-value">10% v/v</span></div>
                 <div class="data-row"><span class="data-label">CO₂ in Flue Gas</span><span class="data-value">27.8 L/min</span></div>
                 <div class="data-row"><span class="data-label">CO₂ Make-up</span><span class="data-value">FLOW TBD</span></div>
                 <div class="data-row"><span class="data-label">Mixing Point</span><span class="data-value">GM-101</span></div>
                 <div class="data-row"><span class="data-label">Injection Nozzle</span><span class="data-value">GN-101</span></div>
-                <div style="font-size:10px;line-height:1.45;color:var(--text-dim);margin-top:6px;">Flue gas + CO₂ make-up are shown joining at a common gas mixer, then entering the common P-102 discharge riser immediately before it splits to the two top headers.</div>
+                <div style="font-size:10px;line-height:1.45;color:var(--text-dim);margin-top:6px;">Flue gas + CO₂ make-up are shown joining at a common gas mixer, then entering the 25 mm gas trunk and bottom distribution manifold/sparger feeding all 12 loop bottom inlets.</div>
             </div>
 
             <div class="panel-group">
@@ -1389,9 +1389,9 @@
               <rect x="410" y="145" width="390" height="185" rx="12" class="work-node work-reactor"/><text x="605" y="170" text-anchor="middle" class="work-label">PBR-101 — 12 PARALLEL SERPENTINE LOOPS</text><text x="605" y="187" text-anchor="middle" class="work-small">10,011.70 L TOTAL • 587 GLASS TUBES • 575 U-BENDS</text>
               <g id="work-loop-labels"></g>
               <rect x="875" y="175" width="80" height="70" rx="9" class="work-node work-pump"/><text x="915" y="197" text-anchor="middle" class="work-label">P-102</text><text x="915" y="215" text-anchor="middle" class="work-small">RECIRC.</text><text x="915" y="231" text-anchor="middle" class="work-pressure">ΔP not finalized</text>
-              <rect x="980" y="175" width="85" height="70" rx="9" class="work-node work-gas"/><text x="1022" y="197" text-anchor="middle" class="work-label">GM-101</text><text x="1022" y="215" text-anchor="middle" class="work-small">GAS MIX</text><text x="1022" y="231" text-anchor="middle" class="work-small">+ GN-101</text>
-              <path id="w-flue" class="work-gaspipe" d="M1100 140 H1035 V190" marker-end="url(#arrowOrange)"/><text x="1095" y="130" text-anchor="end" class="work-small">FG-101 • 212.50 NL/min • 10% CO₂</text>
-              <path id="w-co2" class="work-co2pipe" d="M1100 285 H1035 V230" marker-end="url(#arrowBlue)"/><text x="1095" y="305" text-anchor="end" class="work-small">CO₂ MAKE-UP • FLOW TBD</text>
+              <rect x="980" y="175" width="85" height="70" rx="9" class="work-node work-gas"/><text x="1022" y="347" text-anchor="middle" class="work-label">GM-101</text><text x="1022" y="365" text-anchor="middle" class="work-small">GAS MIX</text><text x="1022" y="381" text-anchor="middle" class="work-small">+ GN-101</text>
+              <path id="w-flue" class="work-gaspipe" d="M1100 140 H1035 V365" marker-end="url(#arrowOrange)"/><text x="1095" y="130" text-anchor="end" class="work-small">FG-101 • 212.50 NL/min • 10% CO₂</text>
+              <path id="w-co2" class="work-co2pipe" d="M1100 285 H1048 V365" marker-end="url(#arrowBlue)"/><text x="1095" y="305" text-anchor="end" class="work-small">CO₂ MAKE-UP • FLOW TBD</text>
               <text x="605" y="405" text-anchor="middle" id="work-stage-text" class="work-label">STEP 1 — READY: START THE FEED / FILL SEQUENCE</text>
               <text x="605" y="420" text-anchor="middle" id="work-flow-text" class="work-small">Current flow: 23.6387 L/h total • 1.9699 L/h per loop</text>
             </svg>
@@ -1403,7 +1403,7 @@
               <div class="step-item" onclick="workGo(1)"><span class="step-num">2</span><span class="step-name">HEADER DISTRIBUTION</span><div class="step-desc">23.6387 L/h splits into 2 headers: 11.8194 L/h per 6-loop section.</div></div>
               <div class="step-item" onclick="workGo(2)"><span class="step-num">3</span><span class="step-name">LOOP-BY-LOOP FLOW</span><div class="step-desc">12 parallel loops receive ~1.9699 L/h each. One loop ≈ 834.31 L on equal-loop basis.</div></div>
               <div class="step-item" onclick="workGo(3)"><span class="step-num">4</span><span class="step-name">PRESSURE DROP</span><div class="step-desc">Show header, branch, tube, U-bend and common-riser losses and the total known path ΔP.</div></div>
-              <div class="step-item" onclick="workGo(4)"><span class="step-num">5</span><span class="step-name">GAS + CO₂ INJECTION</span><div class="step-desc">Flue gas enters GM-101; CO₂ make-up is shown separately because its flow is TBD.</div></div>
+              <div class="step-item" onclick="workGo(4)"><span class="step-num">5</span><span class="step-name">GAS + CO₂ BOTTOM INJECTION</span><div class="step-desc">Flue gas and CO₂ make-up enter GM-101, then the 25 mm trunk feeds the bottom manifold/sparger and 12 loop bottom inlets.</div></div>
               <div class="step-item" onclick="workGo(5)"><span class="step-num">6</span><span class="step-name">P-102 RECIRCULATION</span><div class="step-desc">Bottom collectors → common riser → P-102 → discharge riser → 2 top headers.</div></div>
               <div class="step-item" onclick="workGo(6)"><span class="step-num">7</span><span class="step-name">WHY THIS SYSTEM WORKS</span><div class="step-desc">Closed loop maintains continuous circulation; 2×6 manifold balances flow; gas injection feeds both header banks.</div></div>
             </div>
@@ -2945,92 +2945,121 @@ function makeGasFlowArrow(start, end, material) {
 function buildGasInjectionSystem() {
     gasGroup.clear();
 
-    const topYs = [
-        Math.max(...loopsData.slice(0,6).map(l=>l.inletPos.y))+0.42,
-        Math.max(...loopsData.slice(6,12).map(l=>l.inletPos.y))+0.42
+    // FINAL GAS BASIS: bottom CO₂ / flue-gas injection.
+    // Source report: flue gas → 25 mm gas trunk → bottom distribution manifold/sparger
+    // → 12 loop bottom inlets → gas-liquid contact along each loop → exhaust.
+    const bottomYs = [
+        Math.min(...loopsData.slice(0,6).map(l=>l.outletPos.y)),
+        Math.min(...loopsData.slice(6,12).map(l=>l.outletPos.y))
     ];
-    const bankZ = [-1.05,1.05];
-    const riserX = Math.max(...loopsData.map(l=>l.inletPos.x)) + 1.30;
-    const dischargeX = riserX + 0.28;
+    const bankZ = [-1.05, 1.05];
+    const rackLeftX = Math.min(...loopsData.map(l=>l.outletPos.x));
+    const rackRightX = Math.max(...loopsData.map(l=>l.outletPos.x));
+    const gasManifoldY = Math.min(...bottomYs) - 0.42;
+    const gasTrunkX = rackRightX + 1.35;
+    const gasMixX = gasTrunkX + 0.65;
 
-    // GAS INJECTION LOCATION: on the common P-102 discharge riser, immediately
-    // before the riser splits to the two top liquid headers. This is the common
-    // point requested by the user and preserves the 2 x 6 liquid distribution.
-    const injectionY = Math.max(...topYs) - 0.28;
-    const mixerX = dischargeX + 0.72;
+    // Common gas mixer / 25 mm trunk connection, placed BELOW the reactor.
     const mixer = new THREE.Mesh(new THREE.CylinderGeometry(0.14,0.14,0.34,20), materials.gasMixed);
-    mixer.rotation.z=Math.PI/2;
-    mixer.position.set(mixerX,injectionY,0);
-    mixer.userData={
-        component:'GM-101 COMMON GAS MIXING MANIFOLD',
-        tag:'GM-101',
-        service:'Flue gas + CO₂ make-up mixing before PBR gas injection',
+    mixer.rotation.z = Math.PI/2;
+    mixer.position.set(gasMixX, gasManifoldY, 0);
+    mixer.userData = {
+        component:'GM-101 BOTTOM GAS MIXING MANIFOLD', tag:'GM-101',
+        service:'Flue gas + CO₂ make-up mixing for bottom injection',
         flueGas:'212.50 NL/min @ 10% v/v CO₂',
         co2MakeUp:'Flow TBD — do not assume a rate from the material balance',
-        injection:'Common point on P-102 discharge riser immediately before split to 2 top headers',
-        note:'Adding pure CO₂ changes the final mixed-gas CO₂ fraction; 10% v/v applies to the incoming flue-gas stream.'
+        injection:'Bottom distribution manifold / sparger feeding 12 loop bottom inlets',
+        note:'Bottom injection is the frozen design basis. Gas travels upward through each loop for gas-liquid contact.'
     };
     addEdgesToMesh(mixer); gasGroup.add(mixer);
 
-    // Flue-gas inlet: 212.50 NL/min, 10% v/v CO₂.
-    const fgSource=new THREE.Vector3(mixerX+2.05,injectionY+0.82,-0.45);
-    const fgValve=new THREE.Vector3(mixerX+1.10,injectionY+0.82,-0.45);
-    const fgJoin=new THREE.Vector3(mixerX+0.17,injectionY,-0.15);
+    // Flue-gas inlet, kept at the right side but routed DOWN to the bottom mixer.
+    const fgSource = new THREE.Vector3(gasMixX+2.05, gasManifoldY+0.95, -0.45);
+    const fgValve = new THREE.Vector3(gasMixX+1.10, gasManifoldY+0.35, -0.45);
+    const fgJoin = new THREE.Vector3(gasMixX+0.17, gasManifoldY, -0.15);
     makeGasPipe([fgSource, new THREE.Vector3(fgValve.x,fgValve.y,fgValve.z), fgJoin], 0.0125, materials.gasFlue, {
         component:'FLUE GAS INLET LINE', tag:'FG-101', flow:'212.50 NL/min', co2:'10% v/v',
-        connection:'Flue-gas source → gas isolation valve → GM-101'
+        connection:'Flue-gas source → gas isolation valve → GM-101 bottom mixer'
     });
     makeGasValve('FCV-G101', fgValve, materials.gasFlue);
     makeGasEquipment('FG-101', fgSource, 'FG-101 FLUE GAS INLET', '212.50 NL/min • 10% v/v CO₂', materials.gasFlue);
 
-    // Pure CO₂ / make-up inlet. The supplied balance does not define its flow,
-    // so it is deliberately shown as TBD rather than inventing a number.
-    const co2Source=new THREE.Vector3(mixerX+2.25,injectionY-0.72,0.55);
-    const co2Valve=new THREE.Vector3(mixerX+1.18,injectionY-0.72,0.55);
-    const co2Join=new THREE.Vector3(mixerX+0.17,injectionY,0.15);
+    // Pure / concentrated CO₂ make-up is shown separately because its flow is TBD.
+    const co2Source = new THREE.Vector3(gasMixX+2.25, gasManifoldY-0.20, 0.55);
+    const co2Valve = new THREE.Vector3(gasMixX+1.18, gasManifoldY-0.05, 0.55);
+    const co2Join = new THREE.Vector3(gasMixX+0.17, gasManifoldY, 0.15);
     makeGasPipe([co2Source, new THREE.Vector3(co2Valve.x,co2Valve.y,co2Valve.z), co2Join], 0.0125, materials.gasCO2, {
         component:'CO₂ MAKE-UP INLET LINE', tag:'CO2-101', flow:'TBD',
-        service:'Pure / concentrated CO₂ make-up', connection:'CO₂ source → isolation valve → GM-101',
+        service:'Pure / concentrated CO₂ make-up', connection:'CO₂ source → isolation valve → GM-101 bottom mixer',
         note:'Flow not specified in supplied material balance.'
     });
     makeGasValve('FCV-G102', co2Valve, materials.gasCO2);
     makeGasEquipment('CO2-101', co2Source, 'CO2-101 MAKE-UP INLET', 'Pure / concentrated CO₂ • FLOW TBD', materials.gasCO2);
 
-    // Mixed gas outlet from mixer into the common P-102 discharge riser.
-    makeGasPipe([
-        new THREE.Vector3(mixerX-0.17,injectionY,0),
-        new THREE.Vector3(dischargeX+0.34,injectionY,0),
-        new THREE.Vector3(dischargeX,injectionY,0)
-    ], 0.038, materials.gasMixed, {
-        component:'GN-101 COMMON GAS INJECTION NOZZLE', tag:'GN-101',
-        service:'Mixed flue gas + CO₂ introduced at common liquid-side injection point',
-        location:'P-102 discharge riser, immediately upstream of 2-way top-header split',
-        flueGasBasis:'212.50 NL/min @ 10% v/v CO₂', co2MakeUp:'TBD',
-        warning:'Final mixed-gas CO₂ concentration depends on the selected CO₂ make-up flow.'
+    // Mixed gas exits GM-101 into a 25 mm common gas trunk located below the reactor.
+    const trunkStart = new THREE.Vector3(gasMixX-0.17, gasManifoldY, 0);
+    const trunkEnd = new THREE.Vector3(rackRightX+0.30, gasManifoldY, 0);
+    makeGasPipe([trunkStart, trunkEnd], 0.0125, materials.gasMixed, {
+        component:'25 MM COMMON GAS TRUNK', tag:'GN-101',
+        service:'Mixed flue gas + CO₂ to bottom distribution manifold',
+        diameter:'25 mm nominal', flow:'212.50 NL/min flue gas basis'
     });
 
-    const injector=new THREE.Mesh(new THREE.CylinderGeometry(0.055,0.055,0.22,16),materials.gasMixed);
-    injector.rotation.z=Math.PI/2;
-    injector.position.set(dischargeX,injectionY,0);
-    injector.userData={component:'GN-101 COMMON GAS INJECTION NOZZLE',tag:'GN-101',service:'Gas injection into common P-102 discharge riser',position:'Immediately before split to TOP HEADER-FRONT and TOP HEADER-BACK'};
-    addEdgesToMesh(injector); gasGroup.add(injector);
+    // Two bottom distribution manifolds/spargers: one for each 6-loop bank.
+    bankZ.forEach((z, gi) => {
+        const manifoldStart = new THREE.Vector3(rackLeftX-0.15, gasManifoldY, z);
+        const manifoldEnd = new THREE.Vector3(rackRightX+0.30, gasManifoldY, z);
+        makeGasPipe([
+            new THREE.Vector3(rackRightX+0.30,gasManifoldY,0),
+            new THREE.Vector3(rackRightX+0.30,gasManifoldY,z),
+            manifoldEnd
+        ], 0.0105, materials.gasMixed, {
+            component:`BOTTOM GAS DISTRIBUTION MANIFOLD ${gi===0?'FRONT':'BACK'}`,
+            tag:`GM-101-${gi+1}`, service:'Bottom flue-gas / CO₂ distribution manifold',
+            flow:'6.3751 Nm³/h per 6-loop section'
+        });
+        makeGasPipe([manifoldStart, manifoldEnd], 0.0105, materials.gasMixed, {
+            component:`BOTTOM GAS SPARGER ${gi===0?'FRONT':'BACK'}`,
+            service:'Feeds six loop bottom inlets', flow:'6.3751 Nm³/h'
+        });
+
+        // Six short vertical gas branches into the bottom of the loops.
+        for(let i=gi*6; i<gi*6+6; i++) {
+            const loop=loopsData[i];
+            const branchTop=new THREE.Vector3(loop.outletPos.x, loop.outletPos.y, z);
+            const branchBottom=new THREE.Vector3(loop.outletPos.x, gasManifoldY, z);
+            makeGasPipe([branchBottom, branchTop], 0.0065, materials.gasMixed, {
+                component:`BOTTOM GAS INLET BRANCH L${String(i+1).padStart(2,'0')}`,
+                tag:`GN-${String(i+1).padStart(2,'0')}`,
+                service:'Bottom gas injection into loop',
+                flow:'1.06251 Nm³/h flue gas equivalent per loop',
+                position:'BOTTOM'
+            });
+            const nozzle=new THREE.Mesh(new THREE.CylinderGeometry(0.045,0.045,0.12,14),materials.gasMixed);
+            nozzle.position.copy(branchTop);
+            nozzle.rotation.z=Math.PI/2;
+            nozzle.userData={component:`BOTTOM GAS INJECTION NOZZLE L${String(i+1).padStart(2,'0')}`,tag:`GN-${String(i+1).padStart(2,'0')}`,position:'BOTTOM LOOP INLET'};
+            addEdgesToMesh(nozzle); gasGroup.add(nozzle);
+        }
+    });
 
     makeGasFlowArrow(fgSource, fgValve, materials.gasFlue);
     makeGasFlowArrow(co2Source, co2Valve, materials.gasCO2);
-    makeGasFlowArrow(new THREE.Vector3(mixerX+0.10,injectionY,0), new THREE.Vector3(dischargeX+0.15,injectionY,0), materials.gasMixed);
+    makeGasFlowArrow(trunkStart, trunkEnd, materials.gasMixed);
+    makeGasFlowArrow(new THREE.Vector3(rackRightX+0.25,gasManifoldY,0), new THREE.Vector3(rackRightX+0.25,gasManifoldY,-1.05), materials.gasMixed);
 
-    addGasLabel('FLUE GAS INLET • 212.50 NL/min • 10% v/v CO₂', new THREE.Vector3(fgSource.x+0.05,fgSource.y+0.34,fgSource.z), '#bc4c00');
-    addGasLabel('CO₂ MAKE-UP INLET • FLOW TBD', new THREE.Vector3(co2Source.x-0.15,co2Source.y-0.34,co2Source.z), '#0969da');
-    addGasLabel('GM-101 • COMMON GAS MIXING POINT', new THREE.Vector3(mixerX+0.25,injectionY+0.34,0), '#1a7f37');
-    addGasLabel('GN-101 • GAS INJECTION BEFORE 2× TOP-HEADER SPLIT', new THREE.Vector3(dischargeX+0.25,injectionY-0.40,0), '#1a7f37');
+    addGasLabel('FLUE GAS INLET • 212.50 NL/min • 10% v/v CO₂', new THREE.Vector3(fgSource.x+0.05,fgSource.y+0.28,fgSource.z), '#bc4c00');
+    addGasLabel('CO₂ MAKE-UP • FLOW TBD', new THREE.Vector3(co2Source.x-0.15,co2Source.y-0.26,co2Source.z), '#0969da');
+    addGasLabel('25 MM GAS TRUNK → BOTTOM MANIFOLD / SPARGER', new THREE.Vector3(rackRightX+0.05,gasManifoldY-0.25,0), '#1a7f37');
+    addGasLabel('BOTTOM CO₂ / FLUE-GAS INJECTION • 12 LOOP BOTTOM INLETS', new THREE.Vector3(0,gasManifoldY-0.48,0), '#1a7f37');
 
     gasGroup.userData={
-        component:'PBR GAS / CO₂ INLET SYSTEM',
-        architecture:'FLUE GAS + CO₂ MAKE-UP → GM-101 → GN-101 → COMMON P-102 DISCHARGE RISER → SPLIT TO 2 TOP HEADERS',
+        component:'PBR GAS / CO₂ BOTTOM INJECTION SYSTEM',
+        architecture:'FLUE GAS + CO₂ MAKE-UP → GM-101 → 25 MM GAS TRUNK → BOTTOM DISTRIBUTION MANIFOLD / SPARGER → 12 LOOP BOTTOM INLETS',
         flueGas:'212.50 NL/min', flueGasCO2:'10% v/v', co2Component:'21.25 NL/min CO₂ in incoming flue gas',
         co2MakeUp:'TBD — not specified by supplied material balance',
-        injectionPoint:'Common point immediately upstream of the two top-header split',
-        designNote:'If pure CO₂ is added, the resulting mixed-gas CO₂ concentration will no longer be 10% unless the blend is controlled to 10%.'
+        injectionPoint:'BOTTOM of each loop through bottom distribution manifold / sparger',
+        designNote:'Gas is introduced from below and travels upward through the liquid-filled tubular loops for gas-liquid contact.'
     };
 }
 
