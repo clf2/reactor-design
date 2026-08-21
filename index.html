@@ -586,7 +586,7 @@
                     </div>
                     <div class="calc-item">
                         <div class="calc-label">Flue Gas, Q<sub>FG,total</sub></div>
-                        <div class="calc-value highlight">212.50 NL/min = 16.68 m³/h</div>
+                        <div class="calc-value highlight">12.7501 Nm³/h = 212.50 NL/min</div>
                     </div>
                     <div class="calc-item">
                         <div class="calc-label">Flue Gas / Header</div>
@@ -726,10 +726,10 @@
                 </table>
 
                 <div class="formula-box open">
-                    <div class="formula-line"><b>Flue-gas total:</b> Q<sub>FG,total</sub> = 212.50 NL/min = <b>16.68 m³/h</b>.</div>
+                    <div class="formula-line"><b>Flue-gas total:</b> Q<sub>FG,total</sub> = 12.7501 Nm³/h = <b>212.50 NL/min</b>.</div>
                     <div class="formula-line"><b>Gas header split:</b> Q<sub>FG,section</sub> = 12.7501 / 2 = <b>6.3751 Nm³/h</b> per 6-loop section.</div>
                     <div class="formula-line"><b>Gas loop split:</b> Q<sub>FG,loop</sub> = 12.7501 / 12 = <b>1.06251 Nm³/h</b> per loop.</div>
-                    <div class="formula-line"><b>CO₂ component:</b> Q<sub>CO₂</sub> = y<sub>CO₂</sub> × Q<sub>FG</sub> = 0.10 × 278 = <b>21.25 NL/min total</b>.</div>
+                    <div class="formula-line"><b>CO₂ component:</b> Q<sub>CO₂</sub> = y<sub>CO₂</sub> × Q<sub>FG</sub> = 0.10 × 212.50 = <b>21.25 NL/min total</b>.</div>
                     <div class="formula-line"><b>CO₂ per header:</b> 27.8 / 2 = <b>10.625 NL/min</b>.</div>
                     <div class="formula-line"><b>CO₂ per loop:</b> 27.8 / 12 = <b>1.771 NL/min</b>.</div>
                     <div class="formula-line"><b>Gas velocity:</b> v<sub>g</sub> = Q<sub>g</sub>/A.</div>
@@ -856,7 +856,7 @@
                     <div class="formula-line"><b>Darcy-Weisbach:</b> ΔP = f(L/D)(ρv²/2).</div>
                     <div class="formula-line"><b>Laminar friction factor:</b> f = 64/Re.</div>
                     <div class="formula-line"><b>Globe valve liquid loss:</b> ΔP<sub>valve</sub> = SG(Q/Kv)² (Q in m³/h, ΔP in bar).</div>
-                    <div class="formula-line"><b>Startup common-line estimate:</b> using 40 mm ID, 5 m equivalent length and turbulent-pipe friction gives approximately <b>1.45 kPa</b>.</div>
+                    <div class="formula-line"><b>Startup common-line estimate:</b> using 25 mm nominal gas line / actual gas-line ID to be verified and turbulent-pipe friction gives approximately <b>1.45 kPa</b>.</div>
                     <div class="formula-line"><b>Header estimate:</b> the six header sections carry approximately 6, 5, 4, 3, 2 and 1 branch flows; section-by-section Darcy calculation gives approximately <b>0.596 kPa per 6-loop header</b> on the startup basis.</div>
                     <div class="formula-line"><b>Glass-loop estimate:</b> for 73.5 m straight 110 mm ID at 0.4172 m³/h, laminar Darcy-Weisbach gives approximately <b>2.37 Pa</b>.</div>
                     <div class="formula-line"><b>Final P-101 duty:</b> H = H<sub>static</sub> + ΣΔP/(ρg). Valve Cv/Kv, transition K-values, elbows, actual lengths, gas-injection pressure and NPSH must be frozen before procurement.</div>
@@ -909,7 +909,7 @@
                         <div class="calc-label">Formula-Consistent HRT Flow</div>
                         <div class="calc-value highlight">23.6387 L/h</div>
                         <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
-                            10,011.70 L ÷ 360 h. The supplied report also contains 27.8064 L/h; the exact arithmetic is 23.6387 L/h.
+                            8,509.945 L ÷ 360 h = 23.6387 L/h on the 85% working-volume basis.
                         </div>
                     </div>
                     <div class="calc-item">
@@ -928,9 +928,9 @@
                     </div>
                     <div class="calc-item">
                         <div class="calc-label">Tube Hydraulic Regime</div>
-                        <div class="calc-value">Re = 6.83 — LAMINAR</div>
+                        <div class="calc-value">NOT FROZEN</div>
                         <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
-                            v = 6.441e-05 m/s; f = 9.366.
+                            Tube internal diameter, length and target velocity are required before a tube Re/ΔP calculation.
                         </div>
                     </div>
                     <div class="calc-item">
@@ -944,7 +944,7 @@
                         <div class="calc-label">P-102 HRT-Basis Head</div>
                         <div class="calc-value">NOT FINALIZED</div>
                         <div style="font:9px var(--font-mono);color:var(--text-dim);margin-top:4px;">
-                            Hydraulic power ≈ 2.114e-05 W at 60% assumed efficiency. Practical recirculation duty remains TBD.
+                            The Formula Report requires actual Q, ΔP and pump efficiency; practical recirculation duty remains TBD.
                         </div>
                     </div>
                     <div class="calc-item">
@@ -1032,7 +1032,7 @@
                     <div>
                         <div class="data-row"><span class="data-label">Flue-gas supply</span><span class="data-value">212.50 NL/min</span></div>
                         <div class="data-row"><span class="data-label">Flue-gas CO₂ concentration</span><span class="data-value">10% v/v</span></div>
-                        <div class="data-row"><span class="data-label">CO₂ design demand</span><span class="data-value">60.0702 kg/day</span></div>
+                        <div class="data-row"><span class="data-label">CO₂ feed basis</span><span class="data-value">60.0702 kg/day</span></div>
                     </div>
                     <div>
                         <div class="data-row"><span class="data-label">CO₂ volumetric component</span><span class="data-value">21.25 NL/min CO₂</span></div>
@@ -1043,7 +1043,7 @@
             </div>
 
             
-                <div class="process-subtitle">FEED FILL → ISOLATE FEED TANK → FLUE GAS + CO₂ MIX → BOTTOM GAS INJECTION → CLOSED INTERNAL RECIRCULATION FOR 15 DAYS</div>
+                <div class="process-subtitle">FEED FILL → ISOLATE FEED TANK → FLUE GAS + CO₂ MIX → 25 mm GAS TRUNK → BOTTOM MANIFOLD / SPARGER → 12 LOOP BOTTOM INLETS → CLOSED INTERNAL RECIRCULATION FOR 15 DAYS</div>
             </div>
 
             <div class="pfd-card">
@@ -1053,7 +1053,7 @@
                     <div class="pfd-arrow">→<span class="pfd-arrow-label">FEED</span></div>
                     <div class="pfd-node pump"><div class="pfd-tag">P-101</div><div class="pfd-name">FEED / TRANSFER<br>PUMP</div><div class="pfd-spec">23.6387 L/h HRT basis<br>NOT FROZEN head<br>Hydraulic power not frozen</div></div>
                     <div class="pfd-arrow">→</div>
-                    <div class="pfd-node"><div class="pfd-tag">M-101</div><div class="pfd-name">TOP DISTRIBUTION HEADERS (2 × 50 mm)</div><div class="pfd-spec">40 mm ID<br>2 × 6 × 40 mm branches<br>12 flow-control valves</div></div>
+                    <div class="pfd-node"><div class="pfd-tag">M-101</div><div class="pfd-name">TOP DISTRIBUTION HEADERS (2 × 50 mm NOMINAL)</div><div class="pfd-spec">50 mm nominal liquid header<br>2 × 6 branches<br>12 flow-control valves<br>Actual ID/branch size: verify</div></div>
                     <div class="pfd-arrow">→</div>
                     <div class="pfd-node reactor" style="min-height:190px;"><div class="pfd-tag">PBR-101</div><div class="pfd-name">10,011.70 L TUBULAR PBR</div><div class="pfd-spec">12 parallel serpentine loops<br>587 glass tubes • 575 PP U-bends<br>15-day operating period</div>
                         <div class="loop-bank" style="grid-template-columns:repeat(6,1fr);">
@@ -1062,7 +1062,7 @@
                         </div>
                     </div>
                     <div class="pfd-arrow">→<span class="pfd-arrow-label">COLLECT</span></div>
-                    <div class="pfd-node"><div class="pfd-tag">M-102</div><div class="pfd-name">BOTTOM COLLECTION COLLECTORS (2 × 50 mm)</div><div class="pfd-spec">50 mm ID each<br>2 × 6 outlet branches<br>Each collector = 11.8194 L/h; both combine to one common riser</div></div>
+                    <div class="pfd-node"><div class="pfd-tag">M-102</div><div class="pfd-name">BOTTOM COLLECTION COLLECTORS (2 × 50 mm NOMINAL)</div><div class="pfd-spec">50 mm nominal liquid collector<br>2 × 6 outlet branches<br>Each collector = 11.8194 L/h; both combine to one common riser</div></div>
                     <div class="pfd-arrow">→</div>
                     <div class="pfd-node pump"><div class="pfd-tag">P-102</div><div class="pfd-name">RECIRCULATION<br>PUMP</div><div class="pfd-spec">23.6387 L/h HRT basis only<br>Closed-loop static head ≈ 0<br>Hydraulic power not frozen*</div></div>
                 </div>
@@ -1089,14 +1089,14 @@
                         <tbody>
                             <tr><td>TK-101</td><td>Feed / Transfer Tank</td><td>TK-101 → P-101 → M-101</td><td>Normal feed / make-up source</td></tr>
                             <tr><td>P-101</td><td>Feed / Transfer Pump</td><td>TK-101 → upper headers</td><td>23.6387 L/h HRT basis; Head not frozen in Formula Report</td></tr>
-                            <tr><td>M-101</td><td>Top Distribution Header</td><td>2 top headers → 6 branches each</td><td>50 mm ID; 6 branches/header; 11.8194 L/h/header; ±5% balance target</td></tr>
+                            <tr><td>M-101</td><td>Top Distribution Header</td><td>2 top headers → 6 branches each</td><td>50 mm nominal; 6 branches/header; 11.8194 L/h/header. Actual ID/branch size to be verified.</td></tr>
                             <tr><td>FCV-01…12</td><td>Manual Globe Valves</td><td>One valve on every inlet branch</td><td>Flow balancing / throttling</td></tr>
                             <tr><td>PBR-101</td><td>Tubular PBR</td><td>12 parallel serpentine loops</td><td>10,011.7 L; 15-day operating period</td></tr>
-                            <tr><td>M-102</td><td>Bottom Collection Header</td><td>2 collectors × 6 outlet branches → common riser</td><td>40 mm ID</td></tr>
-                            <tr><td>P-102</td><td>Recirculation Pump</td><td>Common riser → P-102 → gas injection → two top headers</td><td>Closed-loop recirculation; friction basis only</td></tr>
-                            <tr><td>FG-101</td><td>Flue-Gas Inlet</td><td>Flue gas → FCV-G101 → GM-101</td><td>212.50 NL/min; 10% v/v CO₂</td></tr>
+                            <tr><td>M-102</td><td>Bottom Collection Header</td><td>2 collectors × 6 outlet branches → common riser</td><td>50 mm nominal; actual ID/branch size to be verified.</td></tr>
+                            <tr><td>P-102</td><td>Recirculation Pump</td><td>Common riser → P-102 → liquid return to top headers</td><td>Closed-loop HRT basis 23.6387 L/h; final pump duty not frozen</td></tr>
+                            <tr><td>FG-101</td><td>Flue-Gas Inlet</td><td>Flue gas → FCV-G101 → 25 mm gas trunk → bottom manifold / sparger</td><td>212.50 NL/min; 10% v/v CO₂</td></tr>
                             <tr><td>CO2-101</td><td>CO₂ Make-Up Inlet</td><td>CO₂ → FCV-G102 → GM-101</td><td>Flow TBD; not specified in material balance</td></tr>
-                            <tr><td>GM-101 / GN-101</td><td>Gas Mixer / Injection Nozzle</td><td>GM-101 → GN-101 → 25 mm gas trunk → bottom manifold / sparger</td><td>Bottom injection through 12 loop bottom inlets</td></tr>
+                            <tr><td>GM-101 / GN-101</td><td>Gas Mixer / Injection Nozzle</td><td>GM-101 → GN-101 → 25 mm gas trunk → bottom manifold / sparger → 12 bottom loop inlets</td><td>Bottom injection through 12 loop bottom inlets</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1136,7 +1136,7 @@
                     </div>
                 </div>
                 <div class="process-note" style="margin-top:12px;">
-                    <strong>Design placement:</strong> The gas inlet is placed on the <strong>common P-102 discharge riser immediately upstream of the split to TOP HEADER-FRONT and TOP HEADER-BACK</strong>. This gives one common gas injection point feeding both 6-loop headers. The supplied balance fixes flue gas at 212.50 NL/min and 10% v/v CO₂, but does not define a pure-CO₂ make-up flow; therefore that flow is intentionally marked TBD. If pure CO₂ is added, the final mixed-gas CO₂ fraction must be recalculated.
+                    <strong>Design placement:</strong> The gas inlet is placed on a <strong>25 mm gas trunk feeding the bottom distribution manifold / sparger</strong>, with gas entering the <strong>bottom inlet of each of the 12 loops</strong>. This is the frozen bottom-injection arrangement in the Formula Report. The supplied balance fixes flue gas at 212.50 NL/min and 10% v/v CO₂, but does not define a pure-CO₂ make-up flow; therefore that flow is intentionally marked TBD. If pure CO₂ is added, the final mixed-gas CO₂ fraction must be recalculated.
                 </div>
             </div>
 
@@ -1424,7 +1424,7 @@
               <div class="metric"><span>FLOW / LOOP</span><b id="wm-loopflow">1.9699 L/h</b></div>
               <div class="metric"><span>HEADER FLOW</span><b id="wm-headerflow">11.8194 L/h</b></div>
             </div>
-            <div class="formula-mini"><b>Basis:</b> Q = V/HRT. For equal-loop presentation scaling, geometric V_loop = 10,011.70/12 = 834.31 L; liquid V_loop = 8,509.945/12 = 709.16 L and Q_loop = 23.6387/12 = 1.9699 L/h. Therefore 3 loops ≈ 2,502.93 L and 6.9526 L/h; 12 loops = 10,011.70 L and 23.6387 L/h.</div>
+            <div class="formula-mini"><b>Basis:</b> Q = V/HRT. For equal-loop presentation scaling, geometric V_loop = 10,011.70/12 = 834.31 L; liquid V_loop = 8,509.945/12 = 709.16 L and Q_loop = 23.6387/12 = 1.9699 L/h. Therefore 3 loops ≈ 2,502.93 L and 6.9526 L/h; 12 loops = 8,509.945 L liquid and 23.6387 L/h.</div>
           </div>
           <div class="work-card">
             <h3>HYDRAULIC PRESSURE / PUMP ENERGY STORY</h3>
@@ -1501,7 +1501,7 @@
                 <tr><td>Equal-loop volume basis</td><td>10,011.70 / 12</td><td><b>834.31 L/loop</b></td></tr>
                 <tr><td>3-loop presentation basis</td><td>3 × 834.31 ; 3 × 1.9699</td><td><b>2,502.93 L ; 6.9526 L/h</b></td></tr>
                 <tr><td>6-loop presentation basis</td><td>6 × 834.31 ; 6 × 1.9699</td><td><b>5,005.85 L ; 11.8194 L/h</b></td></tr>
-                <tr><td>12-loop full system</td><td>12 × 834.31 ; 12 × 1.9699</td><td><b>10,011.70 L ; 23.6387 L/h</b></td></tr>
+                <tr><td>12-loop full system</td><td>12 × 709.1621 ; 12 × 1.9699</td><td><b>10,011.70 L ; 23.6387 L/h</b></td></tr>
               </tbody>
             </table>
             <div class="final-note"><strong>Important:</strong> The material-balance report defines 23.6387 L/h as the HRT turnover basis, not automatically the final P-102 internal recirculation duty. (Source: Final Engineering Material Balance, Section 3)</div>
@@ -1589,13 +1589,13 @@
             <table class="final-table">
               <thead><tr><th>Quantity</th><th>Final basis</th></tr></thead>
               <tbody>
-                <tr><td>Flue-gas flow</td><td><b>212.50 NL/min = 16.68 m³/h</b></td></tr>
+                <tr><td>Flue-gas flow</td><td><b>12.7501 Nm³/h = 212.50 NL/min</b></td></tr>
                 <tr><td>Flue-gas CO₂</td><td><b>10% v/v</b></td></tr>
                 <tr><td>CO₂ volumetric component</td><td><b>21.25 NL/min CO₂</b></td></tr>
-                <tr><td>Daily flue gas</td><td><b>306.0024 m³/day</b></td></tr>
-                <tr><td>15-day flue gas</td><td><b>6,004.8 m³</b></td></tr>
+                <tr><td>Daily flue gas</td><td><b>306.0024 Nm³/day</b></td></tr>
+                <tr><td>15-day flue gas</td><td><b>4,590.04 Nm³</b></td></tr>
                 <tr><td>CO₂ feed</td><td><b>60.0702 kg/day = 2.5029 kg/h</b></td></tr>
-                <tr><td>15-day CO₂ demand basis</td><td><b>1,060.05 kg</b></td></tr>
+                <tr><td>15-day CO₂ feed</td><td><b>901.053 kg</b></td></tr>
                 <tr><td>Pure CO₂ make-up flow</td><td><span class="final-pending">TBD</span></td></tr>
                 <tr><td>Outlet gas composition</td><td><span class="final-pending">TBD</span></td></tr>
               </tbody>
@@ -1633,7 +1633,7 @@
             <b>2.</b> During filling, P-101 transfers culture to two top headers; the HRT turnover basis is <b>23.6387 L/h</b>.<br>
             <b>3.</b> The two headers each distribute <b>11.8194 L/h</b>, giving approximately <b>1.9699 L/h per loop</b> on the equal-flow basis.<br>
             <b>4.</b> The bottom collectors combine the loop outlets and return the culture through the common riser to P-102.<br>
-            <b>5.</b> Flue gas at <b>212.50 NL/min</b> and 10% CO₂ is introduced through the common gas-mixing/injection point before the top-header split; pure CO₂ make-up remains TBD.<br>
+            <b>5.</b> Flue gas at <b>212.50 NL/min</b> and 10% CO₂ is mixed and introduced through the <b>25 mm gas trunk to the bottom manifold/sparger and 12 bottom loop inlets</b>; pure CO₂ make-up remains TBD.<br>
             <b>6.</b> The current concept hydraulic calculation gives a known-path ΔP of <b>0.33 Pa</b>, but final P-102 selection must use the actual recirculation duty and verified fittings/valves.<br>
             <b>7.</b> The design is therefore <b>engineering-review ready</b>, while fabrication release requires closure of the hydraulic, mechanical, gas, instrumentation and safety gates.
           </div>
@@ -2305,7 +2305,7 @@ function buildHeadersAndBranches() {
         addEdgesToMesh(topHeader);
         topHeader.userData = {
             component:`TOP DISTRIBUTION HEADER — ${g.name}`,
-            id:'40 mm ID', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
+            id:'Branch/tube ID TBD', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
             physicalLocation:g.name, branches:6,
             totalFlow:'11.8194 L/h', flowPerBranch:'1.9699 L/h',
             velocity:'0.003344 m/s', reynolds:'125.4',
@@ -2321,7 +2321,7 @@ function buildHeadersAndBranches() {
         addEdgesToMesh(botHeader);
         botHeader.userData = {
             component:`BOTTOM COLLECTION HEADER — ${g.name}`,
-            id:'40 mm ID', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
+            id:'Branch/tube ID TBD', loops:`LOOP-${g.first+1} to LOOP-${g.last+1}`,
             physicalLocation:g.name, branches:6,
             totalFlow:'11.8194 L/h', flowPerBranch:'1.9699 L/h',
             velocity:'0.003344 m/s', reynolds:'125.4',
@@ -2352,7 +2352,7 @@ function buildHeadersAndBranches() {
             upstreamBranch.position.set(loop.inletPos.x, topY - upstreamBranchLen/2, g.z);
             addEdgesToMesh(upstreamBranch);
             upstreamBranch.userData = {
-                component:`40 MM HEADER TAKE-OFF BRANCH ${n}`, id:'40 mm ID', physicalBank:g.name,
+                component:`HEADER TAKE-OFF BRANCH ${n}`, id:'Branch size TBD', physicalBank:g.name,
                 flow:'1.9699 L/h', velocity:'0.000512 m/s', reynolds:'20.9',
                 connection:`TOP HEADER-${g.name} → 40 mm BRANCH-${n} → FCV-${n}`,
                 direction:'DOWNWARD FROM HEADER TO GLOBE VALVE'
@@ -2376,7 +2376,7 @@ function buildHeadersAndBranches() {
             ]);
             const branch = new THREE.Mesh(new THREE.TubeGeometry(branchCurve, 18, CAD.branchR_out, 10, false), materials.ss304Cad);
             branch.userData = {
-                component:`40 MM LOOP INLET BRANCH ${n}`, id:'40 mm ID', physicalBank:g.name,
+                component:`LOOP INLET BRANCH ${n}`, id:'Branch size TBD', physicalBank:g.name,
                 flow:'1.9699 L/h', velocity:'0.000512 m/s', reynolds:'20.9',
                 pressureDrop:'≈0.01025 Pa per m straight-pipe basis + valve loss TBD',
                 connection:`FCV-${n} → 40 mm BRANCH-${n} → RED-${n} → 110 mm TUBE SOCKET → LOOP-${n}`,
@@ -2395,9 +2395,9 @@ function buildHeadersAndBranches() {
             reducer.position.copy(loop.inletPos).add(new THREE.Vector3(0,0,-0.03));
             addEdgesToMesh(reducer);
             reducer.userData = {
-                component:`40 MM TO 110 MM REDUCER / INLET NOZZLE ${n}`,
+                component:`LOOP-TO-TUBE REDUCER / INLET NOZZLE ${n}`,
                 tag:`RED-${n}`,
-                upstream:'40 mm ID branch',
+                upstream:'Branch ID/size TBD',
                 downstream:'110 mm OD / 104 mm ID glass tube',
                 service:`LOOP-${n} LIQUID INLET TRANSITION`,
                 connection:`FCV-${n} → 40 mm branch → RED-${n} → tube socket → LOOP-${n}`
@@ -2429,7 +2429,7 @@ function buildHeadersAndBranches() {
             const bottomPoint = new THREE.Vector3(loop.outletPos.x, bottomY, g.z);
             const outletBranch = new THREE.Mesh(new THREE.TubeGeometry(new THREE.LineCurve3(loop.outletPos, bottomPoint), 10, CAD.branchR_out, 8, false), materials.ss304Cad);
             outletBranch.userData = {
-                component:`OUTLET BRANCH ${n}`, id:'40 mm ID', physicalBank:g.name,
+                component:`OUTLET BRANCH ${n}`, id:'Branch size TBD', physicalBank:g.name,
                 flow:'1.9699 L/h', velocity:'0.000512 m/s', reynolds:'20.9',
                 pressureDrop:'≈0.01025 Pa/m straight 40 mm basis; valve/Cv loss TBD', connection:`LOOP-${n} → BOTTOM COLLECTOR-${g.name}`,
                 direction:'DOWNWARD FROM LOOP'
@@ -2462,7 +2462,7 @@ function buildHeadersAndBranches() {
         new THREE.Vector3(riserX, commonTopY+0.30, 0)
     ), 50, CAD.headerR_out, 10, false), materials.ss304Cad);
     commonRiser.userData = {
-        component:'ONE COMMON RECIRCULATION RISER', id:'50 mm ID hydraulic basis',
+        component:'ONE COMMON RECIRCULATION RISER', id:'50 mm nominal liquid header basis',
         flow:'23.6387 L/h', direction:'BOTTOM COLLECTORS → P-102 → TOP HEADER SPLIT'
     };
     headersGroup.add(commonRiser);
@@ -2483,8 +2483,8 @@ function buildHeadersAndBranches() {
     headersGroup.userData = {
         component:'2-COLUMN FRONT/BACK MANIFOLD SYSTEM',
         arrangement:'2 PHYSICAL COLUMNS (FRONT/BACK) × 6 LOOPS EACH',
-        topHeaders:'2 × 50 mm — FRONT: L01-L06; BACK: L07-L12',
-        bottomCollectors:'2 × 50 mm — FRONT: L01-L06; BACK: L07-L12',
+        topHeaders:'2 × 50 mm nominal — FRONT: L01-L06; BACK: L07-L12',
+        bottomCollectors:'2 × 50 mm nominal — FRONT: L01-L06; BACK: L07-L12',
         totalFlow:'23.6387 L/h', flowPerLoop:'1.9699 L/h',
         headerFlow:'11.8194 L/h per 6-loop section/collector',
         hydraulicSequence:'12 LOOPS → 2 BOTTOM COLLECTORS → ONE COMMON RISER → P-102 → ONE DISCHARGE RISER → 2 TOP HEADERS → 12 LOOPS'
@@ -2869,7 +2869,7 @@ function buildTanksAndPumpGeometry() {
     tanksGroup.userData={
         component:'CLEAR 2-COLUMN / 2-HEADER / 2-COLLECTOR / 1-RISER ARRANGEMENT',
         arrangement:'FRONT/BACK COLUMNS — 6 LOOPS EACH',
-        topHeaders:'2 × 50 mm — FRONT: L01-L06; BACK: L07-L12',
+        topHeaders:'2 × 50 mm nominal — FRONT: L01-L06; BACK: L07-L12',
         bottomCollectors:'2 × 50 mm — directly below respective loop banks',
         totalFlow:'23.6387 L/h', flowPerLoop:'1.9699 L/h',
         headerFlow:'11.8194 L/h per 6-loop section/collector',
@@ -3162,7 +3162,7 @@ function addProcessEquipmentLabels() {
         {text:'BACK COLUMN • TOP HEADER • L07-L12 • 11.8194 L/h',pos:new THREE.Vector3(0,top2,1.05)},
         {text:'FRONT COLUMN • BOTTOM COLLECTOR • L01-L06 • 11.8194 L/h',pos:new THREE.Vector3(0,bot1,-1.05)},
         {text:'BACK COLUMN • BOTTOM COLLECTOR • L07-L12 • 11.8194 L/h',pos:new THREE.Vector3(0,bot2,1.05)},
-        {text:'P-102 • ONE COMMON RISER • 23.6387 L/h • BOTTOM → TOP',pos:new THREE.Vector3(riserX,(bot2+top1)/2,0)},
+        {text:'P-102 • LIQUID RECIRCULATION • 23.6387 L/h HRT BASIS',pos:new THREE.Vector3(riserX,(bot2+top1)/2,0)},
         {text:'NORMAL FLOW: 2 BOTTOM COLLECTORS → 1 RISER → P-102 → 1 RISER → 2 TOP HEADERS',pos:new THREE.Vector3(0,bot2-1.0,0)}
     ];
     for(let i=0;i<12;i++){
@@ -3331,12 +3331,12 @@ function highlightInletManifold() {
     for (let i=1;i<=12;i++) rows.push(`TOP HEADER → 40MM BR-${String(i).padStart(2,'0')} → FCV-${String(i).padStart(2,'0')} → 40MM BR → LOOP-${String(i).padStart(2,'0')} → 834.31 L geometric / 1.9699 L/h liquid`);
     displayInspectorData({
         component:'TOP INLET MANIFOLD — 12 LOOP CONNECTIONS',
-        header:'40 mm ID',
+        header:'50 mm nominal',
         nozzles:'12 × dedicated header nozzles',
-        branches:'12 × 40 mm ID',
+        branches:'12 × branch size TBD',
         flowPerLoop:'1.9699 L/h',
         capacityPerLoop:'834.31 L (design-basis equal split)',
-        branchSize:'40 mm ID from header to globe valve and valve to loop',
+        branchSize:'Branch ID/size TBD; globe valve on each loop branch',
         valves:'FCV-01 to FCV-12',
         connections:rows.join(' | '),
         sequence:'Feed Buffer → Pump → Top Header → 40 mm Branch → Globe Valve → 40 mm Branch → Individual Loop'
@@ -3631,13 +3631,13 @@ function updateProcessDemo(dt){
         setDemoStatus('02 / GAS MIXING','FG-101 flue gas + CO₂ make-up → GM-101 → GN-101.',t/DEMO_DURATION*100);
         setCameraPreset('SIDE');
     } else if(t<15){
-        setDemoStatus('03 / GAS INJECTION','Mixed gas enters the common P-102 discharge riser before the 2×6 split.',t/DEMO_DURATION*100);
+        setDemoStatus('03 / GAS INJECTION','Mixed gas travels through the 25 mm gas trunk to the bottom manifold / sparger and 12 loop bottom inlets.',t/DEMO_DURATION*100);
         setCameraPreset('ISO');
     } else if(t<23){
         setDemoStatus('04 / 12-LOOP RECIRCULATION','Flow distributes through 12 parallel serpentine loops; 6 loops per header.',t/DEMO_DURATION*100);
         setCameraPreset('FRONT');
     } else {
-        setDemoStatus('05 / COLLECTION + RECIRCULATION','Bottom collectors → common riser → P-102 → gas injection → top headers.',t/DEMO_DURATION*100);
+        setDemoStatus('05 / COLLECTION + RECIRCULATION','Bottom liquid collectors → common riser → P-102 → top liquid headers; gas remains on the separate bottom injection path.',t/DEMO_DURATION*100);
         setCameraPreset('TOP');
     }
     demoGasParticles.forEach(p=>p.mesh.visible=true);
@@ -3714,7 +3714,7 @@ function workPlay(){workPlaying=true;if(workTimer)clearInterval(workTimer);workT
 function workPause(){workPlaying=false;if(workTimer){clearInterval(workTimer);workTimer=null;}}
 function workNext(){workPause();workGo((workStep+1)%7);}
 function workReset(){workPause();workGo(0);updateWorkLoopScaling();}
-function updateWorkLoopScaling(){const n=Number(document.getElementById('work-loop-count').value);const V=10011.70*n/12;const Q=23.6387*n/12;const qLoop=23.6387/12;const header=n===12?11.8194:Q;document.getElementById('wm-vol').textContent=V.toFixed(2)+' L';document.getElementById('wm-flow').textContent=Q.toFixed(4)+' L/h';document.getElementById('wm-loopflow').textContent=qLoop.toFixed(4)+' L/h';document.getElementById('wm-headerflow').textContent=header.toFixed(4)+' L/h';}
+function updateWorkLoopScaling(){const n=Number(document.getElementById('work-loop-count').value);const V=8509.945*n/12;const Q=23.6387*n/12;const qLoop=23.6387/12;const header=n===12?11.8194:Q;document.getElementById('wm-vol').textContent=V.toFixed(2)+' L';document.getElementById('wm-flow').textContent=Q.toFixed(4)+' L/h';document.getElementById('wm-loopflow').textContent=qLoop.toFixed(4)+' L/h';document.getElementById('wm-headerflow').textContent=header.toFixed(4)+' L/h';}
 workRenderLoopLabels();workGo(0);updateWorkLoopScaling();
 
 </script>
